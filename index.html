@@ -1109,8 +1109,7 @@ display:block !important;
           <input type="text" id="diag" placeholder="Ej. J06.9 – Gripa / Infección respiratoria">
         </div>
         <div class="fg" id="wrap-medico"><label>Médico / Autoridad que expide</label><input type="text" id="medico" placeholder="Ej. Dr. Carlos Ramírez – EPS Sanitas"></div>
-        <div class="fg" style="grid-column:1/-1"><label>Motivo de la Ausencia / Incapacidad / Licencia <span class="r">*</span></label><textarea id="motivo" placeholder="Describa brevemente el motivo de su ausencia, incapacidad o licencia…" style="min-height:58px"></textarea></div>
-        <div class="fg" style="grid-column:1/-1"><label>Observaciones adicionales del trabajador</label><textarea id="obs" placeholder="Información adicional que desee reportar…"></textarea></div>
+        <div class="fg" style="grid-column:1/-1"><label>Observaciones del trabajador</label><textarea id="obs" placeholder="Información adicional que desee reportar…"></textarea></div>
       </div>
     </div>
   </div>
@@ -1506,7 +1505,6 @@ function enviarASheets(reg) {
     soporte:       reg.soporte || "",
     diag:          reg.diag || "",
     medico:        reg.medico || "",
-    motivo:        reg.motivo || "",
     obs:           reg.obs || "",
     fecha:         reg.fecha || new Date().toLocaleString("es-CO"),
     celularEmp:    reg.celularEmp || "",
@@ -1580,7 +1578,6 @@ function cargarDesdeSheets(callback) {
             soporte:      r.soporte || "",
             diag:         r.diag || "",
             medico:       r.medico || "",
-            motivo:       r.motivo || "",
             obs:          r.obs || "",
             fecha:        r.fecha || "",
             celularEmp:   r.celularEmp || "",
@@ -1987,8 +1984,6 @@ function generarPDF(reg) {
   var logo = logoEl ? logoEl.src : '';
   var horasTexto = reg.horasDisplay ? ('<br><small style="color:#64748b">Tiempo ausente: ' + reg.horasDisplay + '</small>') : '';
   var numInc = reg.numIncapacidad ? reg.numIncapacidad : '';
-  var meses = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
-  var fechaReg = reg.fi ? new Date(reg.fi + 'T00:00:00') : new Date();
 
   var html = `<!DOCTYPE html>
 <html><head><meta charset="UTF-8">
@@ -2010,9 +2005,9 @@ function generarPDF(reg) {
   .enc-ver,.enc-fecha{flex:1;padding:5px 3px;font-family:'Nunito',sans-serif;font-weight:800;font-size:10px;color:#111;text-align:center}
   .enc-ver{border-right:1.5px solid #333}
   /* TIPO AUSENCIA */
-  .tipo-banner{background:#1a3a6b;color:#fff;text-align:center;padding:10px;border-radius:8px;margin-bottom:10px;display:block !important}
-  .tipo-banner .lbl{font-size:9px;opacity:.8;text-transform:uppercase;display:block}
-  .tipo-banner .val{font-size:15px;font-weight:900;display:block}
+  .tipo-banner{background:#1a3a6b;color:#fff;text-align:center;padding:10px;border-radius:8px;margin-bottom:10px}
+  .tipo-banner .lbl{font-size:9px;opacity:.8;text-transform:uppercase}
+  .tipo-banner .val{font-size:15px;font-weight:900}
   /* SECCIONES */
   .sec{border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden}
   .sec-head{background:#f1f5f9;padding:6px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0}
@@ -2071,31 +2066,31 @@ display:block !important;
     </tr>
   </table>
 
-  <div class="consec">
-    <span>Solicitud N° ${reg.id}</span>
-    <small>Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</small>
+  <div style="text-align:center;margin-bottom:8px">
+    <span style="background:#1a3a6b;color:#ffffff;padding:3px 14px;border-radius:20px;font-size:10px;font-weight:900;font-family:'Nunito',sans-serif">Solicitud N° ${reg.id}</span>
+    <div style="font-size:8.5px;color:#94a3b8;margin-top:3px;font-family:'Nunito',sans-serif">Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</div>
   </div>
 
-  <div class="tipo-banner">
-    <div class="lbl">Tipo de Ausencia Seleccionado</div>
-    <div class="val">${reg.tipo}</div>
+  <!-- TIPO DE AUSENCIA — inline para garantizar renderizado en PDF -->
+  <div style="background:#1a3a6b;color:#ffffff;text-align:center;padding:12px 10px;border-radius:8px;margin-bottom:10px;font-family:'Nunito',sans-serif">
+    <div style="font-size:9px;opacity:.85;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;color:#ffffff">📋 Tipo de Ausencia Seleccionado</div>
+    <div style="font-size:16px;font-weight:900;color:#ffffff;letter-spacing:.3px">${reg.tipo}</div>
   </div>
 
-  <div class="sec">
-    <div class="sec-head">👤 Datos del Empleado(a)</div>
-    <div class="sec-body grid2">
+  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden">
+    <div style="background:#f1f5f9;padding:6px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;font-family:'Nunito',sans-serif">👤 Datos del Empleado(a)</div>
+    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div class="campo"><label>Nombre completo</label><div class="val">${reg.nombre}</div></div>
       <div class="campo"><label>Cédula de ciudadanía</label><div class="val">${reg.cedula}</div></div>
       <div class="campo"><label>Cargo</label><div class="val">${reg.cargo}</div></div>
       <div class="campo"><label>Área</label><div class="val">${reg.area}</div></div>
-      <div class="campo"><label>📋 Tipo de Ausencia</label><div class="val" style="font-weight:800;color:#1a3a6b;background:#eff6ff;border-color:#bfdbfe">${reg.tipo}</div></div>
       <div class="campo"><label>Fecha de diligenciamiento</label><div class="val">${reg.fechaDiligenciamiento || reg.fecha}</div></div>
     </div>
   </div>
 
-  <div class="sec">
-    <div class="sec-head">📅 Fechas y Duración</div>
-    <div class="sec-body grid3">
+  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden">
+    <div style="background:#f1f5f9;padding:6px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;font-family:'Nunito',sans-serif">📅 Fechas y Duración</div>
+    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
       <div class="campo"><label>Fecha de inicio</label><div class="val">${reg.fi}</div></div>
       <div class="campo"><label>Fecha de fin</label><div class="val">${reg.ff}</div></div>
       <div class="campo"><label>Hora de salida</label><div class="val">${reg.hora || '—'}</div></div>
@@ -2105,30 +2100,25 @@ display:block !important;
     </div>
   </div>
 
-  <div class="sec">
-    <div class="sec-head">📄 Soporte y Diagnóstico</div>
-    <div class="sec-body grid2">
+  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden">
+    <div style="background:#f1f5f9;padding:6px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;font-family:'Nunito',sans-serif">📄 Soporte y Diagnóstico</div>
+    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div class="campo"><label>Tipo de soporte</label><div class="val">${reg.soporte || '—'}</div></div>
       <div class="campo"><label>Diagnóstico / CIE-10</label><div class="val">${reg.diag || '—'}</div></div>
       <div class="campo"><label>Médico / Autoridad que expide</label><div class="val">${reg.medico || '—'}</div></div>
       ${numInc ? '<div class="campo"><label>Número de incapacidad</label><div class="val">' + numInc + '</div></div>' : ''}
-      <div class="campo" style="grid-column:1/-1"><label>Motivo de la Ausencia / Incapacidad / Licencia</label><div class="val" style="background:#fffbeb;border-color:#fde68a;font-weight:700;color:#92400e">${reg.motivo || '—'}</div></div>
+      <div class="campo" style="grid-column:1/-1"><label>Motivo de la Ausencia / Incapacidad / Licencia</label><div class="val" style="background:#fffbeb;border:1px solid #fde68a;font-weight:700;color:#92400e;padding:4px 8px;border-radius:5px;min-height:22px">${reg.motivo || reg.obs || '—'}</div></div>
       <div class="campo" style="grid-column:1/-1"><label>Observaciones adicionales</label><div class="val">${reg.obs || '—'}</div></div>
     </div>
   </div>
 
-  
-
-
-<div class="estado ${reg.aprobado==='Aprobado'?'apr':reg.aprobado==='Negado'?'neg':'pend'}">
-    <div class="ico">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Negado'?'❌':'⏳'}</div>
-    <div class="txt">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
-    ${reg.aprobado!=='Pendiente'?'<div class="sub">Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor+'</div>':'<div class="sub">En espera de revisión por parte de RRHH</div>'}
+  <div style="padding:8px 12px;border-radius:8px;text-align:center;margin-bottom:10px;border:2px solid ${reg.aprobado==='Aprobado'?'#16a34a':reg.aprobado==='Negado'?'#dc2626':'#d4a017'};background:${reg.aprobado==='Aprobado'?'#dcfce7':reg.aprobado==='Negado'?'#fee2e2':'#fef9c3'}">
+    <div style="font-size:18px">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Negado'?'❌':'⏳'}</div>
+    <div style="font-size:13px;font-weight:900;margin-top:2px;font-family:'Nunito',sans-serif">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
+    <div style="font-size:9px;margin-top:2px;color:#475569;font-family:'Nunito',sans-serif">${reg.aprobado!=='Pendiente'?'Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor:'En espera de revisión por parte de RRHH'}</div>
   </div>
 
-  </div>
-
-  <div class="footer">CDA BARRANCABERMEJA · CDABR-GRH-F-09 · Versión 03 · 2026-01-02 · Sistema de Gestión de Recursos Humanos</div>
+  <div style="text-align:center;font-size:8.5px;color:#94a3b8;margin-top:10px;padding-top:8px;border-top:1px solid #e2e8f0;font-family:'Nunito',sans-serif">CDA BARRANCABERMEJA · CDABR-GRH-F-09 · Versión 03 · 2026-01-02 · Sistema de Gestión de Recursos Humanos</div>
 
 
 <!-- FIRMA RRHH FINAL -->
@@ -2177,25 +2167,10 @@ display:block !important;
         pdf.save(nombreArchivo);
         ventana.close();
         toast("📄 PDF generado — revise su carpeta de Descargas");
-        // ── Subir a Google Drive via Apps Script (sin OAuth) ──
-        if (SHEETS_SCRIPT_URL) {
-          var pdfBase64 = pdf.output('datauristring').split(',')[1];
-          var params = new URLSearchParams({
-            accion:   "subirPDF",
-            nombre:   nombreArchivo,
-            base64:   pdfBase64,
-            carpeta:  GDRIVE_FOLDER_ROOT,
-            subcarpeta: GDRIVE_FOLDER_PDFS,
-            anio:     String(fechaReg.getFullYear()),
-            mes:      meses[fechaReg.getMonth()]
-          });
-          fetch(SHEETS_SCRIPT_URL + "?" + params.toString())
-            .then(function(r){ return r.json(); })
-            .then(function(d){
-              if(d.ok) toast("☁️ PDF archivado en Drive correctamente ✅");
-              else toast("⚠ No se pudo subir a Drive: " + (d.error||""), true);
-            })
-            .catch(function(e){ toast("⚠ Error subiendo PDF a Drive: " + e.message, true); });
+        // ── Subir a Google Drive automáticamente ──
+        if (GDRIVE_CLIENT_ID) {
+          var pdfBlob = pdf.output('blob');
+          gdriveSubirPDF(pdfBlob, nombreArchivo, reg);
         }
       });
     }, 800);
@@ -2527,15 +2502,14 @@ function registrar(omitirValidacion) {
     soporte: soporteSel,
     diag:    document.getElementById("diag").value.trim(),
     medico:  document.getElementById("medico").value.trim(),
-    motivo:  document.getElementById("motivo").value.trim(),
     obs:     document.getElementById("obs").value.trim(),
     hora:    document.getElementById("hora").value,
     horasAusentes: (parseInt(document.getElementById("horas-ent").value)||0) + ((parseInt(document.getElementById("minutos-ent").value)||0)/60),
     horasDisplay: (()=>{ var h=parseInt(document.getElementById("horas-ent").value)||0; var m=parseInt(document.getElementById("minutos-ent").value)||0; return h>0&&m>0?h+"h "+m+"min":h>0?(h===1?"1 hora":h+" horas"):m>0?m+" minutos":""; })(),
     correoEmp: document.getElementById("correo-emp").value.trim(),
     celularEmp: document.getElementById("celular-emp").value.trim(),
-    fechaDiligenciamiento: (function(){ var f=document.getElementById("fecha-diligenciamiento"); if(f&&f.value){ return f.value; /* ya está en formato yyyy-mm-dd del input type=date */ } var h=new Date(); return h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0'); })(),
-    fecha:   (function(){ var h=new Date(); return h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0'); })(),
+    fechaDiligenciamiento: (function(){ var f=document.getElementById("fecha-diligenciamiento"); if(f&&f.value){ var p=f.value.split("-"); return p[2]+"/"+p[1]+"/"+p[0]; } return new Date().toLocaleDateString("es-CO"); })(),
+    fecha:   new Date().toLocaleString("es-CO"),
     diasAnticip: diasAnticip,
     fueraTiempo: diasAnticip < 3 && !esFuerzaMayor,
     motivoNegacion: ""
@@ -2591,7 +2565,7 @@ function notificarRRHH(reg) {
 }
 
 function limpiar() {
-  ["nombre","cedula","cargo","fini","ffin","hora","diag","medico","motivo","obs","correo-emp","celular-emp"].forEach(id => {
+  ["nombre","cedula","cargo","fini","ffin","hora","diag","medico","obs","correo-emp","celular-emp"].forEach(id => {
     var e = document.getElementById(id); if(e) e.value = "";
   });
   ["area","soporte"].forEach(id => { var e = document.getElementById(id); if(e) e.value = ""; });
@@ -3217,21 +3191,6 @@ function cargarVacacionesDesdeSheets() {
     .catch(function(e){ console.warn("Vac cargar error:", e); });
 }
 
-function cargarBienestarDesdeSheets() {
-  if (!SHEETS_SCRIPT_URL) return;
-  fetch(SHEETS_SCRIPT_URL + "?accion=listarBien")
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if (data.ok && data.bienestar && data.bienestar.length) {
-        bienestar = data.bienestar;
-        bienCtr = Math.max.apply(null, bienestar.map(function(b){ return parseInt(b.id)||0; }));
-        renderBienestar();
-        toast("✅ " + bienestar.length + " actividades de bienestar cargadas");
-      }
-    })
-    .catch(function(e){ console.warn("Bien cargar error:", e); });
-}
-
 function registrarVacacion() {
   var nombre = getClonVal("vac-nombre");
   var ini    = getClonVal("vac-ini");
@@ -3333,7 +3292,7 @@ function registrarDisciplinaria() {
     hora: "—", tipo, soporte: "Acto administrativo",
     diag: "—", medico: "—", numIncapacidad: "—",
     obs, aprobado: "Aprobado", remunerada: "No",
-    aprPor: "RRHH", fecha: (function(){ var h=new Date(); return h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0'); })()
+    aprPor: "RRHH", fecha: new Date().toLocaleDateString("es-CO")
   };
   registros.push(reg);
   updateStats();
@@ -3441,23 +3400,7 @@ function registrarBienestar() {
   var datoEsp = "";
   if (tipo === "Actividad de IMC" && imc) datoEsp = "IMC: " + imc;
   if (tipo === "Exámenes Ocupacionales" && examT) datoEsp = "Examen: " + examT;
-  var hoyBien = new Date();
-  var fechaRegBien = hoyBien.getFullYear()+'-'+String(hoyBien.getMonth()+1).padStart(2,'0')+'-'+String(hoyBien.getDate()).padStart(2,'0');
-  var bienReg = { id:bienCtr, nombre:nombre, tipo:tipo, subtipo:subtipo, fecha:fecha, estado:estado, responsable:resp, lugar:lugar, datoEsp:datoEsp, obs:obs, reg: fechaRegBien };
-  bienestar.push(bienReg);
-  // Guardar en hoja separada "Bienestar" en Sheets
-  if (SHEETS_SCRIPT_URL) {
-    var bParams = new URLSearchParams({
-      accion:"registrarBien", id:bienReg.id, nombre:bienReg.nombre, tipo:bienReg.tipo,
-      subtipo:bienReg.subtipo||"", fecha:bienReg.fecha, estado:bienReg.estado,
-      responsable:bienReg.responsable||"", lugar:bienReg.lugar||"",
-      datoEsp:bienReg.datoEsp||"", obs:bienReg.obs||"", reg:bienReg.reg
-    });
-    fetch(SHEETS_SCRIPT_URL + "?" + bParams.toString())
-      .then(function(r){ return r.json(); })
-      .then(function(d){ if(d.ok) toast("📊 Bienestar guardado en Matriz Bienestar ✅"); })
-      .catch(function(e){ console.warn("Bien Sheets error:", e); });
-  }
+  bienestar.push({ id:bienCtr, nombre:nombre, tipo:tipo, subtipo:subtipo, fecha:fecha, estado:estado, responsable:resp, lugar:lugar, datoEsp:datoEsp, obs:obs, reg: new Date().toLocaleDateString("es-CO") });
   renderBienestar();
   toast("🌿 Actividad de Bienestar registrada para " + nombre);
 }
@@ -3473,12 +3416,6 @@ function renderBienestar() {
   var cont = document.getElementById("rrhh-excl-contenido");
   var tb   = cont ? cont.querySelector("#tbody-bien-tabla") : document.getElementById("tbody-bien-tabla");
   if (!tb) return;
-  // Carga automática desde Sheets si no hay datos locales
-  if (!bienestar.length && SHEETS_SCRIPT_URL) {
-    tb.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#2563b8;padding:24px;font-style:italic">⏳ Cargando actividades de bienestar desde la nube...</td></tr>';
-    cargarBienestarDesdeSheets();
-    return;
-  }
   function gv2(id) {
     if (cont) { var c = cont.querySelector("#"+id); return c ? c.value : ""; }
     var e = document.getElementById(id); return e ? e.value : "";
