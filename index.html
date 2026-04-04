@@ -2541,8 +2541,8 @@ function notificarRRHH(reg) {
     "📅 *Anticipación:* " + reg.diasAnticip + " días hábiles" + (reg.diasAnticip < 3 ? " ⚠️ (menos de 3)" : " ✅") + "\n" +
     "📞 *Celular empleado:* " + (reg.celularEmp || "No registrado") + "\n" +
     (reg.obs ? "✍ *Observaciones:* " + reg.obs + "\n" : "") +
-    "\n📬 *Próximos pasos:* La Jefatura de Recursos Humanos revisará su solicitud y le notificará oportunamente la decisión (aprobada o no aprobada). Permanezca atento/a a su WhatsApp y correo institucional.\n" +
-    "_CDA BARRANCABERMEJA · Gestión de Recursos Humanos_";
+    "\nLe notificaremos la decisión por este medio a la brevedad.\n" +
+    "_Atte. Recursos Humanos — INVERSIN LTDA_";
   var urlWA = "https://wa.me/" + CELULAR_RRHH + "?text=" + encodeURIComponent(msg);
   // Abrir WhatsApp en nueva pestaña
   window.open(urlWA, "_blank");
