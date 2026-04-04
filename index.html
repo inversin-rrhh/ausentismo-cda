@@ -2066,20 +2066,19 @@ display:block !important;
     </tr>
   </table>
 
-  <div style="text-align:center;margin-bottom:8px">
-    <span style="background:#1a3a6b;color:#ffffff;padding:3px 14px;border-radius:20px;font-size:10px;font-weight:900;font-family:'Nunito',sans-serif">Solicitud N° ${reg.id}</span>
-    <div style="font-size:8.5px;color:#94a3b8;margin-top:3px;font-family:'Nunito',sans-serif">Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</div>
+  <div class="consec">
+    <span>Solicitud N° ${reg.id}</span>
+    <small>Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</small>
   </div>
 
-  <!-- TIPO DE AUSENCIA — inline para garantizar renderizado en PDF -->
-  <div style="background:#1a3a6b;color:#ffffff;text-align:center;padding:12px 10px;border-radius:8px;margin-bottom:10px;font-family:'Nunito',sans-serif">
-    <div style="font-size:9px;opacity:.85;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;color:#ffffff">📋 Tipo de Ausencia Seleccionado</div>
-    <div style="font-size:16px;font-weight:900;color:#ffffff;letter-spacing:.3px">${reg.tipo}</div>
+  <div class="tipo-banner">
+    <div class="lbl">Tipo de Ausencia Seleccionado</div>
+    <div class="val">${reg.tipo}</div>
   </div>
 
-  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden">
-    <div style="background:#f1f5f9;padding:6px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;font-family:'Nunito',sans-serif">👤 Datos del Empleado(a)</div>
-    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+  <div class="sec">
+    <div class="sec-head">👤 Datos del Empleado(a)</div>
+    <div class="sec-body grid2">
       <div class="campo"><label>Nombre completo</label><div class="val">${reg.nombre}</div></div>
       <div class="campo"><label>Cédula de ciudadanía</label><div class="val">${reg.cedula}</div></div>
       <div class="campo"><label>Cargo</label><div class="val">${reg.cargo}</div></div>
@@ -2088,9 +2087,9 @@ display:block !important;
     </div>
   </div>
 
-  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden">
-    <div style="background:#f1f5f9;padding:6px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;font-family:'Nunito',sans-serif">📅 Fechas y Duración</div>
-    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+  <div class="sec">
+    <div class="sec-head">📅 Fechas y Duración</div>
+    <div class="sec-body grid3">
       <div class="campo"><label>Fecha de inicio</label><div class="val">${reg.fi}</div></div>
       <div class="campo"><label>Fecha de fin</label><div class="val">${reg.ff}</div></div>
       <div class="campo"><label>Hora de salida</label><div class="val">${reg.hora || '—'}</div></div>
@@ -2100,25 +2099,37 @@ display:block !important;
     </div>
   </div>
 
-  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden">
-    <div style="background:#f1f5f9;padding:6px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;font-family:'Nunito',sans-serif">📄 Soporte y Diagnóstico</div>
-    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+  <div class="sec">
+    <div class="sec-head">📋 Tipo de Ausencia</div>
+    <div class="sec-body">
+      <div class="campo"><div class="val" style="font-size:13px;font-weight:900;color:#1a3a6b;background:#eff6ff;border-color:#bfdbfe;padding:8px 12px">${reg.tipo}</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head">📄 Soporte y Diagnóstico</div>
+    <div class="sec-body grid2">
       <div class="campo"><label>Tipo de soporte</label><div class="val">${reg.soporte || '—'}</div></div>
       <div class="campo"><label>Diagnóstico / CIE-10</label><div class="val">${reg.diag || '—'}</div></div>
       <div class="campo"><label>Médico / Autoridad que expide</label><div class="val">${reg.medico || '—'}</div></div>
       ${numInc ? '<div class="campo"><label>Número de incapacidad</label><div class="val">' + numInc + '</div></div>' : ''}
-      <div class="campo" style="grid-column:1/-1"><label>Motivo de la Ausencia / Incapacidad / Licencia</label><div class="val" style="background:#fffbeb;border:1px solid #fde68a;font-weight:700;color:#92400e;padding:4px 8px;border-radius:5px;min-height:22px">${(reg.motivo && reg.motivo !== '—' && reg.motivo !== '') ? reg.motivo : (reg.obs && reg.obs !== '—' && reg.obs !== '') ? reg.obs : 'No especificado'}</div></div>
-      <div class="campo" style="grid-column:1/-1"><label>Observaciones adicionales</label><div class="val">${reg.obs || '—'}</div></div>
+      <div class="campo" style="grid-column:1/-1"><label>Motivo de la Ausencia / Incapacidad / Licencia</label><div class="val" style="background:#fffbeb;border-color:#fde68a;font-weight:700;color:#92400e">${reg.motivo || reg.obs || '—'}</div></div>
+      <div class="campo" style="grid-column:1/-1"><label>Observaciones</label><div class="val">${reg.obs || '—'}</div></div>
     </div>
   </div>
 
-  <div style="padding:8px 12px;border-radius:8px;text-align:center;margin-bottom:10px;border:2px solid ${reg.aprobado==='Aprobado'?'#16a34a':reg.aprobado==='Negado'?'#dc2626':'#d4a017'};background:${reg.aprobado==='Aprobado'?'#dcfce7':reg.aprobado==='Negado'?'#fee2e2':'#fef9c3'}">
-    <div style="font-size:18px">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Negado'?'❌':'⏳'}</div>
-    <div style="font-size:13px;font-weight:900;margin-top:2px;font-family:'Nunito',sans-serif">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
-    <div style="font-size:9px;margin-top:2px;color:#475569;font-family:'Nunito',sans-serif">${reg.aprobado!=='Pendiente'?'Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor:'En espera de revisión por parte de RRHH'}</div>
+  
+
+
+<div class="estado ${reg.aprobado==='Aprobado'?'apr':reg.aprobado==='Negado'?'neg':'pend'}">
+    <div class="ico">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Negado'?'❌':'⏳'}</div>
+    <div class="txt">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
+    ${reg.aprobado!=='Pendiente'?'<div class="sub">Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor+'</div>':'<div class="sub">En espera de revisión por parte de RRHH</div>'}
   </div>
 
-  <div style="text-align:center;font-size:8.5px;color:#94a3b8;margin-top:10px;padding-top:8px;border-top:1px solid #e2e8f0;font-family:'Nunito',sans-serif">CDA BARRANCABERMEJA · CDABR-GRH-F-09 · Versión 03 · 2026-01-02 · Sistema de Gestión de Recursos Humanos</div>
+  </div>
+
+  <div class="footer">CDA BARRANCABERMEJA · CDABR-GRH-F-09 · Versión 03 · 2026-01-02 · Sistema de Gestión de Recursos Humanos</div>
 
 
 <!-- FIRMA RRHH FINAL -->
