@@ -466,11 +466,11 @@ display:block !important;
       <button class="rrhh-excl-tab" id="tab-excl-matriz" onclick="mostrarExcl('matriz')">
         📊 Matriz / Estadísticas
       </button>
-      <button class="rrhh-excl-tab" id="tab-excl-vac" onclick="mostrarExcl('vac')">
-        🌴 Vacaciones
-      </button>
       <button class="rrhh-excl-tab" id="tab-excl-dis" onclick="mostrarExcl('dis')">
         ⚠️ Disciplinaria
+      </button>
+      <button class="rrhh-excl-tab" id="tab-excl-vac" onclick="mostrarExcl('vac')">
+        🌴 Vacaciones
       </button>
       <button class="rrhh-excl-tab" id="tab-excl-bien" onclick="mostrarExcl('bien')">
         🌿 Bienestar Laboral
@@ -759,7 +759,7 @@ display:block !important;
         <div style="font-weight:900;font-size:13px;color:#dc2626;margin-bottom:12px">➕ Registrar Ausencia Disciplinaria</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
           <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Empleado *</label>
-            <select id="dis-nombre" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
+            <select id="dis-nombre" onchange="autoCompletarDis(this.value)" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
               <option value="">— Seleccionar —</option>
               <option>Carlos Arturo Valencia</option>
               <option>Diego Fernando Alemán Arrieta</option>
@@ -791,14 +791,7 @@ display:block !important;
             <input type="date" id="dis-fin" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
           </div>
           <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Cargo</label>
-            <select id="dis-cargo" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
-              <option value="">— Seleccionar —</option>
-              <option>Asesor Comercial</option><option>Auxiliar Administrativa</option><option>Auxiliar de Servicios</option>
-              <option>Coordinador Técnico</option><option>Director Técnico</option><option>Gerente</option>
-              <option>Inspector de Tránsito</option><option>Jefe de RRHH</option><option>Mecánico</option>
-              <option>Operario de Planta</option><option>Recepcionista</option><option>Técnico de Revisión</option>
-              <option>Auxiliar Contable</option><option>Coordinador HSEQ</option><option>Mensajero</option>
-            </select>
+            <input type="text" id="dis-cargo" readonly placeholder="Se autocompleta al seleccionar empleado" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;background:#f0f9ff;font-weight:700;color:#1a3a6b">
           </div>
           <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Área</label>
             <select id="dis-area" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
@@ -882,28 +875,11 @@ display:block !important;
         </div>
         <div class="fg">
           <label>Cédula de Ciudadanía <span class="r">*</span></label>
-          <input type="text" id="cedula" placeholder="Ej. 1098765432" maxlength="12">
+          <input type="text" id="cedula" placeholder="Se completa automáticamente" readonly style="background:#f0f9ff;font-weight:700;color:#1a3a6b">
         </div>
         <div class="fg">
           <label>Cargo <span class="r">*</span></label>
-          <select id="cargo">
-            <option value="">— Seleccione el cargo —</option>
-            <option>Auxiliar Administrativa y Contable</option>
-            <option>Coordinador de Sistemas Informáticos y Mantenimiento</option>
-            <option>Coordinador del SIG</option>
-            <option>Coordinadora del SIG</option>
-            <option>Director Técnico</option>
-            <option>Director Técnico Suplente</option>
-            <option>Gerente</option>
-            <option>Inspector de Línea</option>
-            <option>Jefe de Atención al Cliente</option>
-            <option>Jefe de Infraestructura y Compras</option>
-            <option>Jefe de Recursos Humanos</option>
-            <option>Oficios Varios y Cafetería</option>
-            <option>Oficios Varios y Mensajería</option>
-            <option>Recepción de Documentos</option>
-            <option>Recepción de Vehículos Automores</option>
-          </select>
+          <input type="text" id="cargo" placeholder="Se completa automáticamente" readonly style="background:#f0f9ff;font-weight:700;color:#1a3a6b">
         </div>
         <div class="fg">
           <label>Área <span class="r">*</span></label>
@@ -915,7 +891,7 @@ display:block !important;
         </div>
         <div class="fg">
           <label>Correo Electrónico</label>
-          <input type="email" id="correo-emp" placeholder="empleado@cda.com.co">
+          <input type="email" id="correo-emp" placeholder="Se completa automáticamente" readonly style="background:#f0f9ff;font-weight:700;color:#1a3a6b">
         </div>
         <div class="fg">
           <label>Fecha de Diligenciamiento <span class="r">*</span></label>
@@ -1219,39 +1195,7 @@ display:block !important;
 </div>
 
 <!-- ════════════ BLOQUE EXCLUSIVO RRHH ════════════ -->
-<div id="bloque-rrhh" style="margin-top:18px">
-  <div style="
-    background:linear-gradient(90deg,#1a3a6b,#2563b8);
-    border-radius:12px 12px 0 0;padding:13px 20px;
-    display:flex;align-items:center;gap:10px">
-    <span style="font-size:20px">👥</span>
-    <span style="font-family:'Nunito',sans-serif;font-weight:900;font-size:13px;
-      color:#fff;letter-spacing:.5px;text-transform:uppercase">
-      Uso Exclusivo del Área de RRHH
-    </span>
-  </div>
-  <div style="
-    background:#f1f5fb;border:1.5px solid #e2e8f0;border-top:none;
-    border-radius:0 0 12px 12px;padding:16px;
-    display:grid;grid-template-columns:1fr 1fr;gap:12px">
-    <button onclick="pedirAcceso('panel',this)" id="btn-panel-rrhh" style="
-      display:flex;align-items:center;justify-content:center;gap:10px;
-      padding:16px;background:#fff;border:1.5px solid #e2e8f0;
-      border-radius:10px;cursor:pointer;font-family:'Nunito',sans-serif;
-      font-weight:800;font-size:13px;color:#1a3a6b;
-      box-shadow:0 2px 10px rgba(26,58,107,.08);transition:all .2s">
-      <span id="ico-panel">🔒</span> Panel de Aprobación
-    </button>
-    <button onclick="pedirAcceso('matriz',this)" id="btn-matriz-rrhh" style="
-      display:flex;align-items:center;justify-content:center;gap:10px;
-      padding:16px;background:#fff;border:1.5px solid #e2e8f0;
-      border-radius:10px;cursor:pointer;font-family:'Nunito',sans-serif;
-      font-weight:800;font-size:13px;color:#1a3a6b;
-      box-shadow:0 2px 10px rgba(26,58,107,.08);transition:all .2s">
-      <span id="ico-matriz">🔒</span> Matriz / Estadísticas
-    </button>
-  </div>
-</div>
+
 
 <!-- ════════════════ TAB 2: PANEL APROBACIÓN (🔒 RRHH) ════════════════ -->
 <div id="tab-panel" class="tab-pane">
@@ -1422,13 +1366,7 @@ display:block !important;
     <div class="ley-item"><div class="ley-dot" style="background:#7c3aed"></div> Injustificada / Suspensión (CST Art.58 y 112)</div>
   </div>
 </div>
-  <div class="banner-horario">
-    <div class="bh-ico">🕐</div>
-    <div class="bh-txt">
-      <strong>Horarios CDA BARRANCABERMEJA</strong><br>
-      <span>Lun–Vie: 07:30–12:00 y 14:00–18:00 &nbsp;|&nbsp; Sábados: 07:30–14:00 &nbsp;|&nbsp; Jornada: 44 h/sem (42 h/sem desde el 15-Jul-2026)</span>
-    </div>
-  </div>
+
 
 
 <div class="pfooter" style="margin-top:12px">CDA BARRANCABERMEJA &nbsp;·&nbsp; CDABR-GRH-F-09 &nbsp;·&nbsp; Ver 03 &nbsp;·&nbsp; 2026-01-02 &nbsp;·&nbsp; Sistema de Gestión de Recursos Humanos</div>
@@ -1499,20 +1437,20 @@ var CLAVE_RRHH = "CDA2026";
 // LISTA DE TRABAJADORES (nombre → celular WhatsApp)
 // ════════════════════════════════════════════════════════════
 var EMPLEADOS = [
-  { nombre: "Carlos Arturo Valencia",             celular: "573224567013" },
-  { nombre: "Diego Fernando Alemán Arrieta",      celular: "573177179727" },
-  { nombre: "Edwin Vilardy Trujillo",             celular: "573138458944" },
-  { nombre: "Gabriela De Jesús Sosa Chávez",      celular: "573228616363" },
-  { nombre: "Heriberto León Ayala",               celular: "573187072030" },
-  { nombre: "Janer Montesino Rangel",             celular: "573144017620" },
-  { nombre: "Jorge Alexander Rueda Bravo",        celular: "573177287994" },
-  { nombre: "Julian David Pulido Mora",         celular: "573112926353" },
-  { nombre: "Kelly Johana Uribe Téllez",          celular: "573163700986" },
-  { nombre: "Lida Juana Aida Lith Rueda Súspez",  celular: "573187072035" },
-  { nombre: "Luis Alexander López Aldana",        celular: "573006351127" },
-  { nombre: "Mariam Andrea Rueda Súspez",         celular: "573187072043" },
-  { nombre: "Marlon José Quintero García",        celular: "573182349430" },
-  { nombre: "Salomon Rueda Rueda",                celular: "573187072049" },
+  { nombre: "Carlos Arturo Valencia",             celular: "573114624347", cedula: "71184814",   cargo: "Oficios Varios y Mensajería",         correo: "carlosarturovalencia2025@outlook.com" },
+  { nombre: "Diego Fernando Alemán Arrieta",      celular: "573177179727", cedula: "1096198976", cargo: "Coordinador de Sist. Inform. y Mtto", correo: "draco.bap@gmail.com" },
+  { nombre: "Edwin Vilardy Trujillo",             celular: "573138458944", cedula: "1005187751", cargo: "Inspector de Línea",                  correo: "edwinvilardy@gmail.com" },
+  { nombre: "Gabriela De Jesús Sosa Chávez",      celular: "573228616363", cedula: "29114320",   cargo: "Oficios Varios y Cafetería",          correo: "gabrielasosachavez@gmail.com" },
+  { nombre: "Heriberto León Ayala",               celular: "573187072030", cedula: "13845382",   cargo: "Jefe de Atención al Cliente",         correo: "hleonayalac@yahoo.es" },
+  { nombre: "Janer Montesino Rangel",             celular: "573144017620", cedula: "13541705",   cargo: "DT Suplente e Inspector de Línea",    correo: "janer_montesino@hotmail.com" },
+  { nombre: "Jorge Alexander Rueda Bravo",        celular: "573177287994", cedula: "1096189572", cargo: "Inspector de Línea",                  correo: "alrubra19@hotmail.com" },
+  { nombre: "Julian David Pulido Mora",           celular: "573112926353", cedula: "1016105110", cargo: "Recepción de Vehículos Automotores",  correo: "julipumo@hotmail.com" },
+  { nombre: "Kelly Johana Uribe Téllez",          celular: "573163700986", cedula: "1096187469", cargo: "Recepción de Documentos",             correo: "kellyjohana.uribe2@gmail.com" },
+  { nombre: "Lida Juana Aida Lith Rueda Súspez",  celular: "573187072035", cedula: "63483879",   cargo: "Jefe de RR-HH y Coord. del SIG",     correo: "ing_lida.r.s@hotmail.com" },
+  { nombre: "Luis Alexander López Aldana",        celular: "573006351127", cedula: "1096214161", cargo: "Coordinador de SIG y DT Suplente",    correo: "luislopezaldana17@gmail.com" },
+  { nombre: "Mariam Andrea Rueda Súspez",         celular: "573187072043", cedula: "63451206",   cargo: "Gerente",                             correo: "mars6345@hotmail.com" },
+  { nombre: "Marlon José Quintero García",        celular: "573182349430", cedula: "1066063061", cargo: "Director Técnico",                    correo: "marlonquintero22@gmail.com" },
+  { nombre: "Salomon Rueda Rueda",                celular: "573187072049", cedula: "5590316",    cargo: "Jefe de Infraestructura y Compras",   correo: "salomonrueda@hotmail.com" },
 ];
 
 
@@ -2067,7 +2005,7 @@ function generarPDF(reg) {
   .enc-ver,.enc-fecha{flex:1;padding:5px 3px;font-family:'Nunito',sans-serif;font-weight:800;font-size:10px;color:#111;text-align:center}
   .enc-ver{border-right:1.5px solid #333}
   /* TIPO AUSENCIA */
-  .tipo-banner{background:linear-gradient(90deg,#1a3a6b,#2563b8);color:#fff;text-align:center;padding:8px;border-radius:8px;margin-bottom:10px}
+  .tipo-banner{background:#1a3a6b;color:#fff;text-align:center;padding:10px;border-radius:8px;margin-bottom:10px}
   .tipo-banner .lbl{font-size:9px;opacity:.8;text-transform:uppercase}
   .tipo-banner .val{font-size:15px;font-weight:900}
   /* SECCIONES */
@@ -2203,14 +2141,29 @@ display:block !important;
   ventana.onload = function() {
     setTimeout(function() {
       html2canvas(ventana.document.body, {scale:2, useCORS:true, allowTaint:true, backgroundColor:'#ffffff', logging:false, imageTimeout:0, scrollX:0, scrollY:0, windowWidth:ventana.document.body.scrollWidth, windowHeight:ventana.document.body.scrollHeight}).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/png', 1.0);
         var pdf = new jspdf.jsPDF('p','mm','a4');
         var pageW = pdf.internal.pageSize.getWidth();
         var pageH = pdf.internal.pageSize.getHeight();
-        var imgW = pageW - 20;
+        var margin = 10;
+        var imgW = pageW - margin * 2;
         var imgH = (canvas.height * imgW) / canvas.width;
-        if(imgH > pageH - 20) imgH = pageH - 20;
-        pdf.addImage(imgData,'PNG',10,10,imgW,imgH);
+        var usableH = pageH - margin * 2;
+        if (imgH <= usableH) {
+          pdf.addImage(canvas.toDataURL('image/png',1.0),'PNG', margin, margin, imgW, imgH);
+        } else {
+          var totalPages = Math.ceil(imgH / usableH);
+          for (var pg = 0; pg < totalPages; pg++) {
+            if (pg > 0) pdf.addPage();
+            var slicePixels = Math.floor((usableH / imgH) * canvas.height);
+            var startY = pg * slicePixels;
+            var actualSlice = Math.min(slicePixels, canvas.height - startY);
+            var tc = document.createElement('canvas');
+            tc.width = canvas.width; tc.height = actualSlice;
+            tc.getContext('2d').drawImage(canvas, 0, startY, canvas.width, actualSlice, 0, 0, canvas.width, actualSlice);
+            var sliceH = (actualSlice * imgW) / canvas.width;
+            pdf.addImage(tc.toDataURL('image/png',1.0),'PNG', margin, margin, imgW, sliceH);
+          }
+        }
         var nombre = reg.nombre.split(' ')[0] + '_' + (reg.nombre.split(' ')[1]||'');
         var fecha = reg.fi.replace(/-/g,'');
         var nombreArchivo = (reg.radicado || ('Ausentismo_' + nombre + '_N' + reg.id + '_' + fecha)) + '.pdf';
@@ -2390,13 +2343,22 @@ function cerrarConfirmacion() {
 // ── AUTO-COMPLETAR CELULAR al seleccionar empleado ──
 function autoCompletarEmpleado(nombre) {
   var emp = EMPLEADOS.find(e => e.nombre === nombre);
-  var celInput = document.getElementById("celular-emp");
+  var celInput   = document.getElementById("celular-emp");
+  var cedulaEl   = document.getElementById("cedula");
+  var cargoEl    = document.getElementById("cargo");
+  var correoEl   = document.getElementById("correo-emp");
   if (emp) {
     celInput.value = emp.celular;
     celInput.setAttribute("data-wa", emp.celular);
+    if (cedulaEl) cedulaEl.value = emp.cedula || "";
+    if (cargoEl)  cargoEl.value  = emp.cargo  || "";
+    if (correoEl) correoEl.value = emp.correo || "";
   } else {
     celInput.value = "";
     celInput.removeAttribute("data-wa");
+    if (cedulaEl) cedulaEl.value = "";
+    if (cargoEl)  cargoEl.value  = "";
+    if (correoEl) correoEl.value = "";
   }
   renderConsultaSolicitudes();
 }
@@ -2418,13 +2380,40 @@ document.addEventListener("DOMContentLoaded", function() {
   var mm = String(hoy.getMonth()+1).padStart(2,'0');
   var dd = String(hoy.getDate()).padStart(2,'0');
   var campoFecha = document.getElementById("fecha-diligenciamiento");
-  if (campoFecha) campoFecha.value = yyyy + '-' + mm + '-' + dd;
+  if (campoFecha) {
+    var hoyStr = yyyy + '-' + mm + '-' + dd;
+    campoFecha.value = hoyStr;
+    campoFecha.min = hoyStr;
+    campoFecha.addEventListener("change", function() {
+      if (this.value < hoyStr) {
+        alert("⚠ La fecha de diligenciamiento no puede ser anterior a hoy.");
+        this.value = hoyStr;
+      }
+    });
+  }
   // Asegurar que todos los controles de ausencia estén habilitados al cargar
   desbloquearCategorias();
   var cedu = document.getElementById("cedula");
   if (cedu) cedu.addEventListener("input", renderConsultaSolicitudes);
   renderConsultaSolicitudes();
 });
+
+function autoCompletarDis(nombre) {
+  var emp = EMPLEADOS.find(function(e){ return e.nombre === nombre; });
+  var cargoEl = document.getElementById("dis-cargo");
+  var cont = document.getElementById("rrhh-excl-contenido");
+  if (cont) {
+    cargoEl = cont.querySelector("#dis-cargo") || cargoEl;
+  }
+  if (emp && cargoEl) {
+    cargoEl.value = emp.cargo || "";
+    cargoEl.style.background = "#f0f9ff";
+    cargoEl.style.fontWeight = "700";
+    cargoEl.style.color = "#1a3a6b";
+  } else if (cargoEl) {
+    cargoEl.value = "";
+  }
+}
 
 function calcDias() { calcDuracion(); }
 function calcDuracion() {
@@ -2552,7 +2541,8 @@ function notificarRRHH(reg) {
     "📅 *Anticipación:* " + reg.diasAnticip + " días hábiles" + (reg.diasAnticip < 3 ? " ⚠️ (menos de 3)" : " ✅") + "\n" +
     "📞 *Celular empleado:* " + (reg.celularEmp || "No registrado") + "\n" +
     (reg.obs ? "✍ *Observaciones:* " + reg.obs + "\n" : "") +
-    "\n🌐 *Revise el sistema de ausentismo:* https://ausentismo-cda.netlify.app";
+    "\n📬 *Próximos pasos:* La Jefatura de Recursos Humanos revisará su solicitud y le notificará oportunamente la decisión (aprobada o no aprobada). Permanezca atento/a a su WhatsApp y correo institucional.\n" +
+    "_CDA BARRANCABERMEJA · Gestión de Recursos Humanos_";
   var urlWA = "https://wa.me/" + CELULAR_RRHH + "?text=" + encodeURIComponent(msg);
   // Abrir WhatsApp en nueva pestaña
   window.open(urlWA, "_blank");
@@ -2588,7 +2578,17 @@ function limpiar() {
   var mm = String(hoy.getMonth()+1).padStart(2,'0');
   var dd = String(hoy.getDate()).padStart(2,'0');
   var campoFecha = document.getElementById("fecha-diligenciamiento");
-  if (campoFecha) campoFecha.value = yyyy + '-' + mm + '-' + dd;
+  if (campoFecha) {
+    var hoyStr = yyyy + '-' + mm + '-' + dd;
+    campoFecha.value = hoyStr;
+    campoFecha.min = hoyStr;
+    campoFecha.addEventListener("change", function() {
+      if (this.value < hoyStr) {
+        alert("⚠ La fecha de diligenciamiento no puede ser anterior a hoy.");
+        this.value = hoyStr;
+      }
+    });
+  }
   limpiarSeleccionAusencia();
   document.getElementById("dias-res").classList.remove("visible");
   // legacy compat
