@@ -2107,7 +2107,7 @@ display:block !important;
       <div class="campo"><label>Diagnóstico / CIE-10</label><div class="val">${reg.diag || '—'}</div></div>
       <div class="campo"><label>Médico / Autoridad que expide</label><div class="val">${reg.medico || '—'}</div></div>
       ${numInc ? '<div class="campo"><label>Número de incapacidad</label><div class="val">' + numInc + '</div></div>' : ''}
-      <div class="campo" style="grid-column:1/-1"><label>Motivo de la Ausencia / Incapacidad / Licencia</label><div class="val" style="background:#fffbeb;border:1px solid #fde68a;font-weight:700;color:#92400e;padding:4px 8px;border-radius:5px;min-height:22px">${reg.motivo || reg.obs || '—'}</div></div>
+      <div class="campo" style="grid-column:1/-1"><label>Motivo de la Ausencia / Incapacidad / Licencia</label><div class="val" style="background:#fffbeb;border:1px solid #fde68a;font-weight:700;color:#92400e;padding:4px 8px;border-radius:5px;min-height:22px">${(reg.motivo && reg.motivo !== '—' && reg.motivo !== '') ? reg.motivo : (reg.obs && reg.obs !== '—' && reg.obs !== '') ? reg.obs : 'No especificado'}</div></div>
       <div class="campo" style="grid-column:1/-1"><label>Observaciones adicionales</label><div class="val">${reg.obs || '—'}</div></div>
     </div>
   </div>
