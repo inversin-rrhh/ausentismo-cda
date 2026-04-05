@@ -2066,70 +2066,67 @@ display:block !important;
     </tr>
   </table>
 
-  <div class="consec">
-    <span>Solicitud N° ${reg.id}</span>
-    <small>Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</small>
+  <!-- CONSECUTIVO -->
+  <div style="text-align:center;margin-bottom:10px;font-family:Arial,sans-serif;">
+    <span style="background:#1a3a6b;color:#fff;padding:3px 14px;border-radius:20px;font-size:10px;font-weight:900;">Solicitud N° ${reg.id}</span>
+    <div style="font-size:8.5px;color:#94a3b8;margin-top:3px;">Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</div>
   </div>
 
-  <div class="tipo-banner">
-    <div class="lbl">Tipo de Ausencia Seleccionado</div>
-    <div class="val">${reg.tipo}</div>
-  </div>
-
-  <div class="sec">
-    <div class="sec-head">👤 Datos del Empleado(a)</div>
-    <div class="sec-body grid2">
-      <div class="campo"><label>Nombre completo</label><div class="val">${reg.nombre}</div></div>
-      <div class="campo"><label>Cédula de ciudadanía</label><div class="val">${reg.cedula}</div></div>
-      <div class="campo"><label>Cargo</label><div class="val">${reg.cargo}</div></div>
-      <div class="campo"><label>Área</label><div class="val">${reg.area}</div></div>
-      <div class="campo"><label>Fecha de diligenciamiento</label><div class="val">${reg.fechaDiligenciamiento || reg.fecha}</div></div>
+  <!-- DATOS DEL EMPLEADO -->
+  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
+    <div style="background:#f1f5f9;padding:7px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;">👤 Datos del Empleado(a)</div>
+    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Nombre completo</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.nombre}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Cédula de ciudadanía</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.cedula}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Cargo</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.cargo}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Área</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.area}</div></div>
     </div>
   </div>
 
-  <div class="sec">
-    <div class="sec-head">📅 Fechas y Duración</div>
-    <div class="sec-body grid3">
-      <div class="campo"><label>Fecha de inicio</label><div class="val">${reg.fi}</div></div>
-      <div class="campo"><label>Fecha de fin</label><div class="val">${reg.ff}</div></div>
-      <div class="campo"><label>Hora de salida</label><div class="val">${reg.hora || '—'}</div></div>
-      <div class="campo"><label>Días hábiles</label><div class="val">${reg.hab}</div></div>
-      <div class="campo"><label>Días calendario</label><div class="val">${reg.cal}</div></div>
-      <div class="campo"><label>Tiempo ausente</label><div class="val">${reg.horasDisplay || '—'}</div></div>
+  <!-- FECHAS Y DURACIÓN -->
+  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
+    <div style="background:#f1f5f9;padding:7px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;">📅 Fechas y Duración</div>
+    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Fecha de inicio</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.fi}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Fecha de fin</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.ff}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Hora de salida</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.hora || '—'}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Días hábiles</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.hab}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Días calendario</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.cal}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Tiempo ausente</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.horasDisplay || '—'}</div></div>
     </div>
   </div>
 
-  <div class="sec">
-    <div class="sec-head">📋 Tipo de Ausencia</div>
-    <div class="sec-body">
-      <div class="campo"><div class="val" style="font-size:13px;font-weight:900;color:#1a3a6b;background:#eff6ff;border-color:#bfdbfe;padding:8px 12px">${reg.tipo}</div></div>
+  <!-- TIPO DE AUSENCIA -->
+  <div style="border:1px solid #bfdbfe;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
+    <div style="background:#1a3a6b;padding:7px 12px;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.5px;">📋 Tipo de Ausencia</div>
+    <div style="padding:10px 12px;background:#eff6ff;">
+      <div style="font-size:13px;font-weight:900;color:#1a3a6b;">${reg.tipo}</div>
     </div>
   </div>
 
-  <div class="sec">
-    <div class="sec-head">📄 Soporte y Diagnóstico</div>
-    <div class="sec-body grid2">
-      <div class="campo"><label>Tipo de soporte</label><div class="val">${reg.soporte || '—'}</div></div>
-      <div class="campo"><label>Diagnóstico / CIE-10</label><div class="val">${reg.diag || '—'}</div></div>
-      <div class="campo"><label>Médico / Autoridad que expide</label><div class="val">${reg.medico || '—'}</div></div>
-      ${numInc ? '<div class="campo"><label>Número de incapacidad</label><div class="val">' + numInc + '</div></div>' : ''}
-      <div class="campo" style="grid-column:1/-1"><label>Motivo de la Ausencia / Incapacidad / Licencia</label><div class="val" style="background:#fffbeb;border-color:#fde68a;font-weight:700;color:#92400e">${reg.motivo || reg.obs || '—'}</div></div>
-      <div class="campo" style="grid-column:1/-1"><label>Observaciones</label><div class="val">${reg.obs || '—'}</div></div>
+  <!-- SOPORTE Y DIAGNÓSTICO -->
+  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
+    <div style="background:#f1f5f9;padding:7px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;">📄 Soporte y Diagnóstico</div>
+    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Tipo de soporte</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.soporte || '—'}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Diagnóstico / CIE-10</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.diag || '—'}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Médico / Autoridad que expide</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.medico || '—'}</div></div>
+      ${numInc ? '<div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Número de incapacidad</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">' + numInc + '</div></div>' : ''}
+      <div style="grid-column:1/-1"><div style="font-size:8px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:2px;">Motivo de la Ausencia / Incapacidad / Licencia</div><div style="font-size:11px;font-weight:700;padding:6px 8px;background:#fffbeb;border:1px solid #fde68a;border-radius:5px;color:#92400e;">${reg.motivo || reg.obs || '—'}</div></div>
+      <div style="grid-column:1/-1"><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Observaciones adicionales</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.obs || '—'}</div></div>
     </div>
   </div>
 
   
 
 
-<div class="estado ${reg.aprobado==='Aprobado'?'apr':reg.aprobado==='Negado'?'neg':'pend'}">
-    <div class="ico">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Negado'?'❌':'⏳'}</div>
-    <div class="txt">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
-    ${reg.aprobado!=='Pendiente'?'<div class="sub">Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor+'</div>':'<div class="sub">En espera de revisión por parte de RRHH</div>'}
+  <div style="padding:10px 12px;border-radius:8px;text-align:center;margin-bottom:10px;border:2px solid ${reg.aprobado==='Aprobado'?'#16a34a':reg.aprobado==='Negado'?'#dc2626':'#d4a017'};background:${reg.aprobado==='Aprobado'?'#dcfce7':reg.aprobado==='Negado'?'#fee2e2':'#fef9c3'};font-family:Arial,sans-serif;">
+    <div style="font-size:20px;">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Negado'?'❌':'⏳'}</div>
+    <div style="font-size:14px;font-weight:900;margin-top:4px;">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
+    <div style="font-size:9px;margin-top:3px;color:#475569;">${reg.aprobado!=='Pendiente'?'Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor:'En espera de revisión por parte de RRHH'}</div>
   </div>
 
-  </div>
-
-  <div class="footer">CDA BARRANCABERMEJA · CDABR-GRH-F-09 · Versión 03 · 2026-01-02 · Sistema de Gestión de Recursos Humanos</div>
+  <div style="text-align:center;font-size:8.5px;color:#94a3b8;margin-top:10px;padding-top:8px;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;">CDA BARRANCABERMEJA · CDABR-GRH-F-09 · Versión 03 · 2026-01-02 · Sistema de Gestión de Recursos Humanos</div>
 
 
 <!-- FIRMA RRHH FINAL -->
