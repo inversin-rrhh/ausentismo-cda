@@ -1103,10 +1103,75 @@ display:block !important;
         <div class="fg" id="wrap-diag">
           <label>Diagnóstico / Código CIE-10
             <span style="font-size:10px;color:#94a3b8;font-weight:500;text-transform:none;letter-spacing:0;display:block;margin-top:1px">
-              CIE-10 = Clasificación Internacional de Enfermedades. Solo para incapacidades y licencias médicas.
+              Solo para incapacidades y licencias médicas.
             </span>
           </label>
-          <input type="text" id="diag" placeholder="Ej. J06.9 – Gripa / Infección respiratoria">
+          <select id="diag" onchange="onDiagChange(this)">
+            <option value="">— Seleccione el diagnóstico —</option>
+            <optgroup label="🦠 Enfermedades Respiratorias">
+              <option value="J00 – Rinofaringitis aguda (Resfriado común)">J00 – Resfriado común / Rinofaringitis aguda</option>
+              <option value="J06.9 – Infección aguda de vías respiratorias superiores">J06.9 – Infección aguda vías respiratorias superiores</option>
+              <option value="J11 – Gripa / Influenza">J11 – Gripa / Influenza</option>
+              <option value="J18.9 – Neumonía">J18.9 – Neumonía</option>
+              <option value="J20 – Bronquitis aguda">J20 – Bronquitis aguda</option>
+              <option value="J45 – Asma">J45 – Asma</option>
+            </optgroup>
+            <optgroup label="🦷 Odontología">
+              <option value="K08.9 – Problema dental / Dolor dental">K08.9 – Problema dental / Dolor dental</option>
+              <option value="K04.0 – Pulpitis / Infección dental">K04.0 – Pulpitis / Infección dental</option>
+            </optgroup>
+            <optgroup label="🤕 Traumatismos y Accidentes">
+              <option value="S09.9 – Traumatismo en la cabeza">S09.9 – Traumatismo en la cabeza</option>
+              <option value="S19.9 – Traumatismo del cuello">S19.9 – Traumatismo del cuello</option>
+              <option value="S29.9 – Traumatismo del tórax">S29.9 – Traumatismo del tórax</option>
+              <option value="S39.9 – Traumatismo del abdomen / espalda">S39.9 – Traumatismo del abdomen / espalda</option>
+              <option value="S49.9 – Traumatismo del hombro / brazo">S49.9 – Traumatismo del hombro / brazo</option>
+              <option value="S59.9 – Traumatismo del codo / antebrazo">S59.9 – Traumatismo del codo / antebrazo</option>
+              <option value="S69.9 – Traumatismo de la muñeca / mano">S69.9 – Traumatismo de la muñeca / mano</option>
+              <option value="S79.9 – Traumatismo de la cadera / muslo">S79.9 – Traumatismo de la cadera / muslo</option>
+              <option value="S89.9 – Traumatismo de la rodilla / pierna">S89.9 – Traumatismo de la rodilla / pierna</option>
+              <option value="S99.9 – Traumatismo del tobillo / pie">S99.9 – Traumatismo del tobillo / pie</option>
+              <option value="T14.9 – Traumatismo no especificado">T14.9 – Traumatismo no especificado</option>
+            </optgroup>
+            <optgroup label="🫀 Enfermedades Cardiovasculares">
+              <option value="I10 – Hipertensión arterial">I10 – Hipertensión arterial</option>
+              <option value="I25.9 – Enfermedad coronaria">I25.9 – Enfermedad coronaria</option>
+            </optgroup>
+            <optgroup label="🧠 Salud Mental">
+              <option value="F32.9 – Episodio depresivo">F32.9 – Episodio depresivo</option>
+              <option value="F41.1 – Trastorno de ansiedad generalizada">F41.1 – Trastorno de ansiedad</option>
+              <option value="F43.1 – Estrés postraumático">F43.1 – Estrés postraumático</option>
+              <option value="Z73.0 – Agotamiento / Burn-out">Z73.0 – Agotamiento / Burn-out</option>
+            </optgroup>
+            <optgroup label="🤰 Maternidad / Ginecología">
+              <option value="Z34 – Supervisión de embarazo normal">Z34 – Supervisión de embarazo normal</option>
+              <option value="O00–O99 – Complicación del embarazo">O00–O99 – Complicación del embarazo</option>
+              <option value="Z39 – Cuidado postparto">Z39 – Cuidado postparto</option>
+            </optgroup>
+            <optgroup label="🦴 Osteomuscular">
+              <option value="M54.5 – Dolor lumbar / Lumbago">M54.5 – Dolor lumbar / Lumbago</option>
+              <option value="M54.2 – Cervicalgia / Dolor cervical">M54.2 – Cervicalgia / Dolor cervical</option>
+              <option value="M79.3 – Paniculitis / Dolor muscular">M79.3 – Dolor muscular</option>
+              <option value="M25.5 – Dolor articular">M25.5 – Dolor articular</option>
+            </optgroup>
+            <optgroup label="🍽️ Gastrointestinal">
+              <option value="K59.1 – Diarrea funcional">K59.1 – Diarrea funcional</option>
+              <option value="K21.0 – Gastritis / Reflujo">K21.0 – Gastritis / Reflujo</option>
+              <option value="K29.7 – Gastroenteritis">K29.7 – Gastroenteritis</option>
+            </optgroup>
+            <optgroup label="👁️ Oftalmología">
+              <option value="H57.9 – Trastorno ocular">H57.9 – Trastorno ocular</option>
+              <option value="H10 – Conjuntivitis">H10 – Conjuntivitis</option>
+            </optgroup>
+            <optgroup label="🩺 Otros">
+              <option value="A09 – Infección intestinal">A09 – Infección intestinal</option>
+              <option value="N39.0 – Infección urinaria">N39.0 – Infección urinaria</option>
+              <option value="R50.9 – Fiebre no especificada">R50.9 – Fiebre no especificada</option>
+              <option value="R51 – Cefalea / Migraña">R51 – Cefalea / Migraña</option>
+              <option value="Z00.0 – Examen médico general">Z00.0 – Examen médico general</option>
+              <option value="Otro – Especificar con el médico">Otro – Especificar con el médico</option>
+            </optgroup>
+          </select>
         </div>
         <div class="fg" id="wrap-medico"><label>Médico / Autoridad que expide</label><input type="text" id="medico" placeholder="Ej. Dr. Carlos Ramírez – EPS Sanitas"></div>
         <div class="fg" style="grid-column:1/-1"><label>Observaciones del trabajador</label><textarea id="obs" placeholder="Información adicional que desee reportar…"></textarea></div>
@@ -1409,7 +1474,7 @@ display:block !important;
       <input class="modal-input" type="password" id="modal-pwd" placeholder="••••••••"
              onkeydown="if(event.key==='Enter')verificarClave()"
              autocomplete="off" maxlength="30" style="padding-right:44px;width:100%;box-sizing:border-box">
-      <button onclick="(function(){var i=document.getElementById('modal-pwd');var b=document.getElementById('toggle-pwd-btn');if(i.type==='password'){i.type='text';b.textContent='🙈';}else{i.type='password';b.textContent='👁';}i.focus();})()" 
+      <button onclick="(function(){var i=document.getElementById('modal-pwd');var b=document.getElementById('toggle-pwd-btn');if(i.type==='password'){i.type='text';b.textContent='🔒';}else{i.type='password';b.textContent='👁';}i.focus();})()" 
               id="toggle-pwd-btn"
               type="button"
               style="position:absolute;right:10px;background:none;border:none;cursor:pointer;font-size:18px;padding:4px;line-height:1;color:#64748b">👁</button>
@@ -2097,10 +2162,10 @@ display:block !important;
   </div>
 
   <!-- TIPO DE AUSENCIA -->
-  <div style="border:1px solid #bfdbfe;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
-    <div style="background:#1a3a6b;padding:7px 12px;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.5px;">📋 Tipo de Ausencia</div>
-    <div style="padding:10px 12px;background:#eff6ff;">
-      <div style="font-size:13px;font-weight:900;color:#1a3a6b;">${reg.tipo}</div>
+  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
+    <div style="background:#f1f5f9;padding:7px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;">📋 Tipo de Ausencia</div>
+    <div style="padding:10px 12px;">
+      <div style="font-size:12px;font-weight:700;padding:6px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;color:#1e293b;">${reg.tipo}</div>
     </div>
   </div>
 
@@ -2108,12 +2173,11 @@ display:block !important;
   <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
     <div style="background:#f1f5f9;padding:7px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;">📄 Soporte y Diagnóstico</div>
     <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Tipo de soporte</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.soporte || '—'}</div></div>
+      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Tipo de soporte</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.soporte && reg.soporte !== '' ? reg.soporte : 'No aplica'}</div></div>
       <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Diagnóstico / CIE-10</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.diag || '—'}</div></div>
       <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Médico / Autoridad que expide</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.medico || '—'}</div></div>
       ${numInc ? '<div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Número de incapacidad</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">' + numInc + '</div></div>' : ''}
-      <div style="grid-column:1/-1"><div style="font-size:8px;font-weight:700;color:#92400e;text-transform:uppercase;margin-bottom:2px;">Motivo de la Ausencia / Incapacidad / Licencia</div><div style="font-size:11px;font-weight:700;padding:6px 8px;background:#fffbeb;border:1px solid #fde68a;border-radius:5px;color:#92400e;">${reg.motivo || reg.obs || '—'}</div></div>
-      <div style="grid-column:1/-1"><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Observaciones adicionales</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.obs || '—'}</div></div>
+      <div style="grid-column:1/-1"><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Observaciones</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.obs || '—'}</div></div>
     </div>
   </div>
 
@@ -2316,6 +2380,20 @@ function mostrarBtnVolver() {
 }
 
 // ══ TOGGLE CAMPOS MÉDICOS según soporte ══
+function onDiagChange(sel) {
+  // Si elige "Otro", convertir el select en input de texto
+  if (sel.value === 'Otro – Especificar con el médico') {
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'diag';
+    input.placeholder = 'Escriba el diagnóstico...';
+    input.style.cssText = sel.style.cssText;
+    input.className = sel.className;
+    sel.parentNode.replaceChild(input, sel);
+    input.focus();
+  }
+}
+
 function toggleCamposMedicos() {
   var sop = document.getElementById("soporte").value;
   var tipo = document.getElementById("tipo-ausencia").value;
