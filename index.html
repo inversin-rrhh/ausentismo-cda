@@ -1528,10 +1528,10 @@ var CELULAR_RRHH = "573187072035";
 
 // 4. EMAILJS — Envío real de correos (gratis hasta 200/mes en emailjs.com)
 //    Instrucciones: ver guía al final del archivo
-var EMAILJS_SERVICE_ID  = ""; // ← ej: "service_abc123"
-var EMAILJS_TEMPLATE_ID_RRHH = ""; // ← template notif a RRHH
-var EMAILJS_TEMPLATE_ID_EMP  = ""; // ← template respuesta al empleado(a)
-var EMAILJS_PUBLIC_KEY  = ""; // ← clave pública EmailJS
+var EMAILJS_SERVICE_ID  = "inversin_rrhh";
+var EMAILJS_TEMPLATE_ID_RRHH = "template_jefe"; // notif a jefe inmediato
+var EMAILJS_TEMPLATE_ID_EMP  = "template_jefe"; // misma plantilla
+var EMAILJS_PUBLIC_KEY  = "deMjOnKt6sGQbgDR1";
 
 // 5. GOOGLE DRIVE — Subida automática de PDFs
 //    Instrucciones completas al final del archivo (sección GUÍA GOOGLE DRIVE)
@@ -2744,6 +2744,63 @@ function setRemunerada(id, val) {
   renderConsultaSolicitudes();
 }
 
+
+// ── MAPA DE JEFES INMEDIATOS ──
+var JEFES_INMEDIATOS = {
+  "Edwin Vilardy Trujillo":        { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
+  "Janer Montesino Rangel":        { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
+  "Jorge Alexander Rueda Bravo":   { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
+  "Julian David Pulido Mora":      { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
+  "Kelly Johana Uribe Téllez":     { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
+  "Lida Juana Aida Lith Rueda Súspez": { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
+  "Salomon Rueda Rueda":           { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
+  "Heriberto León Ayala":          { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
+  "Marlon José Quintero García":   { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
+  "Luis Alexander López Aldana":   { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
+  "Carlos Arturo Valencia":        { email: "inversin.rrhh@gmail.com",   emailSuplente: "" },
+  "Gabriela De Jesús Sosa Chávez": { email: "inversin.rrhh@gmail.com",   emailSuplente: "" },
+  "Diego Fernando Alemán Arrieta": { email: "salomonrueda@hotmail.com",  emailSuplente: "" }
+};
+
+// ── NOTIFICAR JEFE INMEDIATO POR CORREO ──
+function notificarJefeInmediato(reg) {
+  if (!EMAILJS_SERVICE_ID || !EMAILJS_PUBLIC_KEY) return;
+  var jefe = JEFES_INMEDIATOS[reg.nombre];
+  if (!jefe) return;
+
+  var tipo = reg.tipo || "";
+  var mensaje = "";
+  var dias = reg.hab || 1;
+
+  if (tipo.toLowerCase().includes("incapacidad")) {
+    mensaje = "Le informamos que " + reg.nombre + " reportó una incapacidad por " + dias + " día(s) desde " + reg.fi + " al " + reg.ff + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
+  } else if (tipo.toLowerCase().includes("licencia")) {
+    mensaje = "Le informamos que " + reg.nombre + " solicitó una licencia por " + dias + " día(s) desde " + reg.fi + " al " + reg.ff + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
+  } else {
+    var hora = reg.hora ? " a las " + reg.hora : "";
+    mensaje = "Le informamos que " + reg.nombre + " tiene un permiso aprobado para el día " + reg.fi + hora + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
+  }
+
+  // Enviar al jefe principal
+  emailjs.send(EMAILJS_SERVICE_ID, "template_jefe", {
+    jefe_email: jefe.email,
+    mensaje: mensaje,
+    name: "Recursos Humanos CDA"
+  }, EMAILJS_PUBLIC_KEY)
+  .then(function(){ toast("📧 Correo enviado al jefe inmediato ✅"); })
+  .catch(function(e){ console.warn("EmailJS jefe error:", e); });
+
+  // Enviar al suplente si existe (solo para DT)
+  if (jefe.emailSuplente) {
+    emailjs.send(EMAILJS_SERVICE_ID, "template_jefe", {
+      jefe_email: jefe.emailSuplente,
+      mensaje: mensaje,
+      name: "Recursos Humanos CDA"
+    }, EMAILJS_PUBLIC_KEY)
+    .catch(function(e){ console.warn("EmailJS suplente error:", e); });
+  }
+}
+
 function aprobar(id) {
   var r = registros.find(x => x.id===id);
   if (!r) return;
@@ -2757,9 +2814,11 @@ function aprobar(id) {
   renderPanel(); updateStats(); renderConsultaSolicitudes();
   // Notificar al empleado por WhatsApp
   notificarEmpleado(r);
+  // Notificar al jefe inmediato por correo
+  setTimeout(function(){ try { notificarJefeInmediato(r); } catch(e){ console.warn("jefe email error:",e); } }, 1200);
   // Generar PDF
   try { generarPDF(r); } catch(e) { console.error("generarPDF error:", e); }
-  toast("✅ Permiso aprobado — PDF generado — Notificación WhatsApp enviada al empleado(a)");
+  toast("✅ Permiso aprobado — PDF generado — Notificaciones enviadas");
 }
 
 function negar(id) {
