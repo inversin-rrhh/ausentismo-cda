@@ -967,8 +967,8 @@ display:block !important;
             <div class="aus-box-body">
               <select id="sel-pnrem" onchange="onSelectPerm(this,'pnrem')">
                 <option value="">— Seleccione el tipo de permiso no remunerado —</option>
-                <option value="Permiso No Rem. – Diligencias personales">Diligencias Personales</option>
-                <option value="Permiso No Rem. – Mudanza">Mudanza</option>
+                <option value="Permiso No Rem. – Diligencias personales">Diligencias Personales — hasta 1 día hábil</option>
+                <option value="Permiso No Rem. – Mudanza">Mudanza — máximo 1 día</option>
                 <option value="__otros__">Otros</option>
               </select>
               <!-- Campo texto libre para "Otros" -->
@@ -1033,7 +1033,9 @@ display:block !important;
                 <option value="Licencia Rem. – Luto (Ley 1280/2009)">Luto — 5 días hábiles (Ley 1280/2009)</option>
                 <option value="Licencia Rem. – Matrimonio (Ley 2466/2025)">Matrimonio — 3 días hábiles (Ley 2466/2025)</option>
                 <option value="Licencia Rem. – Calamidad doméstica">Calamidad Doméstica — Licencia Remunerada</option>
-                <option value="Licencia No Rem. – Acuerdo entre partes">Licencia No Remunerada — Acuerdo entre partes</option>
+                <option value="Licencia No Rem. – Diligencias personales">Licencia No Rem. – Diligencias personales (2 o más días consecutivos)</option>
+                <option value="Licencia No Rem. – Estudios / Academia">Licencia No Rem. – Estudios / Academia (2 o más días)</option>
+                <option value="Licencia No Rem. – Acuerdo entre partes">Licencia No Rem. – Otras (acuerdo entre partes)</option>
               </select>
             </div>
           </div>
@@ -2185,10 +2187,10 @@ display:block !important;
   
 
 
-  <div style="padding:10px 12px;border-radius:8px;text-align:center;margin-bottom:10px;border:2px solid ${reg.aprobado==='Aprobado'?'#16a34a':reg.aprobado==='Negado'?'#dc2626':'#d4a017'};background:${reg.aprobado==='Aprobado'?'#dcfce7':reg.aprobado==='Negado'?'#fee2e2':'#fef9c3'};font-family:Arial,sans-serif;">
-    <div style="font-size:20px;">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Negado'?'❌':'⏳'}</div>
-    <div style="font-size:14px;font-weight:900;margin-top:4px;">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
-    <div style="font-size:9px;margin-top:3px;color:#475569;">${reg.aprobado!=='Pendiente'?'Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor:'En espera de revisión por parte de RRHH'}</div>
+  <div style="padding:10px 12px;border-radius:8px;text-align:center;margin-bottom:10px;border:2px solid ${reg.aprobado==='Aprobado'?'#16a34a':reg.aprobado==='Registrada'?'#2563b8':reg.aprobado==='Negado'?'#dc2626':'#d4a017'};background:${reg.aprobado==='Aprobado'?'#dcfce7':reg.aprobado==='Registrada'?'#dbeafe':reg.aprobado==='Negado'?'#fee2e2':'#fef9c3'};font-family:Arial,sans-serif;">
+    <div style="font-size:20px;">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Registrada'?'📋':reg.aprobado==='Negado'?'❌':'⏳'}</div>
+    <div style="font-size:14px;font-weight:900;margin-top:4px;">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Registrada'?'REGISTRADA':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
+    <div style="font-size:9px;margin-top:3px;color:#475569;">${reg.aprobado==='Registrada'?'Registro automático — '+reg.aprPor:reg.aprobado!=='Pendiente'?'Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor:'En espera de revisión por parte de RRHH'}</div>
   </div>
 
   <div style="text-align:center;font-size:8.5px;color:#94a3b8;margin-top:10px;padding-top:8px;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;">CDA BARRANCABERMEJA · CDABR-GRH-F-09 · Versión 03 · 2026-01-02 · Sistema de Gestión de Recursos Humanos</div>
@@ -2241,9 +2243,27 @@ display:block !important;
         ventana.close();
         toast("📄 PDF generado — revise su carpeta de Descargas");
         // ── Subir a Google Drive automáticamente ──
-        if (GDRIVE_CLIENT_ID) {
-          var pdfBlob = pdf.output('blob');
-          gdriveSubirPDF(pdfBlob, nombreArchivo, reg);
+        // Subir PDF a Drive via Apps Script (sin OAuth)
+        if (SHEETS_SCRIPT_URL) {
+          var mesesPDF = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+          var fechaHoyPDF = new Date();
+          var pdfBase64 = pdf.output('datauristring').split(',')[1];
+          var uploadParams = new URLSearchParams({
+            accion:     'subirPDF',
+            nombre:     nombreArchivo,
+            base64:     pdfBase64,
+            carpeta:    GDRIVE_FOLDER_ROOT,
+            subcarpeta: GDRIVE_FOLDER_PDFS,
+            anio:       String(fechaHoyPDF.getFullYear()),
+            mes:        mesesPDF[fechaHoyPDF.getMonth()]
+          });
+          fetch(SHEETS_SCRIPT_URL + '?' + uploadParams.toString())
+            .then(function(r){ return r.json(); })
+            .then(function(d){
+              if(d.ok) toast('☁️ PDF archivado en Drive ✅');
+              else toast('⚠ Error subiendo PDF: ' + (d.error||''), true);
+            })
+            .catch(function(e){ toast('⚠ Error Drive: ' + e.message, true); });
         }
       });
     }, 800);
@@ -2549,9 +2569,25 @@ function registrar(omitirValidacion) {
   var d1 = new Date(fi+"T00:00:00"), d2 = new Date(ff+"T00:00:00");
   var cal = Math.round((d2-d1)/86400000)+1, hab = 0, cur = new Date(d1);
   while (cur <= d2) { if (cur.getDay()!==0) hab++; cur.setDate(cur.getDate()+1); }
-  // Validar anticipación 3 días hábiles
-  var esFuerzaMayor = tipo.includes("Incapacidad") || tipo.includes("Injustificada") || tipo.includes("Vacacion");
-  if (!omitirValidacion && !esFuerzaMayor) {
+  // ── Clasificación de tipos por flujo ──
+  // Se REGISTRAN directo (sin aprobación, sin 3 días):
+  var esRegistroDirecto =
+    tipo.includes("Incapacidad") ||
+    tipo.includes("Injustificada") ||
+    tipo.includes("Vacacion") ||
+    tipo.includes("Maternidad") ||
+    tipo.includes("Paternidad") ||
+    tipo.includes("Luto") ||
+    tipo.includes("Matrimonio") ||
+    tipo.includes("Calamidad");
+
+  // Van a aprobación CON 3 días anticipación:
+  var requiere3Dias = !esRegistroDirecto; // permisos y licencias no remuneradas
+
+  // Si se registra directo → estado = "Registrada" automáticamente
+  if (esRegistroDirecto) {
+    // No validar anticipación, continuar directo
+  } else if (!omitirValidacion) {
     var hoy = new Date(); hoy.setHours(0,0,0,0);
     var dIni = new Date(fi + "T00:00:00");
     var diasHabiles = 0, cur2 = new Date(hoy);
@@ -2585,7 +2621,9 @@ function registrar(omitirValidacion) {
   var radicado = generarRadicadoSolicitud();
   var reg = {
     id:ctr, radicado:radicado, nombre, cedula, cargo, area, tipo, fi, ff, hab, cal,
-    aprobado:"Pendiente", remunerada:"Pendiente RRHH", aprPor:"",
+    aprobado: esRegistroDirecto ? "Registrada" : "Pendiente",
+    remunerada: esRegistroDirecto ? (tipo.includes("No Rem") ? "No" : "Sí") : "Pendiente RRHH",
+    aprPor: esRegistroDirecto ? "Sistema — Registro automático" : "",
     soporte: soporteSel,
     diag:    document.getElementById("diag").value.trim(),
     medico:  document.getElementById("medico").value.trim(),
@@ -2595,17 +2633,28 @@ function registrar(omitirValidacion) {
     horasDisplay: (()=>{ var h=parseInt(document.getElementById("horas-ent").value)||0; var m=parseInt(document.getElementById("minutos-ent").value)||0; return h>0&&m>0?h+"h "+m+"min":h>0?(h===1?"1 hora":h+" horas"):m>0?m+" minutos":""; })(),
     correoEmp: document.getElementById("correo-emp").value.trim(),
     celularEmp: document.getElementById("celular-emp").value.trim(),
-    fechaDiligenciamiento: (function(){ var f=document.getElementById("fecha-diligenciamiento"); if(f&&f.value){ var p=f.value.split("-"); return p[2]+"/"+p[1]+"/"+p[0]; } return new Date().toLocaleDateString("es-CO"); })(),
+    fechaDiligenciamiento: (function(){ var f=document.getElementById("fecha-diligenciamiento"); if(f&&f.value){ return f.value; } var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })(),
     fecha:   new Date().toLocaleString("es-CO"),
     diasAnticip: diasAnticip,
-    fueraTiempo: diasAnticip < 3 && !esFuerzaMayor,
+    fueraTiempo: diasAnticip < 3 && requiere3Dias,
     motivoNegacion: ""
   };
   registros.push(reg);
-  // Primero guardar en la nube, luego notificar por WhatsApp
+  // Guardar en la nube — la nube es la fuente de verdad
   try { enviarASheets(reg); } catch(e) { console.error("enviarASheets error:", e); }
+  // Recargar desde nube después de 3 segundos para evitar duplicados
+  setTimeout(function(){
+    cargarPanelDesdeNube(true);
+  }, 3000);
   // Pequeño delay para que el fetch salga antes de abrir WhatsApp
   setTimeout(function(){ try { notificarRRHH(reg); } catch(e) { console.error("notificarRRHH error:", e); } }, 800);
+  // Si es registro directo → generar PDF y notificar jefe inmediato automáticamente
+  if (esRegistroDirecto) {
+    setTimeout(function(){
+      try { generarPDF(reg); } catch(e){ console.error("generarPDF error:", e); }
+      setTimeout(function(){ try { notificarJefeInmediato(reg); } catch(e){ console.warn("jefe email error:",e); } }, 1200);
+    }, 1500);
+  }
   // PDF se genera solo cuando RRHH aprueba — no al momento del registro
   try { mostrarConfirmacionEnvio(reg.radicado, reg.nombre, reg.tipo, reg.fi, reg.ff); } catch(e) { console.error("confirmacion error:", e); toast("✅ Solicitud " + reg.radicado + " registrada correctamente."); }
   try { updateStats(); } catch(e) { console.error("updateStats error:", e); }
@@ -2699,11 +2748,10 @@ function cargarPanelDesdeNube(silencioso) {
       if (!silencioso) toast("No hay solicitudes en la nube aún", true);
       return;
     }
-    // Reemplazar completamente los registros locales con los de la nube
-    registros = [];
+    // Reemplazar COMPLETAMENTE — nunca mezclar local con nube
+    registros = regsNube;
     ctr = 0;
-    regsNube.forEach(function(rn) {
-      registros.push(rn);
+    registros.forEach(function(rn) {
       if (parseInt(rn.id) > ctr) ctr = parseInt(rn.id);
     });
     renderPanel();
@@ -2725,15 +2773,21 @@ function renderPanel() {
   }
   if (!registros.length) { tb.innerHTML='<tr><td colspan="10" style="text-align:center;color:#aaa;padding:24px;font-style:italic">No hay solicitudes</td></tr>'; return; }
   tb.innerHTML = registros.map(r => {
-    var bc = r.aprobado==="Aprobado"?"bdg-ok":r.aprobado==="Negado"?"bdg-no":"bdg-pend";
+    var bc = r.aprobado==="Aprobado"?"bdg-ok":r.aprobado==="Negado"?"bdg-no":r.aprobado==="Registrada"?"bdg-reg":"bdg-pend";
     // Campo remunerada: solo editable por RRHH
     var remSel = `<select style="border:1px solid #e2e8f0;border-radius:6px;padding:3px 6px;font-size:11px" onchange="setRemunerada(${r.id},this.value)">
       <option value="Pendiente RRHH" ${r.remunerada==="Pendiente RRHH"?"selected":""}>Por definir</option>
       <option value="Sí" ${r.remunerada==="Sí"?"selected":""}>Sí (Remunerada)</option>
       <option value="No" ${r.remunerada==="No"?"selected":""}>No (No Remunerada)</option>
     </select>`;
-    var acc = `<button class="bap" onclick="aprobar(${r.id})">✓ Aprobar</button><button class="bne" onclick="negar(${r.id})">✗ Negar</button>`;
-    if (r.aprobado !== "Pendiente") acc = `<span style="font-size:11px;color:#aaa">Ya procesado</span>`;
+    var acc = "";
+    if (r.aprobado === "Registrada") {
+      acc = '<span style="font-size:11px;color:#2563b8;font-weight:700">📋 Registro automático</span>';
+    } else if (r.aprobado === "Pendiente") {
+      acc = '<button class="bap" onclick="aprobar(' + r.id + ')">✓ Aprobar</button><button class="bne" onclick="negar(' + r.id + ')">✗ Negar</button>';
+    } else {
+      acc = '<span style="font-size:11px;color:#aaa">Ya procesado</span>';
+    }
     var rfi=limpiarFecha(r.fi),rff=limpiarFecha(r.ff);
     return `<tr><td>${r.id}</td><td><strong>${r.nombre}</strong><br><small style="color:#94a3b8">${r.correoEmp||''} ${r.celularEmp?'· '+r.celularEmp:''}</small></td><td>${r.cedula}</td><td style="font-size:11px;max-width:160px">${r.tipo}</td><td>${rfi}</td><td>${rff}</td><td style="text-align:center"><strong>${r.hab}</strong></td><td>${remSel}</td><td><span class="bdg ${bc}">${r.aprobado}</span></td><td>${acc}</td></tr>`;
   }).join("");
@@ -2976,7 +3030,7 @@ function renderConsultaSolicitudes() {
   fill.style.background = color;
 
   tbody.innerHTML = regs.map(function(r){
-    var bc = r.aprobado === "Aprobado" ? "bdg-ok" : r.aprobado === "Negado" ? "bdg-no" : "bdg-pend";
+    var bc = r.aprobado === "Aprobado" ? "bdg-ok" : r.aprobado === "Negado" ? "bdg-no" : r.aprobado==="Registrada"?"bdg-reg":"bdg-pend";
     var dur = r.horasDisplay ? r.horasDisplay : (r.hab + " día(s)");
     var obs = r.aprobado === "Negado" && r.motivoNegacion ? r.motivoNegacion : (r.obs || "—");
     return '<tr>' +
@@ -3001,7 +3055,7 @@ function renderMatriz() {
   if (!registros.length) { tb.innerHTML='<tr><td colspan="17" style="text-align:center;color:#aaa;padding:24px;font-style:italic">No hay registros</td></tr>'; return; }
   var totalHoras = 0;
   tb.innerHTML = registros.map(r => {
-    var bc = r.aprobado==="Aprobado"?"bdg-ok":r.aprobado==="Negado"?"bdg-no":"bdg-pend";
+    var bc = r.aprobado==="Aprobado"?"bdg-ok":r.aprobado==="Negado"?"bdg-no":r.aprobado==="Registrada"?"bdg-reg":"bdg-pend";
     // Calcular horas: si registró horas parciales usar esas, si no convertir días hábiles * 8
     var horas = r.horasAusentes > 0 ? r.horasAusentes : r.hab * 8;
     totalHoras += horas;
