@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -967,8 +966,8 @@ display:block !important;
             <div class="aus-box-body">
               <select id="sel-pnrem" onchange="onSelectPerm(this,'pnrem')">
                 <option value="">— Seleccione el tipo de permiso no remunerado —</option>
-                <option value="Permiso No Rem. – Diligencias personales">Diligencias Personales — hasta 1 día hábil</option>
-                <option value="Permiso No Rem. – Mudanza">Mudanza — máximo 1 día</option>
+                <option value="Permiso No Rem. – Diligencias personales">Diligencias Personales</option>
+                <option value="Permiso No Rem. – Mudanza">Mudanza</option>
                 <option value="__otros__">Otros</option>
               </select>
               <!-- Campo texto libre para "Otros" -->
@@ -1033,9 +1032,7 @@ display:block !important;
                 <option value="Licencia Rem. – Luto (Ley 1280/2009)">Luto — 5 días hábiles (Ley 1280/2009)</option>
                 <option value="Licencia Rem. – Matrimonio (Ley 2466/2025)">Matrimonio — 3 días hábiles (Ley 2466/2025)</option>
                 <option value="Licencia Rem. – Calamidad doméstica">Calamidad Doméstica — Licencia Remunerada</option>
-                <option value="Licencia No Rem. – Diligencias personales">Licencia No Rem. – Diligencias personales (2 o más días consecutivos)</option>
-                <option value="Licencia No Rem. – Estudios / Academia">Licencia No Rem. – Estudios / Academia (2 o más días)</option>
-                <option value="Licencia No Rem. – Acuerdo entre partes">Licencia No Rem. – Otras (acuerdo entre partes)</option>
+                <option value="Licencia No Rem. – Acuerdo entre partes">Licencia No Remunerada — Acuerdo entre partes</option>
               </select>
             </div>
           </div>
@@ -1106,75 +1103,10 @@ display:block !important;
         <div class="fg" id="wrap-diag">
           <label>Diagnóstico / Código CIE-10
             <span style="font-size:10px;color:#94a3b8;font-weight:500;text-transform:none;letter-spacing:0;display:block;margin-top:1px">
-              Solo para incapacidades y licencias médicas.
+              CIE-10 = Clasificación Internacional de Enfermedades. Solo para incapacidades y licencias médicas.
             </span>
           </label>
-          <select id="diag" onchange="onDiagChange(this)">
-            <option value="">— Seleccione el diagnóstico —</option>
-            <optgroup label="🦠 Enfermedades Respiratorias">
-              <option value="J00 – Rinofaringitis aguda (Resfriado común)">J00 – Resfriado común / Rinofaringitis aguda</option>
-              <option value="J06.9 – Infección aguda de vías respiratorias superiores">J06.9 – Infección aguda vías respiratorias superiores</option>
-              <option value="J11 – Gripa / Influenza">J11 – Gripa / Influenza</option>
-              <option value="J18.9 – Neumonía">J18.9 – Neumonía</option>
-              <option value="J20 – Bronquitis aguda">J20 – Bronquitis aguda</option>
-              <option value="J45 – Asma">J45 – Asma</option>
-            </optgroup>
-            <optgroup label="🦷 Odontología">
-              <option value="K08.9 – Problema dental / Dolor dental">K08.9 – Problema dental / Dolor dental</option>
-              <option value="K04.0 – Pulpitis / Infección dental">K04.0 – Pulpitis / Infección dental</option>
-            </optgroup>
-            <optgroup label="🤕 Traumatismos y Accidentes">
-              <option value="S09.9 – Traumatismo en la cabeza">S09.9 – Traumatismo en la cabeza</option>
-              <option value="S19.9 – Traumatismo del cuello">S19.9 – Traumatismo del cuello</option>
-              <option value="S29.9 – Traumatismo del tórax">S29.9 – Traumatismo del tórax</option>
-              <option value="S39.9 – Traumatismo del abdomen / espalda">S39.9 – Traumatismo del abdomen / espalda</option>
-              <option value="S49.9 – Traumatismo del hombro / brazo">S49.9 – Traumatismo del hombro / brazo</option>
-              <option value="S59.9 – Traumatismo del codo / antebrazo">S59.9 – Traumatismo del codo / antebrazo</option>
-              <option value="S69.9 – Traumatismo de la muñeca / mano">S69.9 – Traumatismo de la muñeca / mano</option>
-              <option value="S79.9 – Traumatismo de la cadera / muslo">S79.9 – Traumatismo de la cadera / muslo</option>
-              <option value="S89.9 – Traumatismo de la rodilla / pierna">S89.9 – Traumatismo de la rodilla / pierna</option>
-              <option value="S99.9 – Traumatismo del tobillo / pie">S99.9 – Traumatismo del tobillo / pie</option>
-              <option value="T14.9 – Traumatismo no especificado">T14.9 – Traumatismo no especificado</option>
-            </optgroup>
-            <optgroup label="🫀 Enfermedades Cardiovasculares">
-              <option value="I10 – Hipertensión arterial">I10 – Hipertensión arterial</option>
-              <option value="I25.9 – Enfermedad coronaria">I25.9 – Enfermedad coronaria</option>
-            </optgroup>
-            <optgroup label="🧠 Salud Mental">
-              <option value="F32.9 – Episodio depresivo">F32.9 – Episodio depresivo</option>
-              <option value="F41.1 – Trastorno de ansiedad generalizada">F41.1 – Trastorno de ansiedad</option>
-              <option value="F43.1 – Estrés postraumático">F43.1 – Estrés postraumático</option>
-              <option value="Z73.0 – Agotamiento / Burn-out">Z73.0 – Agotamiento / Burn-out</option>
-            </optgroup>
-            <optgroup label="🤰 Maternidad / Ginecología">
-              <option value="Z34 – Supervisión de embarazo normal">Z34 – Supervisión de embarazo normal</option>
-              <option value="O00–O99 – Complicación del embarazo">O00–O99 – Complicación del embarazo</option>
-              <option value="Z39 – Cuidado postparto">Z39 – Cuidado postparto</option>
-            </optgroup>
-            <optgroup label="🦴 Osteomuscular">
-              <option value="M54.5 – Dolor lumbar / Lumbago">M54.5 – Dolor lumbar / Lumbago</option>
-              <option value="M54.2 – Cervicalgia / Dolor cervical">M54.2 – Cervicalgia / Dolor cervical</option>
-              <option value="M79.3 – Paniculitis / Dolor muscular">M79.3 – Dolor muscular</option>
-              <option value="M25.5 – Dolor articular">M25.5 – Dolor articular</option>
-            </optgroup>
-            <optgroup label="🍽️ Gastrointestinal">
-              <option value="K59.1 – Diarrea funcional">K59.1 – Diarrea funcional</option>
-              <option value="K21.0 – Gastritis / Reflujo">K21.0 – Gastritis / Reflujo</option>
-              <option value="K29.7 – Gastroenteritis">K29.7 – Gastroenteritis</option>
-            </optgroup>
-            <optgroup label="👁️ Oftalmología">
-              <option value="H57.9 – Trastorno ocular">H57.9 – Trastorno ocular</option>
-              <option value="H10 – Conjuntivitis">H10 – Conjuntivitis</option>
-            </optgroup>
-            <optgroup label="🩺 Otros">
-              <option value="A09 – Infección intestinal">A09 – Infección intestinal</option>
-              <option value="N39.0 – Infección urinaria">N39.0 – Infección urinaria</option>
-              <option value="R50.9 – Fiebre no especificada">R50.9 – Fiebre no especificada</option>
-              <option value="R51 – Cefalea / Migraña">R51 – Cefalea / Migraña</option>
-              <option value="Z00.0 – Examen médico general">Z00.0 – Examen médico general</option>
-              <option value="Otro – Especificar con el médico">Otro – Especificar con el médico</option>
-            </optgroup>
-          </select>
+          <input type="text" id="diag" placeholder="Ej. J06.9 – Gripa / Infección respiratoria">
         </div>
         <div class="fg" id="wrap-medico"><label>Médico / Autoridad que expide</label><input type="text" id="medico" placeholder="Ej. Dr. Carlos Ramírez – EPS Sanitas"></div>
         <div class="fg" style="grid-column:1/-1"><label>Observaciones del trabajador</label><textarea id="obs" placeholder="Información adicional que desee reportar…"></textarea></div>
@@ -1477,7 +1409,7 @@ display:block !important;
       <input class="modal-input" type="password" id="modal-pwd" placeholder="••••••••"
              onkeydown="if(event.key==='Enter')verificarClave()"
              autocomplete="off" maxlength="30" style="padding-right:44px;width:100%;box-sizing:border-box">
-      <button onclick="(function(){var i=document.getElementById('modal-pwd');var b=document.getElementById('toggle-pwd-btn');if(i.type==='password'){i.type='text';b.textContent='🔒';}else{i.type='password';b.textContent='👁';}i.focus();})()" 
+      <button onclick="(function(){var i=document.getElementById('modal-pwd');var b=document.getElementById('toggle-pwd-btn');if(i.type==='password'){i.type='text';b.textContent='🙈';}else{i.type='password';b.textContent='👁';}i.focus();})()" 
               id="toggle-pwd-btn"
               type="button"
               style="position:absolute;right:10px;background:none;border:none;cursor:pointer;font-size:18px;padding:4px;line-height:1;color:#64748b">👁</button>
@@ -1530,10 +1462,10 @@ var CELULAR_RRHH = "573187072035";
 
 // 4. EMAILJS — Envío real de correos (gratis hasta 200/mes en emailjs.com)
 //    Instrucciones: ver guía al final del archivo
-var EMAILJS_SERVICE_ID  = "inversin_rrhh";
-var EMAILJS_TEMPLATE_ID_RRHH = "template_jefe"; // notif a jefe inmediato
-var EMAILJS_TEMPLATE_ID_EMP  = "template_jefe"; // misma plantilla
-var EMAILJS_PUBLIC_KEY  = "deMjOnKt6sGQbgDR1";
+var EMAILJS_SERVICE_ID  = ""; // ← ej: "service_abc123"
+var EMAILJS_TEMPLATE_ID_RRHH = ""; // ← template notif a RRHH
+var EMAILJS_TEMPLATE_ID_EMP  = ""; // ← template respuesta al empleado(a)
+var EMAILJS_PUBLIC_KEY  = ""; // ← clave pública EmailJS
 
 // 5. GOOGLE DRIVE — Subida automática de PDFs
 //    Instrucciones completas al final del archivo (sección GUÍA GOOGLE DRIVE)
@@ -1547,7 +1479,7 @@ var GDRIVE_FOLDER_ROOT  = "AUSENTISMO_CDA";   // Nombre carpeta raíz en tu Driv
 var GDRIVE_FOLDER_PDFS  = "PDF_AUSENTISMO";   // Subcarpeta de PDFs
 
 // 6. GOOGLE SHEETS — URL del Apps Script para guardar registros permanentemente
-var SHEETS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0-Qn1gGhszYGWmMK6EvJimxxH4kQpzMkeKr28iDgClG-b5Ip6uPLXPhMLgdSZOTvzrw/exec";
+var SHEETS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOTy5ks5L4Lf8wo-fzonINAaYs3_WrsM4t19n_DjkdaDKpkY9s74guiTuRJ_5dKZV0/exec";
 // ════════════════════════════════════════════════════════════
 
 // ── GOOGLE SHEETS: Sistema completo de sincronización ──
@@ -2134,66 +2066,62 @@ display:block !important;
     </tr>
   </table>
 
-  <!-- CONSECUTIVO -->
-  <div style="text-align:center;margin-bottom:10px;font-family:Arial,sans-serif;">
-    <span style="background:#1a3a6b;color:#fff;padding:3px 14px;border-radius:20px;font-size:10px;font-weight:900;">Solicitud N° ${reg.id}</span>
-    <div style="font-size:8.5px;color:#94a3b8;margin-top:3px;">Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</div>
+  <div class="consec">
+    <span>Solicitud N° ${reg.id}</span>
+    <small>Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</small>
   </div>
 
-  <!-- DATOS DEL EMPLEADO -->
-  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
-    <div style="background:#f1f5f9;padding:7px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;">👤 Datos del Empleado(a)</div>
-    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Nombre completo</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.nombre}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Cédula de ciudadanía</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.cedula}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Cargo</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.cargo}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Área</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.area}</div></div>
+  <div class="tipo-banner">
+    <div class="lbl">Tipo de Ausencia Seleccionado</div>
+    <div class="val">${reg.tipo}</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head">👤 Datos del Empleado(a)</div>
+    <div class="sec-body grid2">
+      <div class="campo"><label>Nombre completo</label><div class="val">${reg.nombre}</div></div>
+      <div class="campo"><label>Cédula de ciudadanía</label><div class="val">${reg.cedula}</div></div>
+      <div class="campo"><label>Cargo</label><div class="val">${reg.cargo}</div></div>
+      <div class="campo"><label>Área</label><div class="val">${reg.area}</div></div>
+      <div class="campo"><label>Fecha de diligenciamiento</label><div class="val">${reg.fechaDiligenciamiento || reg.fecha}</div></div>
     </div>
   </div>
 
-  <!-- FECHAS Y DURACIÓN -->
-  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
-    <div style="background:#f1f5f9;padding:7px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;">📅 Fechas y Duración</div>
-    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Fecha de inicio</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.fi}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Fecha de fin</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.ff}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Hora de salida</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.hora || '—'}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Días hábiles</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.hab}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Días calendario</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.cal}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Tiempo ausente</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.horasDisplay || '—'}</div></div>
+  <div class="sec">
+    <div class="sec-head">📅 Fechas y Duración</div>
+    <div class="sec-body grid3">
+      <div class="campo"><label>Fecha de inicio</label><div class="val">${reg.fi}</div></div>
+      <div class="campo"><label>Fecha de fin</label><div class="val">${reg.ff}</div></div>
+      <div class="campo"><label>Hora de salida</label><div class="val">${reg.hora || '—'}</div></div>
+      <div class="campo"><label>Días hábiles</label><div class="val">${reg.hab}</div></div>
+      <div class="campo"><label>Días calendario</label><div class="val">${reg.cal}</div></div>
+      <div class="campo"><label>Tiempo ausente</label><div class="val">${reg.horasDisplay || '—'}</div></div>
     </div>
   </div>
 
-  <!-- TIPO DE AUSENCIA -->
-  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
-    <div style="background:#f1f5f9;padding:7px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;">📋 Tipo de Ausencia</div>
-    <div style="padding:10px 12px;">
-      <div style="font-size:12px;font-weight:700;padding:6px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;color:#1e293b;">${reg.tipo}</div>
-    </div>
-  </div>
-
-  <!-- SOPORTE Y DIAGNÓSTICO -->
-  <div style="border:1px solid #e2e8f0;border-radius:8px;margin-bottom:8px;overflow:hidden;font-family:Arial,sans-serif;">
-    <div style="background:#f1f5f9;padding:7px 12px;font-size:10px;font-weight:900;color:#1a3a6b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;">📄 Soporte y Diagnóstico</div>
-    <div style="padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Tipo de soporte</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.soporte && reg.soporte !== '' ? reg.soporte : 'No aplica'}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Diagnóstico / CIE-10</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.diag || '—'}</div></div>
-      <div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Médico / Autoridad que expide</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.medico || '—'}</div></div>
-      ${numInc ? '<div><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Número de incapacidad</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">' + numInc + '</div></div>' : ''}
-      <div style="grid-column:1/-1"><div style="font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:2px;">Observaciones</div><div style="font-size:11px;font-weight:600;padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;">${reg.obs || '—'}</div></div>
+  <div class="sec">
+    <div class="sec-head">📄 Soporte y Diagnóstico</div>
+    <div class="sec-body grid2">
+      <div class="campo"><label>Tipo de soporte</label><div class="val">${reg.soporte || '—'}</div></div>
+      <div class="campo"><label>Diagnóstico / CIE-10</label><div class="val">${reg.diag || '—'}</div></div>
+      <div class="campo"><label>Médico / Autoridad que expide</label><div class="val">${reg.medico || '—'}</div></div>
+      ${numInc ? '<div class="campo"><label>Número de incapacidad</label><div class="val">' + numInc + '</div></div>' : ''}
+      <div class="campo" style="grid-column:1/-1"><label>Observaciones</label><div class="val">${reg.obs || '—'}</div></div>
     </div>
   </div>
 
   
 
 
-  <div style="padding:10px 12px;border-radius:8px;text-align:center;margin-bottom:10px;border:2px solid ${reg.aprobado==='Aprobado'?'#16a34a':reg.aprobado==='Registrada'?'#2563b8':reg.aprobado==='Negado'?'#dc2626':'#d4a017'};background:${reg.aprobado==='Aprobado'?'#dcfce7':reg.aprobado==='Registrada'?'#dbeafe':reg.aprobado==='Negado'?'#fee2e2':'#fef9c3'};font-family:Arial,sans-serif;">
-    <div style="font-size:20px;">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Registrada'?'📋':reg.aprobado==='Negado'?'❌':'⏳'}</div>
-    <div style="font-size:14px;font-weight:900;margin-top:4px;">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Registrada'?'REGISTRADA':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
-    <div style="font-size:9px;margin-top:3px;color:#475569;">${reg.aprobado==='Registrada'?'Registro automático — '+reg.aprPor:reg.aprobado!=='Pendiente'?'Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor:'En espera de revisión por parte de RRHH'}</div>
+<div class="estado ${reg.aprobado==='Aprobado'?'apr':reg.aprobado==='Negado'?'neg':'pend'}">
+    <div class="ico">${reg.aprobado==='Aprobado'?'✅':reg.aprobado==='Negado'?'❌':'⏳'}</div>
+    <div class="txt">${reg.aprobado==='Aprobado'?'APROBADO':reg.aprobado==='Negado'?'NEGADO':'PENDIENTE DE APROBACIÓN'}</div>
+    ${reg.aprobado!=='Pendiente'?'<div class="sub">Remunerada: '+reg.remunerada+' · Aprobado por: '+reg.aprPor+'</div>':'<div class="sub">En espera de revisión por parte de RRHH</div>'}
   </div>
 
-  <div style="text-align:center;font-size:8.5px;color:#94a3b8;margin-top:10px;padding-top:8px;border-top:1px solid #e2e8f0;font-family:Arial,sans-serif;">CDA BARRANCABERMEJA · CDABR-GRH-F-09 · Versión 03 · 2026-01-02 · Sistema de Gestión de Recursos Humanos</div>
+  </div>
+
+  <div class="footer">CDA BARRANCABERMEJA · CDABR-GRH-F-09 · Versión 03 · 2026-01-02 · Sistema de Gestión de Recursos Humanos</div>
 
 
 <!-- FIRMA RRHH FINAL -->
@@ -2243,27 +2171,9 @@ display:block !important;
         ventana.close();
         toast("📄 PDF generado — revise su carpeta de Descargas");
         // ── Subir a Google Drive automáticamente ──
-        // Subir PDF a Drive via Apps Script (sin OAuth)
-        if (SHEETS_SCRIPT_URL) {
-          var mesesPDF = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
-          var fechaHoyPDF = new Date();
-          var pdfBase64 = pdf.output('datauristring').split(',')[1];
-          var uploadParams = new URLSearchParams({
-            accion:     'subirPDF',
-            nombre:     nombreArchivo,
-            base64:     pdfBase64,
-            carpeta:    GDRIVE_FOLDER_ROOT,
-            subcarpeta: GDRIVE_FOLDER_PDFS,
-            anio:       String(fechaHoyPDF.getFullYear()),
-            mes:        mesesPDF[fechaHoyPDF.getMonth()]
-          });
-          fetch(SHEETS_SCRIPT_URL + '?' + uploadParams.toString())
-            .then(function(r){ return r.json(); })
-            .then(function(d){
-              if(d.ok) toast('☁️ PDF archivado en Drive ✅');
-              else toast('⚠ Error subiendo PDF: ' + (d.error||''), true);
-            })
-            .catch(function(e){ toast('⚠ Error Drive: ' + e.message, true); });
+        if (GDRIVE_CLIENT_ID) {
+          var pdfBlob = pdf.output('blob');
+          gdriveSubirPDF(pdfBlob, nombreArchivo, reg);
         }
       });
     }, 800);
@@ -2401,20 +2311,6 @@ function mostrarBtnVolver() {
 }
 
 // ══ TOGGLE CAMPOS MÉDICOS según soporte ══
-function onDiagChange(sel) {
-  // Si elige "Otro", convertir el select en input de texto
-  if (sel.value === 'Otro – Especificar con el médico') {
-    var input = document.createElement('input');
-    input.type = 'text';
-    input.id = 'diag';
-    input.placeholder = 'Escriba el diagnóstico...';
-    input.style.cssText = sel.style.cssText;
-    input.className = sel.className;
-    sel.parentNode.replaceChild(input, sel);
-    input.focus();
-  }
-}
-
 function toggleCamposMedicos() {
   var sop = document.getElementById("soporte").value;
   var tipo = document.getElementById("tipo-ausencia").value;
@@ -2569,25 +2465,9 @@ function registrar(omitirValidacion) {
   var d1 = new Date(fi+"T00:00:00"), d2 = new Date(ff+"T00:00:00");
   var cal = Math.round((d2-d1)/86400000)+1, hab = 0, cur = new Date(d1);
   while (cur <= d2) { if (cur.getDay()!==0) hab++; cur.setDate(cur.getDate()+1); }
-  // ── Clasificación de tipos por flujo ──
-  // Se REGISTRAN directo (sin aprobación, sin 3 días):
-  var esRegistroDirecto =
-    tipo.includes("Incapacidad") ||
-    tipo.includes("Injustificada") ||
-    tipo.includes("Vacacion") ||
-    tipo.includes("Maternidad") ||
-    tipo.includes("Paternidad") ||
-    tipo.includes("Luto") ||
-    tipo.includes("Matrimonio") ||
-    tipo.includes("Calamidad");
-
-  // Van a aprobación CON 3 días anticipación:
-  var requiere3Dias = !esRegistroDirecto; // permisos y licencias no remuneradas
-
-  // Si se registra directo → estado = "Registrada" automáticamente
-  if (esRegistroDirecto) {
-    // No validar anticipación, continuar directo
-  } else if (!omitirValidacion) {
+  // Validar anticipación 3 días hábiles
+  var esFuerzaMayor = tipo.includes("Incapacidad") || tipo.includes("Injustificada") || tipo.includes("Vacacion");
+  if (!omitirValidacion && !esFuerzaMayor) {
     var hoy = new Date(); hoy.setHours(0,0,0,0);
     var dIni = new Date(fi + "T00:00:00");
     var diasHabiles = 0, cur2 = new Date(hoy);
@@ -2621,9 +2501,7 @@ function registrar(omitirValidacion) {
   var radicado = generarRadicadoSolicitud();
   var reg = {
     id:ctr, radicado:radicado, nombre, cedula, cargo, area, tipo, fi, ff, hab, cal,
-    aprobado: esRegistroDirecto ? "Registrada" : "Pendiente",
-    remunerada: esRegistroDirecto ? (tipo.includes("No Rem") ? "No" : "Sí") : "Pendiente RRHH",
-    aprPor: esRegistroDirecto ? "Sistema — Registro automático" : "",
+    aprobado:"Pendiente", remunerada:"Pendiente RRHH", aprPor:"",
     soporte: soporteSel,
     diag:    document.getElementById("diag").value.trim(),
     medico:  document.getElementById("medico").value.trim(),
@@ -2636,25 +2514,14 @@ function registrar(omitirValidacion) {
     fechaDiligenciamiento: (function(){ var f=document.getElementById("fecha-diligenciamiento"); if(f&&f.value){ return f.value; } var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })(),
     fecha:   new Date().toLocaleString("es-CO"),
     diasAnticip: diasAnticip,
-    fueraTiempo: diasAnticip < 3 && requiere3Dias,
+    fueraTiempo: diasAnticip < 3 && !esFuerzaMayor,
     motivoNegacion: ""
   };
   registros.push(reg);
-  // Guardar en la nube — la nube es la fuente de verdad
+  // Primero guardar en la nube, luego notificar por WhatsApp
   try { enviarASheets(reg); } catch(e) { console.error("enviarASheets error:", e); }
-  // Recargar desde nube después de 3 segundos para evitar duplicados
-  setTimeout(function(){
-    cargarPanelDesdeNube(true);
-  }, 3000);
   // Pequeño delay para que el fetch salga antes de abrir WhatsApp
   setTimeout(function(){ try { notificarRRHH(reg); } catch(e) { console.error("notificarRRHH error:", e); } }, 800);
-  // Si es registro directo → generar PDF y notificar jefe inmediato automáticamente
-  if (esRegistroDirecto) {
-    setTimeout(function(){
-      try { generarPDF(reg); } catch(e){ console.error("generarPDF error:", e); }
-      setTimeout(function(){ try { notificarJefeInmediato(reg); } catch(e){ console.warn("jefe email error:",e); } }, 1200);
-    }, 1500);
-  }
   // PDF se genera solo cuando RRHH aprueba — no al momento del registro
   try { mostrarConfirmacionEnvio(reg.radicado, reg.nombre, reg.tipo, reg.fi, reg.ff); } catch(e) { console.error("confirmacion error:", e); toast("✅ Solicitud " + reg.radicado + " registrada correctamente."); }
   try { updateStats(); } catch(e) { console.error("updateStats error:", e); }
@@ -2748,10 +2615,11 @@ function cargarPanelDesdeNube(silencioso) {
       if (!silencioso) toast("No hay solicitudes en la nube aún", true);
       return;
     }
-    // Reemplazar COMPLETAMENTE — nunca mezclar local con nube
-    registros = regsNube;
+    // Reemplazar completamente los registros locales con los de la nube
+    registros = [];
     ctr = 0;
-    registros.forEach(function(rn) {
+    regsNube.forEach(function(rn) {
+      registros.push(rn);
       if (parseInt(rn.id) > ctr) ctr = parseInt(rn.id);
     });
     renderPanel();
@@ -2773,21 +2641,15 @@ function renderPanel() {
   }
   if (!registros.length) { tb.innerHTML='<tr><td colspan="10" style="text-align:center;color:#aaa;padding:24px;font-style:italic">No hay solicitudes</td></tr>'; return; }
   tb.innerHTML = registros.map(r => {
-    var bc = r.aprobado==="Aprobado"?"bdg-ok":r.aprobado==="Negado"?"bdg-no":r.aprobado==="Registrada"?"bdg-reg":"bdg-pend";
+    var bc = r.aprobado==="Aprobado"?"bdg-ok":r.aprobado==="Negado"?"bdg-no":"bdg-pend";
     // Campo remunerada: solo editable por RRHH
     var remSel = `<select style="border:1px solid #e2e8f0;border-radius:6px;padding:3px 6px;font-size:11px" onchange="setRemunerada(${r.id},this.value)">
       <option value="Pendiente RRHH" ${r.remunerada==="Pendiente RRHH"?"selected":""}>Por definir</option>
       <option value="Sí" ${r.remunerada==="Sí"?"selected":""}>Sí (Remunerada)</option>
       <option value="No" ${r.remunerada==="No"?"selected":""}>No (No Remunerada)</option>
     </select>`;
-    var acc = "";
-    if (r.aprobado === "Registrada") {
-      acc = '<span style="font-size:11px;color:#2563b8;font-weight:700">📋 Registro automático</span>';
-    } else if (r.aprobado === "Pendiente") {
-      acc = '<button class="bap" onclick="aprobar(' + r.id + ')">✓ Aprobar</button><button class="bne" onclick="negar(' + r.id + ')">✗ Negar</button>';
-    } else {
-      acc = '<span style="font-size:11px;color:#aaa">Ya procesado</span>';
-    }
+    var acc = `<button class="bap" onclick="aprobar(${r.id})">✓ Aprobar</button><button class="bne" onclick="negar(${r.id})">✗ Negar</button>`;
+    if (r.aprobado !== "Pendiente") acc = `<span style="font-size:11px;color:#aaa">Ya procesado</span>`;
     var rfi=limpiarFecha(r.fi),rff=limpiarFecha(r.ff);
     return `<tr><td>${r.id}</td><td><strong>${r.nombre}</strong><br><small style="color:#94a3b8">${r.correoEmp||''} ${r.celularEmp?'· '+r.celularEmp:''}</small></td><td>${r.cedula}</td><td style="font-size:11px;max-width:160px">${r.tipo}</td><td>${rfi}</td><td>${rff}</td><td style="text-align:center"><strong>${r.hab}</strong></td><td>${remSel}</td><td><span class="bdg ${bc}">${r.aprobado}</span></td><td>${acc}</td></tr>`;
   }).join("");
@@ -2798,68 +2660,11 @@ function setRemunerada(id, val) {
   renderConsultaSolicitudes();
 }
 
-
-// ── MAPA DE JEFES INMEDIATOS ──
-var JEFES_INMEDIATOS = {
-  "Edwin Vilardy Trujillo":        { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
-  "Janer Montesino Rangel":        { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
-  "Jorge Alexander Rueda Bravo":   { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
-  "Julian David Pulido Mora":      { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
-  "Kelly Johana Uribe Téllez":     { email: "inversin.ltda.dt@gmail.com", emailSuplente: "inversin.ltda@hotmail.com" },
-  "Lida Juana Aida Lith Rueda Súspez": { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
-  "Salomon Rueda Rueda":           { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
-  "Heriberto León Ayala":          { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
-  "Marlon José Quintero García":   { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
-  "Luis Alexander López Aldana":   { email: "inversin.ltda@hotmail.com", emailSuplente: "" },
-  "Carlos Arturo Valencia":        { email: "inversin.rrhh@gmail.com",   emailSuplente: "" },
-  "Gabriela De Jesús Sosa Chávez": { email: "inversin.rrhh@gmail.com",   emailSuplente: "" },
-  "Diego Fernando Alemán Arrieta": { email: "salomonrueda@hotmail.com",  emailSuplente: "" }
-};
-
-// ── NOTIFICAR JEFE INMEDIATO POR CORREO ──
-function notificarJefeInmediato(reg) {
-  if (!EMAILJS_SERVICE_ID || !EMAILJS_PUBLIC_KEY) return;
-  var jefe = JEFES_INMEDIATOS[reg.nombre];
-  if (!jefe) return;
-
-  var tipo = reg.tipo || "";
-  var mensaje = "";
-  var dias = reg.hab || 1;
-
-  if (tipo.toLowerCase().includes("incapacidad")) {
-    mensaje = "Le informamos que " + reg.nombre + " reportó una incapacidad por " + dias + " día(s) desde " + reg.fi + " al " + reg.ff + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
-  } else if (tipo.toLowerCase().includes("licencia")) {
-    mensaje = "Le informamos que " + reg.nombre + " solicitó una licencia por " + dias + " día(s) desde " + reg.fi + " al " + reg.ff + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
-  } else {
-    var hora = reg.hora ? " a las " + reg.hora : "";
-    mensaje = "Le informamos que " + reg.nombre + " tiene un permiso aprobado para el día " + reg.fi + hora + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
-  }
-
-  // Enviar al jefe principal
-  emailjs.send(EMAILJS_SERVICE_ID, "template_jefe", {
-    jefe_email: jefe.email,
-    mensaje: mensaje,
-    name: "Recursos Humanos CDA"
-  }, EMAILJS_PUBLIC_KEY)
-  .then(function(){ toast("📧 Correo enviado al jefe inmediato ✅"); })
-  .catch(function(e){ console.warn("EmailJS jefe error:", e); });
-
-  // Enviar al suplente si existe (solo para DT)
-  if (jefe.emailSuplente) {
-    emailjs.send(EMAILJS_SERVICE_ID, "template_jefe", {
-      jefe_email: jefe.emailSuplente,
-      mensaje: mensaje,
-      name: "Recursos Humanos CDA"
-    }, EMAILJS_PUBLIC_KEY)
-    .catch(function(e){ console.warn("EmailJS suplente error:", e); });
-  }
-}
-
 function aprobar(id) {
   var r = registros.find(x => x.id===id);
   if (!r) return;
   r.aprobado = "Aprobado"; r.aprPor = "Lida Juana Aida Lith Rueda Súspez"; r.motivoNegacion = "";
-  r.fechaAprobacion = new Date().toLocaleDateString("es-CO");
+  r.fechaAprobacion = (function(){ var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })();
   // Limpiar fechas antes de usar
   r.fi = limpiarFecha(r.fi);
   r.ff = limpiarFecha(r.ff);
@@ -2868,11 +2673,9 @@ function aprobar(id) {
   renderPanel(); updateStats(); renderConsultaSolicitudes();
   // Notificar al empleado por WhatsApp
   notificarEmpleado(r);
-  // Notificar al jefe inmediato por correo
-  setTimeout(function(){ try { notificarJefeInmediato(r); } catch(e){ console.warn("jefe email error:",e); } }, 1200);
   // Generar PDF
   try { generarPDF(r); } catch(e) { console.error("generarPDF error:", e); }
-  toast("✅ Permiso aprobado — PDF generado — Notificaciones enviadas");
+  toast("✅ Permiso aprobado — PDF generado — Notificación WhatsApp enviada al empleado(a)");
 }
 
 function negar(id) {
@@ -3030,7 +2833,7 @@ function renderConsultaSolicitudes() {
   fill.style.background = color;
 
   tbody.innerHTML = regs.map(function(r){
-    var bc = r.aprobado === "Aprobado" ? "bdg-ok" : r.aprobado === "Negado" ? "bdg-no" : r.aprobado==="Registrada"?"bdg-reg":"bdg-pend";
+    var bc = r.aprobado === "Aprobado" ? "bdg-ok" : r.aprobado === "Negado" ? "bdg-no" : "bdg-pend";
     var dur = r.horasDisplay ? r.horasDisplay : (r.hab + " día(s)");
     var obs = r.aprobado === "Negado" && r.motivoNegacion ? r.motivoNegacion : (r.obs || "—");
     return '<tr>' +
@@ -3055,7 +2858,7 @@ function renderMatriz() {
   if (!registros.length) { tb.innerHTML='<tr><td colspan="17" style="text-align:center;color:#aaa;padding:24px;font-style:italic">No hay registros</td></tr>'; return; }
   var totalHoras = 0;
   tb.innerHTML = registros.map(r => {
-    var bc = r.aprobado==="Aprobado"?"bdg-ok":r.aprobado==="Negado"?"bdg-no":r.aprobado==="Registrada"?"bdg-reg":"bdg-pend";
+    var bc = r.aprobado==="Aprobado"?"bdg-ok":r.aprobado==="Negado"?"bdg-no":"bdg-pend";
     // Calcular horas: si registró horas parciales usar esas, si no convertir días hábiles * 8
     var horas = r.horasAusentes > 0 ? r.horasAusentes : r.hab * 8;
     totalHoras += horas;
@@ -3352,6 +3155,7 @@ function enviarVacacionASheets(vac) {
   if (!SHEETS_SCRIPT_URL) return;
   var params = new URLSearchParams({
     accion:  "registrarVac",
+    hoja:    "Vacaciones",
     id:      vac.id,
     nombre:  vac.nombre,
     ini:     vac.ini,
@@ -3364,7 +3168,7 @@ function enviarVacacionASheets(vac) {
   });
   fetch(SHEETS_SCRIPT_URL + "?" + params.toString())
     .then(function(r){ return r.json(); })
-    .then(function(data){ if(data.ok) toast("📊 Vacaciones guardadas en la nube ✅"); })
+    .then(function(data){ if(data.ok) toast("📊 Vacaciones guardadas en hoja Vacaciones ✅"); })
     .catch(function(e){ console.warn("Vac Sheets error:", e); });
 }
 
@@ -3492,7 +3296,7 @@ function registrarDisciplinaria() {
     hora: "—", tipo, soporte: "Acto administrativo",
     diag: "—", medico: "—", numIncapacidad: "—",
     obs, aprobado: "Aprobado", remunerada: "No",
-    aprPor: "RRHH", fecha: new Date().toLocaleDateString("es-CO")
+    aprPor: "RRHH", fecha: (function(){ var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })()
   };
   registros.push(reg);
   updateStats();
@@ -3579,6 +3383,30 @@ function toggleBienSubtipo() {
   if (examW) examW.style.display = (tipo === "Exámenes Ocupacionales") ? "" : "none";
 }
 
+// ══ BIENESTAR: enviar a hoja separada en Sheets ══
+function enviarBienestarASheets(b) {
+  if (!SHEETS_SCRIPT_URL) return;
+  var params = new URLSearchParams({
+    accion:      "registrarBien",
+    hoja:        "Bienestar",
+    id:          b.id,
+    nombre:      b.nombre,
+    tipo:        b.tipo,
+    subtipo:     b.subtipo || "",
+    fecha:       b.fecha,
+    estado:      b.estado,
+    responsable: b.responsable || "",
+    lugar:       b.lugar || "",
+    datoEsp:     b.datoEsp || "",
+    obs:         b.obs || "",
+    reg:         b.reg || ""
+  });
+  fetch(SHEETS_SCRIPT_URL + "?" + params.toString())
+    .then(function(r){ return r.json(); })
+    .then(function(data){ if(data.ok) toast("📊 Bienestar guardado en hoja Bienestar ✅"); })
+    .catch(function(e){ console.warn("Bienestar Sheets error:", e); });
+}
+
 function registrarBienestar() {
   var cont = document.getElementById("rrhh-excl-contenido");
   function gv(id) {
@@ -3600,7 +3428,9 @@ function registrarBienestar() {
   var datoEsp = "";
   if (tipo === "Actividad de IMC" && imc) datoEsp = "IMC: " + imc;
   if (tipo === "Exámenes Ocupacionales" && examT) datoEsp = "Examen: " + examT;
-  bienestar.push({ id:bienCtr, nombre:nombre, tipo:tipo, subtipo:subtipo, fecha:fecha, estado:estado, responsable:resp, lugar:lugar, datoEsp:datoEsp, obs:obs, reg: new Date().toLocaleDateString("es-CO") });
+  var bReg = { id:bienCtr, nombre:nombre, tipo:tipo, subtipo:subtipo, fecha:fecha, estado:estado, responsable:resp, lugar:lugar, datoEsp:datoEsp, obs:obs, reg: (function(){ var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })() };
+  bienestar.push(bReg);
+  enviarBienestarASheets(bReg);
   renderBienestar();
   toast("🌿 Actividad de Bienestar registrada para " + nombre);
 }
