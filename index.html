@@ -489,7 +489,7 @@ display:block !important;
         <div style="font-weight:900;font-size:13px;color:#15803d;margin-bottom:12px">➕ Registrar Período de Vacaciones</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
           <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Empleado *</label>
-            <select id="vac-nombre" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
+            <select id="vac-nombre" onchange="autoCompletarVac(this.value)" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
               <option value="">— Seleccionar —</option>
               <option>Carlos Arturo Valencia</option>
               <option>Diego Fernando Alemán Arrieta</option>
@@ -513,6 +513,12 @@ display:block !important;
           </div>
           <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Fecha fin *</label>
             <input type="date" id="vac-fin" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
+          </div>
+          <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Cédula</label>
+            <input type="text" id="vac-cedula" readonly placeholder="Automático" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;background:#f0f9ff;font-weight:700;color:#1a3a6b">
+          </div>
+          <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Cargo</label>
+            <input type="text" id="vac-cargo" readonly placeholder="Automático" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;background:#f0f9ff;font-weight:700;color:#1a3a6b">
           </div>
           <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Año</label>
             <input type="number" id="vac-anio" value="2026" min="2020" max="2040" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
@@ -558,7 +564,7 @@ display:block !important;
 
           <!-- Empleado -->
           <div><label style="font-size:11px;font-weight:700;color:#064e3b;display:block;margin-bottom:4px">Empleado *</label>
-            <select id="bien-nombre" style="width:100%;padding:7px 10px;border:1px solid #a7f3d0;border-radius:8px;font-size:12px;background:#fafcff">
+            <select id="bien-nombre" onchange="autoCompletarBien(this.value)" style="width:100%;padding:7px 10px;border:1px solid #a7f3d0;border-radius:8px;font-size:12px;background:#fafcff">
               <option value="">— Seleccionar —</option>
               <option>Carlos Arturo Valencia</option>
               <option>Diego Fernando Alemán Arrieta</option>
@@ -575,6 +581,14 @@ display:block !important;
               <option>Marlon José Quintero García</option>
               <option>Salomon Rueda Rueda</option>
             </select>
+          </div>
+
+          <!-- CC y Cargo automáticos -->
+          <div><label style="font-size:11px;font-weight:700;color:#064e3b;display:block;margin-bottom:4px">Cédula</label>
+            <input type="text" id="bien-cedula" readonly placeholder="Automático" style="width:100%;padding:7px 10px;border:1px solid #a7f3d0;border-radius:8px;font-size:12px;background:#f0f9ff;font-weight:700;color:#1a3a6b">
+          </div>
+          <div><label style="font-size:11px;font-weight:700;color:#064e3b;display:block;margin-bottom:4px">Cargo</label>
+            <input type="text" id="bien-cargo" readonly placeholder="Automático" style="width:100%;padding:7px 10px;border:1px solid #a7f3d0;border-radius:8px;font-size:12px;background:#f0f9ff;font-weight:700;color:#1a3a6b">
           </div>
 
           <!-- Tipo de Actividad -->
@@ -3151,6 +3165,38 @@ function getClonVal(id) {
 var vacaciones = [];
 var vacCtr = 0;
 
+function autoCompletarVac(nombre) {
+  var emp = EMPLEADOS.find(function(e){ return e.nombre === nombre; });
+  var cont = document.getElementById("rrhh-excl-contenido");
+  function setVal(id, val) {
+    var el = cont ? cont.querySelector("#"+id) : document.getElementById(id);
+    if (el) { el.value = val; }
+  }
+  if (emp) {
+    setVal("vac-cedula", emp.cedula || "");
+    setVal("vac-cargo",  emp.cargo  || "");
+  } else {
+    setVal("vac-cedula", "");
+    setVal("vac-cargo",  "");
+  }
+}
+
+function autoCompletarBien(nombre) {
+  var emp = EMPLEADOS.find(function(e){ return e.nombre === nombre; });
+  var cont = document.getElementById("rrhh-excl-contenido");
+  function setVal(id, val) {
+    var el = cont ? cont.querySelector("#"+id) : document.getElementById(id);
+    if (el) { el.value = val; }
+  }
+  if (emp) {
+    setVal("bien-cedula", emp.cedula || "");
+    setVal("bien-cargo",  emp.cargo  || "");
+  } else {
+    setVal("bien-cedula", "");
+    setVal("bien-cargo",  "");
+  }
+}
+
 function enviarVacacionASheets(vac) {
   if (!SHEETS_SCRIPT_URL) return;
   var params = new URLSearchParams({
@@ -3158,6 +3204,8 @@ function enviarVacacionASheets(vac) {
     hoja:    "Vacaciones",
     id:      vac.id,
     nombre:  vac.nombre,
+    cedula:  vac.cedula || "",
+    cargo:   vac.cargo  || "",
     ini:     vac.ini,
     fin:     vac.fin,
     anio:    vac.anio,
@@ -3202,6 +3250,8 @@ function registrarVacacion() {
   var anio   = getClonVal("vac-anio") || "2026";
   var estado = getClonVal("vac-estado") || "Programadas";
   var obs    = getClonVal("vac-obs");
+  var cedula = getClonVal("vac-cedula") || "";
+  var cargo  = getClonVal("vac-cargo")  || "";
   if (!nombre || !ini || !fin) { alert("⚠ Complete Empleado, Fecha inicio y Fecha fin."); return; }
   var d1 = new Date(ini+"T00:00:00"), d2 = new Date(fin+"T00:00:00");
   if (d2 < d1) { alert("⚠ La fecha fin debe ser igual o posterior a la fecha inicio."); return; }
@@ -3209,12 +3259,11 @@ function registrarVacacion() {
   var hab = 0, cur = new Date(d1);
   while (cur <= d2) { if (cur.getDay()!==0) hab++; cur.setDate(cur.getDate()+1); }
   vacCtr++;
-  var vac = { id:vacCtr, nombre, ini, fin, anio, hab, cal, estado, obs };
+  var vac = { id:vacCtr, nombre, cedula, cargo, ini, fin, anio, hab, cal, estado, obs };
   vacaciones.push(vac);
   enviarVacacionASheets(vac);
   renderVacaciones();
-  // Limpiar formulario
-  ["vac-ini","vac-fin","vac-obs","vac-anio"].forEach(function(id){
+  ["vac-ini","vac-fin","vac-obs","vac-anio","vac-cedula","vac-cargo"].forEach(function(id){
     var cont = document.getElementById("rrhh-excl-contenido");
     var el = cont ? cont.querySelector("#"+id) : document.getElementById(id);
     if(el) el.value = id==="vac-anio" ? "2026" : "";
@@ -3391,6 +3440,8 @@ function enviarBienestarASheets(b) {
     hoja:        "Bienestar",
     id:          b.id,
     nombre:      b.nombre,
+    cedula:      b.cedula || "",
+    cargo:       b.cargo  || "",
     tipo:        b.tipo,
     subtipo:     b.subtipo || "",
     fecha:       b.fecha,
@@ -3423,12 +3474,14 @@ function registrarBienestar() {
   var obs     = gv("bien-obs");
   var imc     = gv("bien-imc-resultado");
   var examT   = gv("bien-exam-tipo");
+  var cedula  = gv("bien-cedula") || "";
+  var cargo   = gv("bien-cargo")  || "";
   if (!nombre || !tipo || !fecha || !estado) { alert("⚠ Complete Empleado, Tipo de Actividad, Fecha y Estado."); return; }
   bienCtr++;
   var datoEsp = "";
   if (tipo === "Actividad de IMC" && imc) datoEsp = "IMC: " + imc;
   if (tipo === "Exámenes Ocupacionales" && examT) datoEsp = "Examen: " + examT;
-  var bReg = { id:bienCtr, nombre:nombre, tipo:tipo, subtipo:subtipo, fecha:fecha, estado:estado, responsable:resp, lugar:lugar, datoEsp:datoEsp, obs:obs, reg: (function(){ var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })() };
+  var bReg = { id:bienCtr, nombre:nombre, cedula:cedula, cargo:cargo, tipo:tipo, subtipo:subtipo, fecha:fecha, estado:estado, responsable:resp, lugar:lugar, datoEsp:datoEsp, obs:obs, reg: (function(){ var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })() };
   bienestar.push(bReg);
   enviarBienestarASheets(bReg);
   renderBienestar();
