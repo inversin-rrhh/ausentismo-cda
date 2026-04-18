@@ -2093,11 +2093,6 @@ display:block !important;
     <small>Fecha de diligenciamiento: ${(reg.fechaDiligenciamiento || reg.fecha || '').split('T')[0]}</small>
   </div>
 
-  <div class="tipo-banner">
-    <div class="lbl">Tipo de Ausencia Seleccionado</div>
-    <div class="val">${reg.tipo || '—'}</div>
-  </div>
-
   <div class="sec">
     <div class="sec-head">👤 Datos del Empleado(a)</div>
     <div class="sec-body grid2">
@@ -2118,6 +2113,13 @@ display:block !important;
       <div class="campo"><label>Días hábiles</label><div class="val">${reg.hab}</div></div>
       <div class="campo"><label>Días calendario</label><div class="val">${reg.cal}</div></div>
       <div class="campo"><label>Tiempo ausente</label><div class="val">${reg.horasDisplay || '—'}</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head">📋 Tipo de Ausencia</div>
+    <div class="sec-body">
+      <div class="campo"><div class="val" style="font-weight:700;font-size:13px">${reg.tipo || '—'}</div></div>
     </div>
   </div>
 
