@@ -1167,43 +1167,83 @@ display:block !important;
   <div class="card">
     <div class="card-head"><span class="ico">📊</span><h2>Consultar mis solicitudes</h2></div>
     <div class="card-body">
-      <div class="consulta-filtro">
-        <div class="consulta-help">
-          Esta vista muestra únicamente el historial del trabajador seleccionado en el formulario.
-          Seleccione su nombre o digite su cédula y luego consulte su historial personal.
+
+      <!-- FORMULARIO DE VERIFICACIÓN DE IDENTIDAD -->
+      <div id="consulta-login" style="background:linear-gradient(135deg,#eff6ff,#fff);border:1.5px solid #bfdbfe;border-radius:12px;padding:20px;margin-bottom:16px">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:13px;color:#1a3a6b;margin-bottom:14px;text-transform:uppercase;letter-spacing:.4px">🔒 Verificación de Identidad</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
+          <div class="fg">
+            <label>Nombre <span class="r">*</span></label>
+            <select id="consulta-nombre" style="border:1.5px solid var(--gris2);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'Source Sans 3',sans-serif;color:var(--texto);background:#fafcff;width:100%">
+              <option value="">— Seleccione su nombre —</option>
+              <option>Carlos Arturo Valencia</option>
+              <option>Diego Fernando Alemán Arrieta</option>
+              <option>Edwin Vilardy Trujillo</option>
+              <option>Gabriela De Jesús Sosa Chávez</option>
+              <option>Heriberto León Ayala</option>
+              <option>Janer Montesino Rangel</option>
+              <option>Jorge Alexander Rueda Bravo</option>
+              <option>Julian David Pulido Mora</option>
+              <option>Kelly Johana Uribe Téllez</option>
+              <option>Lida Juana Aida Lith Rueda Súspez</option>
+              <option>Luis Alexander López Aldana</option>
+              <option>Mariam Andrea Rueda Súspez</option>
+              <option>Marlon José Quintero García</option>
+              <option>Salomon Rueda Rueda</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Cédula <span class="r">*</span></label>
+            <input type="text" id="consulta-cedula" placeholder="Digite su cédula" style="border:1.5px solid var(--gris2);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'Source Sans 3',sans-serif;color:var(--texto);background:#fafcff;width:100%">
+          </div>
+          <div class="fg">
+            <label>Palabra Clave <span class="r">*</span></label>
+            <input type="password" id="consulta-clave" placeholder="Digite su palabra clave" style="border:1.5px solid var(--gris2);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'Source Sans 3',sans-serif;color:var(--texto);background:#fafcff;width:100%">
+          </div>
+        </div>
+        <div id="consulta-error" style="color:var(--rojo);font-size:12px;font-weight:700;min-height:18px;margin-bottom:8px"></div>
+        <button onclick="verificarIdentidadConsulta()" style="padding:10px 28px;background:linear-gradient(90deg,var(--azul),var(--azul2));color:#fff;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;cursor:pointer">🔍 Consultar mi historial</button>
+      </div>
+
+      <!-- HISTORIAL (oculto hasta verificar identidad) -->
+      <div id="consulta-historial" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:13px;color:#1a3a6b" id="consulta-bienvenida"></div>
+          <button onclick="cerrarConsultaHistorial()" style="padding:5px 14px;background:#f1f5f9;color:#64748b;border:none;border-radius:6px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;cursor:pointer">✕ Cerrar sesión</button>
+        </div>
+        <div class="consulta-resumen">
+          <div class="c-res-card">
+            <div class="c-res-top">Pendientes</div>
+            <div class="c-res-num" id="mis-pend" style="color:var(--amarillo)">0</div>
+            <div class="c-res-sub">Solicitudes en revisión</div>
+          </div>
+          <div class="c-res-card">
+            <div class="c-res-top">Aprobadas</div>
+            <div class="c-res-num" id="mis-apr" style="color:var(--verde)">0</div>
+            <div class="c-res-sub">Solicitudes autorizadas</div>
+          </div>
+          <div class="c-res-card">
+            <div class="c-res-top">Rechazadas</div>
+            <div class="c-res-num" id="mis-neg" style="color:var(--rojo)">0</div>
+            <div class="c-res-sub">Solicitudes negadas</div>
+          </div>
+        </div>
+        <div class="semaforo-card">
+          <div class="semaforo-titulo">Mi nivel de ausencias este mes</div>
+          <div class="semaforo-meta">
+            <span id="semaforo-texto">Ausencias del mes: 0</span>
+            <span id="semaforo-nivel">Nivel: Verde</span>
+          </div>
+          <div class="semaforo-barra"><div class="semaforo-fill" id="semaforo-fill" style="width:0%"></div></div>
+        </div>
+        <div class="tw">
+          <table class="t">
+            <thead><tr><th>Fecha</th><th>Tipo</th><th>Días / Horas</th><th>Estado</th><th>Observación / Motivo</th></tr></thead>
+            <tbody id="tbody-consulta"><tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:24px;font-style:italic">Cargando...</td></tr></tbody>
+          </table>
         </div>
       </div>
-      <div class="consulta-resumen">
-        <div class="c-res-card">
-          <div class="c-res-top">Pendientes</div>
-          <div class="c-res-num" id="mis-pend" style="color:var(--amarillo)">0</div>
-          <div class="c-res-sub">Solicitudes en revisión</div>
-        </div>
-        <div class="c-res-card">
-          <div class="c-res-top">Aprobadas</div>
-          <div class="c-res-num" id="mis-apr" style="color:var(--verde)">0</div>
-          <div class="c-res-sub">Solicitudes autorizadas</div>
-        </div>
-        <div class="c-res-card">
-          <div class="c-res-top">Rechazadas</div>
-          <div class="c-res-num" id="mis-neg" style="color:var(--rojo)">0</div>
-          <div class="c-res-sub">Solicitudes negadas</div>
-        </div>
-      </div>
-      <div class="semaforo-card">
-        <div class="semaforo-titulo">Mi nivel de ausencias este mes</div>
-        <div class="semaforo-meta">
-          <span id="semaforo-texto">Ausencias del mes: 0</span>
-          <span id="semaforo-nivel">Nivel: Verde</span>
-        </div>
-        <div class="semaforo-barra"><div class="semaforo-fill" id="semaforo-fill" style="width:0%"></div></div>
-      </div>
-      <div class="tw">
-        <table class="t">
-          <thead><tr><th>Fecha</th><th>Tipo</th><th>Días / Horas</th><th>Estado</th><th>Observación / Motivo</th></tr></thead>
-          <tbody id="tbody-consulta"><tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:24px;font-style:italic">Seleccione su nombre o cédula para visualizar su historial</td></tr></tbody>
-        </table>
-      </div>
+
     </div>
   </div>
 </div>
@@ -1476,27 +1516,12 @@ var CELULAR_RRHH = "573187072035";
 
 // 4. EMAILJS — Envío real de correos (gratis hasta 200/mes en emailjs.com)
 //    Instrucciones: ver guía al final del archivo
-var EMAILJS_SERVICE_ID  = "inversin_rrhh";
-var EMAILJS_TEMPLATE_ID_RRHH = "template_jefe";
-var EMAILJS_TEMPLATE_ID_EMP  = "template_jefe";
-var EMAILJS_PUBLIC_KEY  = "deMjOnKt6sGQbgDR1";
+var EMAILJS_SERVICE_ID  = ""; // ← ej: "service_abc123"
+var EMAILJS_TEMPLATE_ID_RRHH = ""; // ← template notif a RRHH
+var EMAILJS_TEMPLATE_ID_EMP  = ""; // ← template respuesta al empleado(a)
+var EMAILJS_PUBLIC_KEY  = ""; // ← clave pública EmailJS
 
-// 5. MAPA DE JEFES INMEDIATOS
-var JEFES_INMEDIATOS = {
-  "Janer Montesino Rangel":        { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
-  "Jorge Alexander Rueda Bravo":   { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
-  "Edwin Vilardy Trujillo":        { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
-  "Julian David Pulido Mora":      { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
-  "Kelly Johana Uribe Téllez":     { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
-  "Diego Fernando Alemán Arrieta": { nombre: "Salomon Rueda Rueda",           correo: "salomonrueda@hotmail.com" },
-  "Carlos Arturo Valencia":        { nombre: "Lida Juana Aida Lith Rueda Súspez", correo: "inversin.rrhh@gmail.com" },
-  "Gabriela De Jesús Sosa Chávez": { nombre: "Lida Juana Aida Lith Rueda Súspez", correo: "inversin.rrhh@gmail.com" },
-  "Lida Juana Aida Lith Rueda Súspez": { nombre: "Mariam Andrea Rueda Súspez", correo: "inversin.ltda@hotmail.com" },
-  "Salomon Rueda Rueda":           { nombre: "Mariam Andrea Rueda Súspez",    correo: "inversin.ltda@hotmail.com" },
-  "Marlon José Quintero García":   { nombre: "Mariam Andrea Rueda Súspez",    correo: "inversin.ltda@hotmail.com" },
-  "Luis Alexander López Aldana":   { nombre: "Mariam Andrea Rueda Súspez",    correo: "inversin.ltda@hotmail.com" },
-  "Heriberto León Ayala":          { nombre: "Mariam Andrea Rueda Súspez",    correo: "inversin.ltda@hotmail.com" }
-};
+// 5. GOOGLE DRIVE — Subida automática de PDFs
 //    Instrucciones completas al final del archivo (sección GUÍA GOOGLE DRIVE)
 //    Pasos: (1) Crea proyecto en console.cloud.google.com
 //           (2) Activa "Google Drive API"
@@ -2702,29 +2727,9 @@ function aprobar(id) {
   renderPanel(); updateStats(); renderConsultaSolicitudes();
   // Notificar al empleado por WhatsApp
   notificarEmpleado(r);
-  // Notificar al jefe inmediato por correo
-  notificarJefeInmediato(r);
   // Generar PDF
   try { generarPDF(r); } catch(e) { console.error("generarPDF error:", e); }
-  toast("✅ Permiso aprobado — PDF generado — Notificación enviada al empleado(a) y jefe inmediato");
-}
-
-function aprobarIncapacidad(id) {
-  var r = registros.find(x => x.id===id);
-  if (!r) return;
-  r.aprobado = "Aprobado";
-  r.remunerada = "Sí";
-  r.aprPor = "Lida Juana Aida Lith Rueda Súspez";
-  r.motivoNegacion = "";
-  r.fechaAprobacion = (function(){ var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })();
-  r.fi = limpiarFecha(r.fi);
-  r.ff = limpiarFecha(r.ff);
-  try { actualizarEnSheets(r); } catch(e) { console.error("actualizarEnSheets error:", e); }
-  renderPanel(); updateStats(); renderConsultaSolicitudes();
-  notificarEmpleado(r);
-  notificarJefeInmediato(r);
-  try { generarPDF(r); } catch(e) { console.error("generarPDF error:", e); }
-  toast("⚕️ Incapacidad registrada — PDF generado — Notificación enviada al empleado(a) y jefe inmediato");
+  toast("✅ Permiso aprobado — PDF generado — Notificación WhatsApp enviada al empleado(a)");
 }
 
 function negar(id) {
@@ -2806,37 +2811,142 @@ function notificarEmpleado(reg) {
 
 
 
-function notificarJefeInmediato(reg) {
-  if (!EMAILJS_SERVICE_ID || !EMAILJS_PUBLIC_KEY) return;
-  var jefe = JEFES_INMEDIATOS[reg.nombre];
-  if (!jefe) return;
-  var fi = limpiarFecha(reg.fi);
-  var ff = limpiarFecha(reg.ff);
-  var esIncapacidad = reg.tipo && reg.tipo.includes("Incapacidad");
-  var esLicencia = reg.tipo && reg.tipo.includes("Licencia");
-  var mensaje = "";
-  if (esIncapacidad) {
-    mensaje = reg.nombre + " reportó una incapacidad por " + reg.hab + " día(s) hábiles, desde el " + fi + " hasta el " + ff + ".\nTipo: " + reg.tipo + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
-  } else if (esLicencia) {
-    mensaje = reg.nombre + " tiene una licencia aprobada por " + reg.hab + " día(s) hábiles, desde el " + fi + " hasta el " + ff + ".\nTipo: " + reg.tipo + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
-  } else {
-    mensaje = reg.nombre + " tiene un permiso aprobado para el día " + fi + (reg.ff !== reg.fi ? " al " + ff : "") + ".\nTipo: " + reg.tipo + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
+// ── PALABRAS CLAVE DE TRABAJADORES ──
+var PALABRAS_CLAVE = {
+  "Carlos Arturo Valencia":             "Valioso",
+  "Diego Fernando Alemán Arrieta":      "Obedezco",
+  "Edwin Vilardy Trujillo":             "Capaz",
+  "Gabriela De Jesús Sosa Chávez":      "Salud",
+  "Heriberto León Ayala":               "Resiliente",
+  "Janer Montesino Rangel":             "Valiente",
+  "Jorge Alexander Rueda Bravo":        "Feliz",
+  "Julian David Pulido Mora":           "Proactivo",
+  "Kelly Johana Uribe Téllez":          "Efectiva",
+  "Lida Juana Aida Lith Rueda Súspez":  "Prospera",
+  "Luis Alexander López Aldana":        "Precrastinador",
+  "Mariam Andrea Rueda Súspez":         "Líder",
+  "Marlon José Quintero García":        "Motivador",
+  "Salomon Rueda Rueda":                "Empresario"
+};
+
+function verificarIdentidadConsulta() {
+  var nombre = document.getElementById("consulta-nombre").value.trim();
+  var cedula = document.getElementById("consulta-cedula").value.trim();
+  var clave  = document.getElementById("consulta-clave").value.trim();
+  var errEl  = document.getElementById("consulta-error");
+
+  if (!nombre || !cedula || !clave) {
+    errEl.textContent = "⚠ Complete todos los campos."; return;
   }
-  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_RRHH, {
-    jefe_email: jefe.correo,
-    to_email:   jefe.correo,
-    mensaje:    mensaje,
-    empleado:   reg.nombre,
-    tipo:       reg.tipo,
-    fecha_ini:  fi,
-    fecha_fin:  ff,
-    dias_hab:   reg.hab
-  }, EMAILJS_PUBLIC_KEY)
-  .then(function(){ toast("📧 Correo enviado al jefe inmediato ✅"); })
-  .catch(function(e){ console.warn("EmailJS jefe error:", e); });
+
+  // Buscar empleado
+  var emp = EMPLEADOS.find(function(e){ return e.nombre === nombre; });
+  if (!emp) { errEl.textContent = "⚠ Nombre no encontrado."; return; }
+
+  // Verificar cédula
+  if (String(emp.cedula) !== String(cedula).replace(/\./g,"")) {
+    errEl.textContent = "⚠ Cédula incorrecta."; return;
+  }
+
+  // Verificar palabra clave (insensible a mayúsculas)
+  var claveCorrecta = PALABRAS_CLAVE[nombre];
+  if (!claveCorrecta || clave.toLowerCase() !== claveCorrecta.toLowerCase()) {
+    errEl.textContent = "⚠ Palabra clave incorrecta."; return;
+  }
+
+  // Verificación exitosa — mostrar historial
+  errEl.textContent = "";
+  document.getElementById("consulta-login").style.display = "none";
+  document.getElementById("consulta-historial").style.display = "block";
+  document.getElementById("consulta-bienvenida").textContent = "👋 Bienvenido/a, " + nombre.split(" ")[0];
+
+  // Cargar historial del trabajador
+  _consultaNombreActivo = nombre;
+  _consultaCedulaActiva = cedula;
+
+  if (!registros.length && SHEETS_SCRIPT_URL) {
+    cargarDesdeSheets(function(regs) {
+      registros = regs;
+      renderConsultaSolicitudesVerificada(nombre, cedula);
+    });
+  } else {
+    renderConsultaSolicitudesVerificada(nombre, cedula);
+  }
 }
 
-function abrirConsultaSolicitudes() {
+var _consultaNombreActivo = "";
+var _consultaCedulaActiva = "";
+
+function cerrarConsultaHistorial() {
+  document.getElementById("consulta-login").style.display = "block";
+  document.getElementById("consulta-historial").style.display = "none";
+  document.getElementById("consulta-nombre").value = "";
+  document.getElementById("consulta-cedula").value = "";
+  document.getElementById("consulta-clave").value = "";
+  document.getElementById("consulta-error").textContent = "";
+  _consultaNombreActivo = "";
+  _consultaCedulaActiva = "";
+}
+
+function renderConsultaSolicitudesVerificada(nombre, cedula) {
+  var regs = registros.filter(function(r){
+    return r.nombre.trim().toLowerCase() === nombre.toLowerCase() ||
+           (cedula && r.cedula === cedula);
+  }).sort(function(a,b){ return b.id - a.id; });
+
+  var pend = regs.filter(function(r){ return r.aprobado === "Pendiente"; }).length;
+  var apr  = regs.filter(function(r){ return r.aprobado === "Aprobado"; }).length;
+  var neg  = regs.filter(function(r){ return r.aprobado === "Negado"; }).length;
+  document.getElementById("mis-pend").textContent = pend;
+  document.getElementById("mis-apr").textContent  = apr;
+  document.getElementById("mis-neg").textContent  = neg;
+
+  var hoy = new Date();
+  var mm = hoy.getMonth(), yy = hoy.getFullYear();
+  var ausMes = regs.filter(function(r){
+    var f = new Date((r.fi||"")+"T00:00:00");
+    return !isNaN(f) && f.getMonth()===mm && f.getFullYear()===yy &&
+           !String(r.tipo||"").toLowerCase().includes("vacacion");
+  }).length;
+
+  var nivel="Verde", color="#16a34a", width=6;
+  if (ausMes<=0){nivel="Verde";color="#16a34a";width=6;}
+  else if (ausMes<=2){nivel="Amarillo";color="#ca8a04";width=40;}
+  else if (ausMes<=4){nivel="Naranja";color="#ea6c00";width=72;}
+  else{nivel="Rojo";color="#dc2626";width=100;}
+
+  document.getElementById("semaforo-texto").textContent = "Ausencias del mes: " + ausMes;
+  document.getElementById("semaforo-nivel").textContent = "Nivel: " + nivel;
+  var fill = document.getElementById("semaforo-fill");
+  fill.style.width = width + "%";
+  fill.style.background = color;
+
+  var tbody = document.getElementById("tbody-consulta");
+  if (!regs.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:24px;font-style:italic">No tiene solicitudes registradas aún.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = regs.map(function(r){
+    var bc = r.aprobado==="Aprobado"?"bdg-ok":r.aprobado==="Negado"?"bdg-no":"bdg-pend";
+    var dur = r.horasDisplay ? r.horasDisplay : (r.hab + " día(s)");
+    var obs = r.aprobado==="Negado" && r.motivoNegacion ? r.motivoNegacion : (r.obs||"—");
+    var fecha = (r.fechaDiligenciamiento||r.fecha||"—").split("T")[0];
+    return '<tr>'+
+      '<td>'+fecha+'</td>'+
+      '<td style="font-size:11px">'+r.tipo+'</td>'+
+      '<td>'+dur+'</td>'+
+      '<td><span class="bdg '+bc+'">'+r.aprobado+'</span></td>'+
+      '<td style="font-size:11px">'+obs+(r.fueraTiempo?'<div class="motivo-badge">RIT: fuera del tiempo mínimo</div>':'')+'</td>'+
+    '</tr>';
+  }).join('');
+}
+
+function renderConsultaSolicitudes() {
+  // Solo ejecutar si hay sesión de consulta activa o sesión RRHH
+  if (_consultaNombreActivo) {
+    renderConsultaSolicitudesVerificada(_consultaNombreActivo, _consultaCedulaActiva);
+  }
+}
   var pant = document.getElementById("pantalla-bienvenida");
   pant.style.transition = "opacity .4s ease, transform .4s ease";
   pant.style.opacity = "0";
