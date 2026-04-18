@@ -1120,48 +1120,7 @@ display:block !important;
               CIE-10 = Clasificación Internacional de Enfermedades. Solo para incapacidades y licencias médicas.
             </span>
           </label>
-          <select id="diag">
-            <option value="">— Seleccione el diagnóstico —</option>
-            <option value="A09 – Diarrea y gastroenteritis de presunto origen infeccioso">A09 – Diarrea y gastroenteritis</option>
-            <option value="B34.9 – Infección viral, no especificada">B34.9 – Infección viral</option>
-            <option value="F32.0 – Episodio depresivo leve">F32.0 – Episodio depresivo leve</option>
-            <option value="F32.1 – Episodio depresivo moderado">F32.1 – Episodio depresivo moderado</option>
-            <option value="F41.1 – Trastorno de ansiedad generalizada">F41.1 – Trastorno de ansiedad generalizada</option>
-            <option value="F43.1 – Trastorno de estrés postraumático">F43.1 – Estrés postraumático</option>
-            <option value="G43.9 – Migraña, no especificada">G43.9 – Migraña</option>
-            <option value="G54.2 – Trastornos de las raíces cervicales">G54.2 – Trastorno raíces cervicales</option>
-            <option value="J00 – Rinofaringitis aguda (resfriado común)">J00 – Resfriado común</option>
-            <option value="J01.9 – Sinusitis aguda, no especificada">J01.9 – Sinusitis aguda</option>
-            <option value="J02.9 – Faringitis aguda, no especificada">J02.9 – Faringitis aguda</option>
-            <option value="J03.9 – Amigdalitis aguda, no especificada">J03.9 – Amigdalitis aguda</option>
-            <option value="J06.9 – Infección aguda vías respiratorias superiores">J06.9 – Infección respiratoria superior</option>
-            <option value="J11.1 – Influenza con manifestaciones respiratorias">J11.1 – Influenza / Gripa</option>
-            <option value="J18.9 – Neumonía, no especificada">J18.9 – Neumonía</option>
-            <option value="J20.9 – Bronquitis aguda, no especificada">J20.9 – Bronquitis aguda</option>
-            <option value="J45.9 – Asma, no especificada">J45.9 – Asma</option>
-            <option value="K04.0 – Pulpitis">K04.0 – Pulpitis</option>
-            <option value="K08.9 – Problema dental / Dolor dental">K08.9 – Problema dental</option>
-            <option value="K21.0 – Enfermedad por reflujo gastroesofágico">K21.0 – Reflujo gastroesofágico</option>
-            <option value="K29.7 – Gastritis, no especificada">K29.7 – Gastritis</option>
-            <option value="K59.0 – Estreñimiento">K59.0 – Estreñimiento</option>
-            <option value="L20.9 – Dermatitis atópica, no especificada">L20.9 – Dermatitis atópica</option>
-            <option value="M25.5 – Dolor articular">M25.5 – Dolor articular</option>
-            <option value="M54.2 – Cervicalgia">M54.2 – Cervicalgia</option>
-            <option value="M54.4 – Lumbago con ciática">M54.4 – Lumbago con ciática</option>
-            <option value="M54.5 – Lumbago no especificado">M54.5 – Lumbago</option>
-            <option value="M79.6 – Dolor en miembro">M79.6 – Dolor en miembro</option>
-            <option value="N39.0 – Infección de vías urinarias">N39.0 – Infección vías urinarias</option>
-            <option value="R05 – Tos">R05 – Tos</option>
-            <option value="R10.4 – Dolor abdominal">R10.4 – Dolor abdominal</option>
-            <option value="R51 – Cefalea">R51 – Cefalea / Dolor de cabeza</option>
-            <option value="R52.9 – Dolor, no especificado">R52.9 – Dolor no especificado</option>
-            <option value="S00-S99 – Traumatismo (accidente de trabajo)">S00-S99 – Traumatismo / Accidente de trabajo</option>
-            <option value="T14.9 – Traumatismo, no especificado">T14.9 – Traumatismo no especificado</option>
-            <option value="Z00.0 – Examen médico general">Z00.0 – Examen médico general</option>
-            <option value="Z34 – Supervisión de embarazo normal">Z34 – Embarazo normal</option>
-            <option value="Z39.0 – Atención postparto">Z39.0 – Atención postparto</option>
-            <option value="Otro – Especificado por el médico">Otro – Especificado por el médico</option>
-          </select>
+          <input type="text" id="diag" placeholder="Ej. J06.9 – Gripa / Infección respiratoria">
         </div>
         <div class="fg" id="wrap-medico"><label>Médico / Autoridad que expide</label><input type="text" id="medico" placeholder="Ej. Dr. Carlos Ramírez – EPS Sanitas"></div>
         <div class="fg" style="grid-column:1/-1"><label>Observaciones del trabajador</label><textarea id="obs" placeholder="Información adicional que desee reportar…"></textarea></div>
@@ -1517,12 +1476,27 @@ var CELULAR_RRHH = "573187072035";
 
 // 4. EMAILJS — Envío real de correos (gratis hasta 200/mes en emailjs.com)
 //    Instrucciones: ver guía al final del archivo
-var EMAILJS_SERVICE_ID  = ""; // ← ej: "service_abc123"
-var EMAILJS_TEMPLATE_ID_RRHH = ""; // ← template notif a RRHH
-var EMAILJS_TEMPLATE_ID_EMP  = ""; // ← template respuesta al empleado(a)
-var EMAILJS_PUBLIC_KEY  = ""; // ← clave pública EmailJS
+var EMAILJS_SERVICE_ID  = "inversin_rrhh";
+var EMAILJS_TEMPLATE_ID_RRHH = "template_jefe";
+var EMAILJS_TEMPLATE_ID_EMP  = "template_jefe";
+var EMAILJS_PUBLIC_KEY  = "deMjOnKt6sGQbgDR1";
 
-// 5. GOOGLE DRIVE — Subida automática de PDFs
+// 5. MAPA DE JEFES INMEDIATOS
+var JEFES_INMEDIATOS = {
+  "Janer Montesino Rangel":        { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
+  "Jorge Alexander Rueda Bravo":   { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
+  "Edwin Vilardy Trujillo":        { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
+  "Julian David Pulido Mora":      { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
+  "Kelly Johana Uribe Téllez":     { nombre: "Marlon José Quintero García",   correo: "marlonquintero22@gmail.com" },
+  "Diego Fernando Alemán Arrieta": { nombre: "Salomon Rueda Rueda",           correo: "salomonrueda@hotmail.com" },
+  "Carlos Arturo Valencia":        { nombre: "Lida Juana Aida Lith Rueda Súspez", correo: "inversin.rrhh@gmail.com" },
+  "Gabriela De Jesús Sosa Chávez": { nombre: "Lida Juana Aida Lith Rueda Súspez", correo: "inversin.rrhh@gmail.com" },
+  "Lida Juana Aida Lith Rueda Súspez": { nombre: "Mariam Andrea Rueda Súspez", correo: "inversin.ltda@hotmail.com" },
+  "Salomon Rueda Rueda":           { nombre: "Mariam Andrea Rueda Súspez",    correo: "inversin.ltda@hotmail.com" },
+  "Marlon José Quintero García":   { nombre: "Mariam Andrea Rueda Súspez",    correo: "inversin.ltda@hotmail.com" },
+  "Luis Alexander López Aldana":   { nombre: "Mariam Andrea Rueda Súspez",    correo: "inversin.ltda@hotmail.com" },
+  "Heriberto León Ayala":          { nombre: "Mariam Andrea Rueda Súspez",    correo: "inversin.ltda@hotmail.com" }
+};
 //    Instrucciones completas al final del archivo (sección GUÍA GOOGLE DRIVE)
 //    Pasos: (1) Crea proyecto en console.cloud.google.com
 //           (2) Activa "Google Drive API"
@@ -1615,13 +1589,6 @@ function cargarDesdeSheets(callback) {
     .then(function(data){
       if (data.ok && data.registros) {
         var regs = data.registros.map(function(r){
-          // Limpiar fechas que vienen con T05:00:00.000Z de Sheets
-          function limpiarF(f) {
-            if (!f) return "";
-            var s = String(f);
-            if (s.indexOf("T") > -1) s = s.split("T")[0];
-            return s;
-          }
           return {
             id:           parseInt(r.id) || 0,
             radicado:     r.radicado || "",
@@ -1630,8 +1597,8 @@ function cargarDesdeSheets(callback) {
             cargo:        r.cargo || "",
             area:         r.area || "",
             tipo:         r.tipo || "",
-            fi:           limpiarF(r.fi),
-            ff:           limpiarF(r.ff),
+            fi:           r.fi || "",
+            ff:           r.ff || "",
             hab:          parseInt(r.hab) || 0,
             cal:          parseInt(r.cal) || 0,
             horasDisplay: r.horasDisplay || "",
@@ -1641,8 +1608,7 @@ function cargarDesdeSheets(callback) {
             diag:         r.diag || "",
             medico:       r.medico || "",
             obs:          r.obs || "",
-            fecha:        limpiarF(r.fecha) || "",
-            fechaDiligenciamiento: limpiarF(r.fecha) || "",
+            fecha:        r.fecha || "",
             celularEmp:   r.celularEmp || "",
             correoEmp:    r.correoEmp || "",
             motivoNegacion: r.motivoNegacion || "",
@@ -2130,8 +2096,13 @@ display:block !important;
   </table>
 
   <div class="consec">
-    <span>Solicitud N° ${reg.radicado || reg.id}</span>
-    <small>Fecha de diligenciamiento: ${(reg.fechaDiligenciamiento || reg.fecha || '').split('T')[0]}</small>
+    <span>Solicitud N° ${reg.id}</span>
+    <small>Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</small>
+  </div>
+
+  <div class="tipo-banner">
+    <div class="lbl">Tipo de Ausencia Seleccionado</div>
+    <div class="val">${reg.tipo}</div>
   </div>
 
   <div class="sec">
@@ -2141,7 +2112,7 @@ display:block !important;
       <div class="campo"><label>Cédula de ciudadanía</label><div class="val">${reg.cedula}</div></div>
       <div class="campo"><label>Cargo</label><div class="val">${reg.cargo}</div></div>
       <div class="campo"><label>Área</label><div class="val">${reg.area}</div></div>
-      <div class="campo"><label>Fecha de diligenciamiento</label><div class="val">${(reg.fechaDiligenciamiento || reg.fecha || '').split('T')[0]}</div></div>
+      <div class="campo"><label>Fecha de diligenciamiento</label><div class="val">${reg.fechaDiligenciamiento || reg.fecha}</div></div>
     </div>
   </div>
 
@@ -2154,13 +2125,6 @@ display:block !important;
       <div class="campo"><label>Días hábiles</label><div class="val">${reg.hab}</div></div>
       <div class="campo"><label>Días calendario</label><div class="val">${reg.cal}</div></div>
       <div class="campo"><label>Tiempo ausente</label><div class="val">${reg.horasDisplay || '—'}</div></div>
-    </div>
-  </div>
-
-  <div class="sec">
-    <div class="sec-head">📋 Tipo de Ausencia</div>
-    <div class="sec-body">
-      <div class="campo"><div class="val" style="font-weight:700;font-size:13px">${reg.tipo || '—'}</div></div>
     </div>
   </div>
 
@@ -2738,9 +2702,29 @@ function aprobar(id) {
   renderPanel(); updateStats(); renderConsultaSolicitudes();
   // Notificar al empleado por WhatsApp
   notificarEmpleado(r);
+  // Notificar al jefe inmediato por correo
+  notificarJefeInmediato(r);
   // Generar PDF
   try { generarPDF(r); } catch(e) { console.error("generarPDF error:", e); }
-  toast("✅ Permiso aprobado — PDF generado — Notificación WhatsApp enviada al empleado(a)");
+  toast("✅ Permiso aprobado — PDF generado — Notificación enviada al empleado(a) y jefe inmediato");
+}
+
+function aprobarIncapacidad(id) {
+  var r = registros.find(x => x.id===id);
+  if (!r) return;
+  r.aprobado = "Aprobado";
+  r.remunerada = "Sí";
+  r.aprPor = "Lida Juana Aida Lith Rueda Súspez";
+  r.motivoNegacion = "";
+  r.fechaAprobacion = (function(){ var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })();
+  r.fi = limpiarFecha(r.fi);
+  r.ff = limpiarFecha(r.ff);
+  try { actualizarEnSheets(r); } catch(e) { console.error("actualizarEnSheets error:", e); }
+  renderPanel(); updateStats(); renderConsultaSolicitudes();
+  notificarEmpleado(r);
+  notificarJefeInmediato(r);
+  try { generarPDF(r); } catch(e) { console.error("generarPDF error:", e); }
+  toast("⚕️ Incapacidad registrada — PDF generado — Notificación enviada al empleado(a) y jefe inmediato");
 }
 
 function negar(id) {
@@ -2821,6 +2805,36 @@ function notificarEmpleado(reg) {
 }
 
 
+
+function notificarJefeInmediato(reg) {
+  if (!EMAILJS_SERVICE_ID || !EMAILJS_PUBLIC_KEY) return;
+  var jefe = JEFES_INMEDIATOS[reg.nombre];
+  if (!jefe) return;
+  var fi = limpiarFecha(reg.fi);
+  var ff = limpiarFecha(reg.ff);
+  var esIncapacidad = reg.tipo && reg.tipo.includes("Incapacidad");
+  var esLicencia = reg.tipo && reg.tipo.includes("Licencia");
+  var mensaje = "";
+  if (esIncapacidad) {
+    mensaje = reg.nombre + " reportó una incapacidad por " + reg.hab + " día(s) hábiles, desde el " + fi + " hasta el " + ff + ".\nTipo: " + reg.tipo + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
+  } else if (esLicencia) {
+    mensaje = reg.nombre + " tiene una licencia aprobada por " + reg.hab + " día(s) hábiles, desde el " + fi + " hasta el " + ff + ".\nTipo: " + reg.tipo + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
+  } else {
+    mensaje = reg.nombre + " tiene un permiso aprobado para el día " + fi + (reg.ff !== reg.fi ? " al " + ff : "") + ".\nTipo: " + reg.tipo + ".\n\nAtte. Recursos Humanos — CDA BARRANCABERMEJA";
+  }
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_RRHH, {
+    jefe_email: jefe.correo,
+    to_email:   jefe.correo,
+    mensaje:    mensaje,
+    empleado:   reg.nombre,
+    tipo:       reg.tipo,
+    fecha_ini:  fi,
+    fecha_fin:  ff,
+    dias_hab:   reg.hab
+  }, EMAILJS_PUBLIC_KEY)
+  .then(function(){ toast("📧 Correo enviado al jefe inmediato ✅"); })
+  .catch(function(e){ console.warn("EmailJS jefe error:", e); });
+}
 
 function abrirConsultaSolicitudes() {
   var pant = document.getElementById("pantalla-bienvenida");
