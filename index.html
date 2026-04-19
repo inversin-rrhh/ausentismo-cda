@@ -1614,6 +1614,12 @@ function cargarDesdeSheets(callback) {
     .then(function(data){
       if (data.ok && data.registros) {
         var regs = data.registros.map(function(r){
+          function limpiarF(f) {
+            if (!f) return "";
+            var s = String(f);
+            if (s.indexOf("T") > -1) s = s.split("T")[0];
+            return s;
+          }
           return {
             id:           parseInt(r.id) || 0,
             radicado:     r.radicado || "",
@@ -1622,8 +1628,8 @@ function cargarDesdeSheets(callback) {
             cargo:        r.cargo || "",
             area:         r.area || "",
             tipo:         r.tipo || "",
-            fi:           r.fi || "",
-            ff:           r.ff || "",
+            fi:           limpiarF(r.fi),
+            ff:           limpiarF(r.ff),
             hab:          parseInt(r.hab) || 0,
             cal:          parseInt(r.cal) || 0,
             horasDisplay: r.horasDisplay || "",
@@ -1633,7 +1639,8 @@ function cargarDesdeSheets(callback) {
             diag:         r.diag || "",
             medico:       r.medico || "",
             obs:          r.obs || "",
-            fecha:        r.fecha || "",
+            fecha:        limpiarF(r.fecha) || "",
+            fechaDiligenciamiento: limpiarF(r.fecha) || "",
             celularEmp:   r.celularEmp || "",
             correoEmp:    r.correoEmp || "",
             motivoNegacion: r.motivoNegacion || "",
@@ -2121,13 +2128,8 @@ display:block !important;
   </table>
 
   <div class="consec">
-    <span>Solicitud N° ${reg.id}</span>
-    <small>Fecha de diligenciamiento: ${reg.fechaDiligenciamiento || reg.fecha}</small>
-  </div>
-
-  <div class="tipo-banner">
-    <div class="lbl">Tipo de Ausencia Seleccionado</div>
-    <div class="val">${reg.tipo}</div>
+    <span>Solicitud N° ${reg.radicado || reg.id}</span>
+    <small>Fecha de diligenciamiento: ${(reg.fechaDiligenciamiento || reg.fecha || '').split('T')[0]}</small>
   </div>
 
   <div class="sec">
@@ -2137,7 +2139,7 @@ display:block !important;
       <div class="campo"><label>Cédula de ciudadanía</label><div class="val">${reg.cedula}</div></div>
       <div class="campo"><label>Cargo</label><div class="val">${reg.cargo}</div></div>
       <div class="campo"><label>Área</label><div class="val">${reg.area}</div></div>
-      <div class="campo"><label>Fecha de diligenciamiento</label><div class="val">${reg.fechaDiligenciamiento || reg.fecha}</div></div>
+      <div class="campo"><label>Fecha de diligenciamiento</label><div class="val">${(reg.fechaDiligenciamiento || reg.fecha || '').split('T')[0]}</div></div>
     </div>
   </div>
 
@@ -2150,6 +2152,13 @@ display:block !important;
       <div class="campo"><label>Días hábiles</label><div class="val">${reg.hab}</div></div>
       <div class="campo"><label>Días calendario</label><div class="val">${reg.cal}</div></div>
       <div class="campo"><label>Tiempo ausente</label><div class="val">${reg.horasDisplay || '—'}</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head">📋 Tipo de Ausencia</div>
+    <div class="sec-body">
+      <div class="campo"><div class="val" style="font-weight:700;font-size:13px">${reg.tipo || '—'}</div></div>
     </div>
   </div>
 
