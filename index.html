@@ -1516,10 +1516,10 @@ var CELULAR_RRHH = "573187072035";
 
 // 4. EMAILJS — Envío real de correos (gratis hasta 200/mes en emailjs.com)
 //    Instrucciones: ver guía al final del archivo
-var EMAILJS_SERVICE_ID  = ""; // ← ej: "service_abc123"
-var EMAILJS_TEMPLATE_ID_RRHH = ""; // ← template notif a RRHH
-var EMAILJS_TEMPLATE_ID_EMP  = ""; // ← template respuesta al empleado(a)
-var EMAILJS_PUBLIC_KEY  = ""; // ← clave pública EmailJS
+var EMAILJS_SERVICE_ID  = "inversin_rrhh";
+var EMAILJS_TEMPLATE_ID_RRHH = "template_jefe";
+var EMAILJS_TEMPLATE_ID_EMP  = "template_jefe";
+var EMAILJS_PUBLIC_KEY  = "deMjOnKt6sGQbgDR1";
 
 // 5. GOOGLE DRIVE — Subida automática de PDFs
 //    Instrucciones completas al final del archivo (sección GUÍA GOOGLE DRIVE)
@@ -2813,20 +2813,20 @@ function notificarEmpleado(reg) {
 
 // ── PALABRAS CLAVE DE TRABAJADORES ──
 var PALABRAS_CLAVE = {
-  "Carlos Arturo Valencia":             "Valioso",
-  "Diego Fernando Alemán Arrieta":      "Obedezco",
-  "Edwin Vilardy Trujillo":             "Capaz",
-  "Gabriela De Jesús Sosa Chávez":      "Salud",
-  "Heriberto León Ayala":               "Resiliente",
-  "Janer Montesino Rangel":             "Valiente",
-  "Jorge Alexander Rueda Bravo":        "Feliz",
-  "Julian David Pulido Mora":           "Proactivo",
-  "Kelly Johana Uribe Téllez":          "Efectiva",
-  "Lida Juana Aida Lith Rueda Súspez":  "Prospera",
-  "Luis Alexander López Aldana":        "Precrastinador",
-  "Mariam Andrea Rueda Súspez":         "Líder",
-  "Marlon José Quintero García":        "Motivador",
-  "Salomon Rueda Rueda":                "Empresario"
+  "Carlos Arturo Valencia": "Valioso",
+  "Diego Fernando Alemán Arrieta": "Obedezco",
+  "Edwin Vilardy Trujillo": "Capaz",
+  "Gabriela De Jesús Sosa Chávez": "Salud",
+  "Heriberto León Ayala": "Resiliente",
+  "Janer Montesino Rangel": "Valiente",
+  "Jorge Alexander Rueda Bravo": "Feliz",
+  "Julian David Pulido Mora": "Proactivo",
+  "Kelly Johana Uribe Téllez": "Efectiva",
+  "Lida Juana Aida Lith Rueda Súspez": "Prospera",
+  "Luis Alexander López Aldana": "Precrastinador",
+  "Mariam Andrea Rueda Súspez": "Lider",
+  "Marlon José Quintero García": "Motivador",
+  "Salomon Rueda Rueda": "Empresario"
 };
 
 function verificarIdentidadConsulta() {
@@ -2947,6 +2947,8 @@ function renderConsultaSolicitudes() {
     renderConsultaSolicitudesVerificada(_consultaNombreActivo, _consultaCedulaActiva);
   }
 }
+
+function abrirConsultaSolicitudes() {
   var pant = document.getElementById("pantalla-bienvenida");
   pant.style.transition = "opacity .4s ease, transform .4s ease";
   pant.style.opacity = "0";
