@@ -1609,7 +1609,7 @@ function enviarASheets(reg) {
     aprPor:        "",
     horasAusentes: reg.horasAusentes || 0,
     diasAnticip:   reg.diasAnticip || 0,
-    fueraTiempo:   reg.fueraTiempo || false
+    fueraTiempo:   (reg.fueraTiempo === true || reg.fueraTiempo === "true") ? "Sí" : "No"
   });
   var url = SHEETS_SCRIPT_URL + "?" + params.toString();
   var intentos = 0;
@@ -1661,7 +1661,7 @@ function actualizarEnSheets(reg) {
     correoEmp:      reg.correoEmp || "",
     fechaDiligenciamiento: reg.fechaDiligenciamiento || reg.fecha || "",
     diasAnticip:    reg.diasAnticip || 0,
-    fueraTiempo:    reg.fueraTiempo || false
+    fueraTiempo:    (reg.fueraTiempo === true || reg.fueraTiempo === "true") ? "Sí" : "No"
   });
   var url = SHEETS_SCRIPT_URL + "?" + params.toString();
   var intentos = 0;
@@ -2925,27 +2925,21 @@ function notificarJefeInmediato(reg) {
   var fi = limpiarFecha(reg.fi);
   var ff = limpiarFecha(reg.ff);
   var esIncapacidad = reg.tipo && reg.tipo.includes("Incapacidad");
-  var esLicencia = reg.tipo && reg.tipo.includes("Licencia");
-  var tipoTexto = esIncapacidad ? "una INCAPACIDAD" : esLicencia ? "una LICENCIA" : "un PERMISO APROBADO";
-  var mensaje = reg.nombre + " tiene " + tipoTexto + " por " + reg.hab + " día(s) hábil(es), del " + fi + " al " + ff + ". Tipo: " + reg.tipo + ". Estado: " + reg.aprobado + ". Atte. Recursos Humanos — CDA BARRANCABERMEJA";
-  // Usar template_jefe con to_email apuntando al jefe
+  var esLicencia    = reg.tipo && reg.tipo.includes("Licencia");
+  var mensaje;
+  if (esIncapacidad) {
+    mensaje = reg.nombre + " reportó una incapacidad por " + reg.hab + " día(s) hábiles, desde el " + fi + " hasta el " + ff + ". Tipo: " + reg.tipo + ". Atte. Recursos Humanos — CDA BARRANCABERMEJA";
+  } else if (esLicencia) {
+    mensaje = reg.nombre + " tiene una licencia aprobada por " + reg.hab + " día(s) hábiles, desde el " + fi + " hasta el " + ff + ". Tipo: " + reg.tipo + ". Atte. Recursos Humanos — CDA BARRANCABERMEJA";
+  } else {
+    mensaje = reg.nombre + " tiene un permiso aprobado para el día " + fi + (ff !== fi ? " al " + ff : "") + ". Tipo: " + reg.tipo + ". Atte. Recursos Humanos — CDA BARRANCABERMEJA";
+  }
   emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_RRHH, {
-    to_email:   jefe.correo,
-    jefe_nombre: jefe.nombre,
-    empleado:   reg.nombre,
-    cedula:     reg.cedula,
-    cargo:      reg.cargo,
-    area:       reg.area,
-    tipo:       reg.tipo,
-    fecha_ini:  fi,
-    fecha_fin:  ff,
-    dias_hab:   reg.hab,
-    celular:    reg.celularEmp || "No registrado",
-    obs:        reg.obs || "—",
-    mensaje:    mensaje
+    to_email: jefe.correo,
+    mensaje:  mensaje
   }, EMAILJS_PUBLIC_KEY)
   .then(function(){ toast("📧 Correo enviado al jefe inmediato: " + jefe.nombre + " ✅"); })
-  .catch(function(e){ console.warn("EmailJS jefe error:", e); toast("⚠ No se pudo enviar correo al jefe inmediato", true); });
+  .catch(function(e){ console.warn("EmailJS jefe error:", e); toast("⚠ Error al enviar correo al jefe inmediato", true); });
 }
 
 // ── PALABRAS CLAVE DE TRABAJADORES ──
