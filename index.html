@@ -1120,48 +1120,49 @@ display:block !important;
               CIE-10 = Clasificación Internacional de Enfermedades. Solo para incapacidades y licencias médicas.
             </span>
           </label>
-          <select id="diag">
-            <option value="">— Seleccione el diagnóstico —</option>
-            <option value="A09 – Diarrea y gastroenteritis de presunto origen infeccioso">A09 – Diarrea y gastroenteritis</option>
-            <option value="B34.9 – Infección viral, no especificada">B34.9 – Infección viral</option>
-            <option value="F32.0 – Episodio depresivo leve">F32.0 – Episodio depresivo leve</option>
-            <option value="F32.1 – Episodio depresivo moderado">F32.1 – Episodio depresivo moderado</option>
-            <option value="F41.1 – Trastorno de ansiedad generalizada">F41.1 – Trastorno de ansiedad generalizada</option>
-            <option value="F43.1 – Trastorno de estrés postraumático">F43.1 – Estrés postraumático</option>
-            <option value="G43.9 – Migraña, no especificada">G43.9 – Migraña</option>
-            <option value="G54.2 – Trastornos de las raíces cervicales">G54.2 – Trastorno raíces cervicales</option>
-            <option value="J00 – Rinofaringitis aguda (resfriado común)">J00 – Resfriado común</option>
-            <option value="J01.9 – Sinusitis aguda, no especificada">J01.9 – Sinusitis aguda</option>
-            <option value="J02.9 – Faringitis aguda, no especificada">J02.9 – Faringitis aguda</option>
-            <option value="J03.9 – Amigdalitis aguda, no especificada">J03.9 – Amigdalitis aguda</option>
-            <option value="J06.9 – Infección aguda vías respiratorias superiores">J06.9 – Infección respiratoria superior</option>
-            <option value="J11.1 – Influenza con manifestaciones respiratorias">J11.1 – Influenza / Gripa</option>
-            <option value="J18.9 – Neumonía, no especificada">J18.9 – Neumonía</option>
-            <option value="J20.9 – Bronquitis aguda, no especificada">J20.9 – Bronquitis aguda</option>
-            <option value="J45.9 – Asma, no especificada">J45.9 – Asma</option>
-            <option value="K04.0 – Pulpitis">K04.0 – Pulpitis</option>
-            <option value="K08.9 – Problema dental / Dolor dental">K08.9 – Problema dental</option>
-            <option value="K21.0 – Enfermedad por reflujo gastroesofágico">K21.0 – Reflujo gastroesofágico</option>
-            <option value="K29.7 – Gastritis, no especificada">K29.7 – Gastritis</option>
-            <option value="K59.0 – Estreñimiento">K59.0 – Estreñimiento</option>
-            <option value="L20.9 – Dermatitis atópica, no especificada">L20.9 – Dermatitis atópica</option>
-            <option value="M25.5 – Dolor articular">M25.5 – Dolor articular</option>
-            <option value="M54.2 – Cervicalgia">M54.2 – Cervicalgia</option>
-            <option value="M54.4 – Lumbago con ciática">M54.4 – Lumbago con ciática</option>
-            <option value="M54.5 – Lumbago no especificado">M54.5 – Lumbago</option>
-            <option value="M79.6 – Dolor en miembro">M79.6 – Dolor en miembro</option>
-            <option value="N39.0 – Infección de vías urinarias">N39.0 – Infección vías urinarias</option>
-            <option value="R05 – Tos">R05 – Tos</option>
-            <option value="R10.4 – Dolor abdominal">R10.4 – Dolor abdominal</option>
-            <option value="R51 – Cefalea">R51 – Cefalea / Dolor de cabeza</option>
-            <option value="R52.9 – Dolor, no especificado">R52.9 – Dolor no especificado</option>
-            <option value="S00-S99 – Traumatismo (accidente de trabajo)">S00-S99 – Traumatismo / Accidente de trabajo</option>
-            <option value="T14.9 – Traumatismo, no especificado">T14.9 – Traumatismo no especificado</option>
-            <option value="Z00.0 – Examen médico general">Z00.0 – Examen médico general</option>
-            <option value="Z34 – Supervisión de embarazo normal">Z34 – Embarazo normal</option>
-            <option value="Z39.0 – Atención postparto">Z39.0 – Atención postparto</option>
-            <option value="Otro – Especificado por el médico">Otro – Especificado por el médico</option>
-          </select>
+          <input type="text" id="diag" list="cie10-list" placeholder="Ej. J06.9 – Gripa / Infección respiratoria" autocomplete="off"
+            style="border:1.5px solid var(--gris2);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'Source Sans 3',sans-serif;color:var(--texto);background:#fafcff;transition:border-color .2s,box-shadow .2s;outline:none;width:100%">
+          <datalist id="cie10-list">
+            <option value="A09 – Diarrea y gastroenteritis de presunto origen infeccioso">
+            <option value="B34.9 – Infección viral, no especificada">
+            <option value="F32.0 – Episodio depresivo leve">
+            <option value="F32.1 – Episodio depresivo moderado">
+            <option value="F41.1 – Trastorno de ansiedad generalizada">
+            <option value="F43.1 – Trastorno de estrés postraumático">
+            <option value="G43.9 – Migraña, no especificada">
+            <option value="G54.2 – Trastornos de las raíces cervicales">
+            <option value="J00 – Rinofaringitis aguda (resfriado común)">
+            <option value="J01.9 – Sinusitis aguda, no especificada">
+            <option value="J02.9 – Faringitis aguda, no especificada">
+            <option value="J03.9 – Amigdalitis aguda, no especificada">
+            <option value="J06.9 – Infección aguda vías respiratorias superiores">
+            <option value="J11.1 – Influenza con manifestaciones respiratorias">
+            <option value="J18.9 – Neumonía, no especificada">
+            <option value="J20.9 – Bronquitis aguda, no especificada">
+            <option value="J45.9 – Asma, no especificada">
+            <option value="K04.0 – Pulpitis">
+            <option value="K08.9 – Problema dental / Dolor dental">
+            <option value="K21.0 – Enfermedad por reflujo gastroesofágico">
+            <option value="K29.7 – Gastritis, no especificada">
+            <option value="K59.0 – Estreñimiento">
+            <option value="L20.9 – Dermatitis atópica, no especificada">
+            <option value="M25.5 – Dolor articular">
+            <option value="M54.2 – Cervicalgia">
+            <option value="M54.4 – Lumbago con ciática">
+            <option value="M54.5 – Lumbago no especificado">
+            <option value="M79.6 – Dolor en miembro">
+            <option value="N39.0 – Infección de vías urinarias">
+            <option value="R05 – Tos">
+            <option value="R10.4 – Dolor abdominal">
+            <option value="R51 – Cefalea / Dolor de cabeza">
+            <option value="R52.9 – Dolor, no especificado">
+            <option value="S00-S99 – Traumatismo (accidente de trabajo)">
+            <option value="T14.9 – Traumatismo, no especificado">
+            <option value="Z00.0 – Examen médico general">
+            <option value="Z34 – Supervisión de embarazo normal">
+            <option value="Z39.0 – Atención postparto">
+            <option value="Otro – Especificado por el médico">
+          </datalist>
         </div>
         <div class="fg" id="wrap-medico"><label>Médico / Autoridad que expide</label><input type="text" id="medico" placeholder="Ej. Dr. Carlos Ramírez – EPS Sanitas"></div>
         <div class="fg" style="grid-column:1/-1"><label>Observaciones del trabajador</label><textarea id="obs" placeholder="Información adicional que desee reportar…"></textarea></div>
@@ -1636,15 +1637,52 @@ function actualizarEnSheets(reg) {
   var params = new URLSearchParams({
     accion:         "actualizar",
     id:             reg.id,
+    radicado:       reg.radicado || "",
+    nombre:         reg.nombre || "",
+    cedula:         reg.cedula || "",
+    cargo:          reg.cargo || "",
+    area:           reg.area || "",
+    tipo:           reg.tipo || "",
+    fi:             reg.fi || "",
+    ff:             reg.ff || "",
+    hab:            reg.hab || 0,
+    cal:            reg.cal || 0,
+    horasDisplay:   reg.horasDisplay || (reg.hab * 8) + "h",
+    horasAusentes:  reg.horasAusentes || 0,
     aprobado:       reg.aprobado,
     remunerada:     reg.remunerada || "Pendiente RRHH",
     motivoNegacion: reg.motivoNegacion || "",
-    aprPor:         reg.aprPor || ""
+    aprPor:         reg.aprPor || "",
+    soporte:        reg.soporte || "",
+    diag:           reg.diag || "",
+    medico:         reg.medico || "",
+    obs:            reg.obs || "",
+    celularEmp:     reg.celularEmp || "",
+    correoEmp:      reg.correoEmp || "",
+    fechaDiligenciamiento: reg.fechaDiligenciamiento || reg.fecha || "",
+    diasAnticip:    reg.diasAnticip || 0,
+    fueraTiempo:    reg.fueraTiempo || false
   });
-  fetch(SHEETS_SCRIPT_URL + "?" + params.toString())
-    .then(function(r){ return r.json(); })
-    .then(function(data){ if(data.ok) toast("☁️ Estado actualizado en la nube ✅"); })
-    .catch(function(e){ console.warn("Sheets actualizar error:", e); });
+  var url = SHEETS_SCRIPT_URL + "?" + params.toString();
+  var intentos = 0;
+  function intentarActualizar() {
+    intentos++;
+    fetch(url)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(data.ok) toast("☁️ Matriz actualizada en la nube ✅");
+        else console.warn("Sheets actualizar error:", data);
+      })
+      .catch(function(e){
+        if (intentos < 3) {
+          setTimeout(intentarActualizar, 2000);
+        } else {
+          console.warn("Sheets actualizar error después de 3 intentos:", e);
+          toast("⚠ No se pudo actualizar en la nube. Verifique conexión.", true);
+        }
+      });
+  }
+  intentarActualizar();
 }
 
 function cargarDesdeSheets(callback) {
@@ -2883,26 +2921,31 @@ var JEFES_INMEDIATOS = {
 function notificarJefeInmediato(reg) {
   if (!EMAILJS_SERVICE_ID || !EMAILJS_PUBLIC_KEY) return;
   var jefe = JEFES_INMEDIATOS[reg.nombre];
-  if (!jefe) return;
+  if (!jefe) { console.warn("Jefe inmediato no encontrado para:", reg.nombre); return; }
   var fi = limpiarFecha(reg.fi);
   var ff = limpiarFecha(reg.ff);
   var esIncapacidad = reg.tipo && reg.tipo.includes("Incapacidad");
   var esLicencia = reg.tipo && reg.tipo.includes("Licencia");
-  var mensaje = "";
-  if (esIncapacidad) {
-    mensaje = reg.nombre + " reportó una incapacidad por " + reg.hab + " día(s) hábiles, desde el " + fi + " hasta el " + ff + ". Tipo: " + reg.tipo + ". Atte. Recursos Humanos — CDA BARRANCABERMEJA";
-  } else if (esLicencia) {
-    mensaje = reg.nombre + " tiene una licencia aprobada por " + reg.hab + " día(s) hábiles, desde el " + fi + " hasta el " + ff + ". Tipo: " + reg.tipo + ". Atte. Recursos Humanos — CDA BARRANCABERMEJA";
-  } else {
-    mensaje = reg.nombre + " tiene un permiso aprobado para el día " + fi + (ff !== fi ? " al " + ff : "") + ". Tipo: " + reg.tipo + ". Atte. Recursos Humanos — CDA BARRANCABERMEJA";
-  }
+  var tipoTexto = esIncapacidad ? "una INCAPACIDAD" : esLicencia ? "una LICENCIA" : "un PERMISO APROBADO";
+  var mensaje = reg.nombre + " tiene " + tipoTexto + " por " + reg.hab + " día(s) hábil(es), del " + fi + " al " + ff + ". Tipo: " + reg.tipo + ". Estado: " + reg.aprobado + ". Atte. Recursos Humanos — CDA BARRANCABERMEJA";
+  // Usar template_jefe con to_email apuntando al jefe
   emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_RRHH, {
-    jefe_email: jefe.correo,
     to_email:   jefe.correo,
+    jefe_nombre: jefe.nombre,
+    empleado:   reg.nombre,
+    cedula:     reg.cedula,
+    cargo:      reg.cargo,
+    area:       reg.area,
+    tipo:       reg.tipo,
+    fecha_ini:  fi,
+    fecha_fin:  ff,
+    dias_hab:   reg.hab,
+    celular:    reg.celularEmp || "No registrado",
+    obs:        reg.obs || "—",
     mensaje:    mensaje
   }, EMAILJS_PUBLIC_KEY)
-  .then(function(){ toast("📧 Correo enviado al jefe inmediato ✅"); })
-  .catch(function(e){ console.warn("EmailJS jefe error:", e); });
+  .then(function(){ toast("📧 Correo enviado al jefe inmediato: " + jefe.nombre + " ✅"); })
+  .catch(function(e){ console.warn("EmailJS jefe error:", e); toast("⚠ No se pudo enviar correo al jefe inmediato", true); });
 }
 
 // ── PALABRAS CLAVE DE TRABAJADORES ──
