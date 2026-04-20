@@ -2198,12 +2198,15 @@ display:block !important;
 
 </body></html>`;
 
-  var ventana = window.open('', '_blank', 'width=850,height=700');
-  ventana.document.write(html);
-  ventana.document.close();
-  ventana.onload = function() {
-    setTimeout(function() {
-      html2canvas(ventana.document.body, {scale:2, useCORS:true, allowTaint:true, backgroundColor:'#ffffff', logging:false, imageTimeout:0, scrollX:0, scrollY:0, windowWidth:ventana.document.body.scrollWidth, windowHeight:ventana.document.body.scrollHeight}).then(function(canvas) {
+  // Crear un iframe oculto en lugar de window.open
+  var iframe = document.createElement('iframe');
+  iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:850px;height:700px;border:none';
+  document.body.appendChild(iframe);
+  iframe.contentDocument.open();
+  iframe.contentDocument.write(html);
+  iframe.contentDocument.close();
+  setTimeout(function() {
+    html2canvas(iframe.contentDocument.body, {scale:2, useCORS:true, allowTaint:true, backgroundColor:'#ffffff', logging:false, imageTimeout:0, scrollX:0, scrollY:0, windowWidth:850, windowHeight:700}).then(function(canvas) {
         var pdf = new jspdf.jsPDF('p','mm','a4');
         var pageW = pdf.internal.pageSize.getWidth();
         var pageH = pdf.internal.pageSize.getHeight();
@@ -2231,16 +2234,14 @@ display:block !important;
         var fecha = reg.fi.replace(/-/g,'');
         var nombreArchivo = (reg.radicado || ('Ausentismo_' + nombre + '_N' + reg.id + '_' + fecha)) + '.pdf';
         pdf.save(nombreArchivo);
-        ventana.close();
+        document.body.removeChild(iframe);
         toast("📄 PDF generado — revise su carpeta de Descargas");
-        // ── Subir a Google Drive automáticamente ──
         if (GDRIVE_CLIENT_ID) {
           var pdfBlob = pdf.output('blob');
           gdriveSubirPDF(pdfBlob, nombreArchivo, reg);
         }
       });
-    }, 800);
-  };
+  }, 800);
 }
 
 // ══ VACACIONES DESDE PORTADA (solo RRHH) ══
