@@ -520,7 +520,7 @@ display:block !important;
           <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Cargo</label>
             <input type="text" id="vac-cargo" readonly placeholder="Automático" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;background:#f0f9ff;font-weight:700;color:#1a3a6b">
           </div>
-          <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Año</label>
+          <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Período</label>
             <input type="number" id="vac-anio" value="2026" min="2020" max="2040" style="width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
           </div>
           <div><label style="font-size:11px;font-weight:700;color:#64748b;display:block;margin-bottom:4px">Estado</label>
@@ -538,13 +538,61 @@ display:block !important;
         <table style="width:100%;border-collapse:collapse;font-size:12px">
           <thead><tr style="background:#1a3a6b;color:#fff">
             <th style="padding:10px 8px">N°</th><th style="padding:10px 8px">Empleado</th>
-            <th style="padding:10px 8px;text-align:center">Año</th><th style="padding:10px 8px;text-align:center">F.Inicio</th>
+            <th style="padding:10px 8px;text-align:center">Período</th><th style="padding:10px 8px;text-align:center">F.Inicio</th>
             <th style="padding:10px 8px;text-align:center">F.Fin</th><th style="padding:10px 8px;text-align:center">Días Háb.</th>
             <th style="padding:10px 8px;text-align:center">Días Cal.</th><th style="padding:10px 8px;text-align:center">Estado</th>
             <th style="padding:10px 8px">Observaciones</th><th style="padding:10px 8px;text-align:center">Acción</th>
           </tr></thead>
           <tbody id="tbody-vac-tabla"><tr><td colspan="10" style="text-align:center;color:#aaa;padding:24px;font-style:italic">No hay registros de vacaciones</td></tr></tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GRÁFICAS VACACIONES ══ -->
+  <div class="card" style="margin-top:14px">
+    <div class="card-head" style="background:linear-gradient(90deg,#1a3a6b,#2563b8);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <div><span class="ico">📊</span><h2 style="display:inline">Estadísticas de Vacaciones — Informe Anual RRHH</h2></div>
+      <button onclick="renderGraficasVac()" style="padding:7px 16px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer">🔄 Actualizar gráficas</button>
+    </div>
+    <div class="card-body">
+      <!-- KPIs Vacaciones -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px">
+        <div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:10px;padding:14px;text-align:center">
+          <div id="vac-kpi-total" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#1a3a6b">0</div>
+          <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:2px">Total Registros</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:10px;padding:14px;text-align:center">
+          <div id="vac-kpi-dias" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#15803d">0</div>
+          <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:2px">Días Hábiles Totales</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#fefce8,#fef9c3);border:1.5px solid #fde047;border-radius:10px;padding:14px;text-align:center">
+          <div id="vac-kpi-emp" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#ca8a04">0</div>
+          <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:2px">Empleados con Vacaciones</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1.5px solid #c4b5fd;border-radius:10px;padding:14px;text-align:center">
+          <div id="vac-kpi-prom" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#7c3aed">0</div>
+          <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:2px">Promedio Días por Empleado</div>
+        </div>
+      </div>
+      <!-- Gráficas -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px">📅 Días de Vacaciones por Empleado</div>
+          <canvas id="chart-vac-empleado" height="200"></canvas>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px">🟢 Estado de Vacaciones</div>
+          <canvas id="chart-vac-estado" height="200"></canvas>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px">📆 Vacaciones por Período</div>
+          <canvas id="chart-vac-periodo" height="200"></canvas>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#1a3a6b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px">📊 Días Hábiles vs Calendario por Empleado</div>
+          <canvas id="chart-vac-habcal" height="200"></canvas>
+        </div>
       </div>
     </div>
   </div>
@@ -759,6 +807,54 @@ display:block !important;
             <tr><td colspan="12" style="text-align:center;color:#aaa;padding:24px;font-style:italic">No hay actividades de bienestar registradas</td></tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GRÁFICAS BIENESTAR ══ -->
+  <div class="card" style="margin-top:14px">
+    <div class="card-head" style="background:linear-gradient(90deg,#065f46,#059669);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <div><span class="ico">📊</span><h2 style="display:inline">Estadísticas de Bienestar Laboral — Informe Anual RRHH</h2></div>
+      <button onclick="renderGraficasBien()" style="padding:7px 16px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer">🔄 Actualizar gráficas</button>
+    </div>
+    <div class="card-body">
+      <!-- KPIs Bienestar -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px">
+        <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #6ee7b7;border-radius:10px;padding:14px;text-align:center">
+          <div id="bien-kpi-total" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#065f46">0</div>
+          <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:2px">Total Actividades</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #6ee7b7;border-radius:10px;padding:14px;text-align:center">
+          <div id="bien-kpi-participo" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#059669">0</div>
+          <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:2px">Participaciones</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#fefce8,#fef9c3);border:1.5px solid #fde047;border-radius:10px;padding:14px;text-align:center">
+          <div id="bien-kpi-tasa" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#ca8a04">0%</div>
+          <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:2px">Tasa de Participación</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:10px;padding:14px;text-align:center">
+          <div id="bien-kpi-tipos" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#1a3a6b">0</div>
+          <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:2px">Tipos de Actividad</div>
+        </div>
+      </div>
+      <!-- Gráficas -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#065f46;margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px">🌿 Actividades por Tipo</div>
+          <canvas id="chart-bien-tipo" height="200"></canvas>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#065f46;margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px">✅ Estado de Participación</div>
+          <canvas id="chart-bien-estado" height="200"></canvas>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#065f46;margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px">👤 Participación por Empleado</div>
+          <canvas id="chart-bien-empleado" height="200"></canvas>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px">
+          <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;color:#065f46;margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px">📅 Actividades por Mes</div>
+          <canvas id="chart-bien-mes" height="200"></canvas>
+        </div>
       </div>
     </div>
   </div>
@@ -2862,7 +2958,6 @@ function notificarEmpleado(reg) {
   // ── WhatsApp al empleado(a) ──
   if (reg.celularEmp) {
     var celLimpio = String(reg.celularEmp).replace(/\D/g,"");
-    // Agregar 57 si no tiene código de país
     if (celLimpio.length === 10) celLimpio = "57" + celLimpio;
     var fi = limpiarFecha(reg.fi);
     var ff = limpiarFecha(reg.ff);
@@ -2873,8 +2968,8 @@ function notificarEmpleado(reg) {
       "📌 *Tipo:* " + reg.tipo + "\n" +
       "📅 *Período:* " + fi + " al " + ff + "\n" +
       "⏱ *Días hábiles:* " + reg.hab + "\n" +
-      "💰 *Remunerada:* " + rem + "\n" +
-      (reg.motivoNegacion ? "📝 *Motivo / observación:* " + reg.motivoNegacion + "\n" : "") + "\n" +
+      (estado === "Aprobado" ? "💰 *Remunerada:* " + rem + "\n" : "") +
+      (reg.motivoNegacion ? "📝 *Motivo:* " + reg.motivoNegacion + "\n" : "") + "\n" +
       "Para mayor información comuníquese con RRHH.\n" +
       "_CDA BARRANCABERMEJA · Gestión de Recursos Humanos_";
     var urlWA = "https://wa.me/" + celLimpio + "?text=" + encodeURIComponent(msg);
@@ -3378,9 +3473,9 @@ function mostrarExcl(sec) {
     var clon = fuente.cloneNode(true);
     clon.style.display = "block";
     cont.appendChild(clon);
-    if (sec === "vac")  renderVacaciones();
+    if (sec === "vac")  { renderVacaciones(); setTimeout(function(){ renderGraficasVac(); }, 300); }
     if (sec === "dis")  renderDisciplinaria();
-    if (sec === "bien") renderBienestar();
+    if (sec === "bien") { renderBienestar(); setTimeout(function(){ renderGraficasBien(); }, 300); }
     return;
   }
   var fuente = document.getElementById("tab-" + sec);
@@ -3786,7 +3881,154 @@ function renderBienestar() {
   tb.innerHTML += '<tr style="background:#065f46;color:#fff;font-weight:900"><td colspan="11" style="padding:10px 8px;text-align:right">TOTAL ACTIVIDADES MOSTRADAS: '+lista.length+'</td><td></td></tr>';
 }
 
-</script>
+// ══ GRÁFICAS VACACIONES ══
+var _chartsVac = {};
+function renderGraficasVac() {
+  if (!vacaciones.length) return;
+  if (typeof Chart === 'undefined') return;
+  var COLORES = ['#1a3a6b','#2563b8','#16a34a','#dc2626','#ea6c00','#7c3aed','#ca8a04','#0891b2','#be185d','#065f46','#334155','#b45309','#0f766e'];
+
+  // KPIs
+  var totalDias = vacaciones.reduce(function(s,v){ return s+(v.hab||0); }, 0);
+  var empsUnicos = new Set(vacaciones.map(function(v){ return v.nombre; })).size;
+  var prom = empsUnicos ? (totalDias/empsUnicos).toFixed(1) : 0;
+  document.getElementById("vac-kpi-total").textContent    = vacaciones.length;
+  document.getElementById("vac-kpi-dias").textContent     = totalDias;
+  document.getElementById("vac-kpi-emp").textContent      = empsUnicos;
+  document.getElementById("vac-kpi-prom").textContent     = prom;
+
+  // Gráfica 1 — Días por empleado
+  var porEmp = {};
+  vacaciones.forEach(function(v){ porEmp[v.nombre] = (porEmp[v.nombre]||0)+(v.hab||0); });
+  var empLabels = Object.keys(porEmp).map(function(n){ return n.split(" ").slice(0,2).join(" "); });
+  var empData   = Object.values(porEmp);
+  if (_chartsVac.emp) _chartsVac.emp.destroy();
+  _chartsVac.emp = new Chart(document.getElementById("chart-vac-empleado"), {
+    type:"bar",
+    data:{ labels:empLabels, datasets:[{ label:"Días Háb.", data:empData, backgroundColor:"#2563b8", borderRadius:6 }] },
+    options:{ responsive:true, indexAxis:"y", plugins:{ legend:{display:false} }, scales:{ x:{ beginAtZero:true, ticks:{font:{size:10}} }, y:{ ticks:{font:{size:10}} } } }
+  });
+
+  // Gráfica 2 — Estado
+  var estados = {};
+  vacaciones.forEach(function(v){ estados[v.estado||"Sin estado"] = (estados[v.estado||"Sin estado"]||0)+1; });
+  var estLabels = Object.keys(estados), estData = Object.values(estados);
+  if (_chartsVac.estado) _chartsVac.estado.destroy();
+  _chartsVac.estado = new Chart(document.getElementById("chart-vac-estado"), {
+    type:"doughnut",
+    data:{ labels:estLabels, datasets:[{ data:estData, backgroundColor:["#16a34a","#2563b8","#ca8a04","#dc2626","#7c3aed"], borderWidth:2, borderColor:"#fff" }] },
+    options:{ responsive:true, plugins:{ legend:{ position:"bottom", labels:{ font:{size:10}, boxWidth:12 } } } }
+  });
+
+  // Gráfica 3 — Por período
+  var porPer = {};
+  vacaciones.forEach(function(v){ var p = v.anio||"Sin período"; porPer[p] = (porPer[p]||0)+(v.hab||0); });
+  var perLabels = Object.keys(porPer).sort(), perData = perLabels.map(function(k){ return porPer[k]; });
+  if (_chartsVac.periodo) _chartsVac.periodo.destroy();
+  _chartsVac.periodo = new Chart(document.getElementById("chart-vac-periodo"), {
+    type:"bar",
+    data:{ labels:perLabels, datasets:[{ label:"Días Háb.", data:perData, backgroundColor:COLORES.slice(0,perLabels.length), borderRadius:6 }] },
+    options:{ responsive:true, plugins:{ legend:{display:false} }, scales:{ y:{ beginAtZero:true, ticks:{font:{size:10}} }, x:{ ticks:{font:{size:10}} } } }
+  });
+
+  // Gráfica 4 — Días Hábiles vs Calendario
+  var empNames = Object.keys(porEmp).map(function(n){ return n.split(" ").slice(0,2).join(" "); });
+  var habArr=[], calArr=[];
+  Object.keys(porEmp).forEach(function(n){
+    var regs = vacaciones.filter(function(v){ return v.nombre===n; });
+    habArr.push(regs.reduce(function(s,v){ return s+(v.hab||0); },0));
+    calArr.push(regs.reduce(function(s,v){ return s+(v.cal||0); },0));
+  });
+  if (_chartsVac.habcal) _chartsVac.habcal.destroy();
+  _chartsVac.habcal = new Chart(document.getElementById("chart-vac-habcal"), {
+    type:"bar",
+    data:{ labels:empNames, datasets:[
+      { label:"Días Hábiles", data:habArr, backgroundColor:"#1a3a6b", borderRadius:4 },
+      { label:"Días Calendario", data:calArr, backgroundColor:"#93c5fd", borderRadius:4 }
+    ]},
+    options:{ responsive:true, plugins:{ legend:{ position:"bottom", labels:{ font:{size:10}, boxWidth:12 } } }, scales:{ y:{ beginAtZero:true, ticks:{font:{size:10}} }, x:{ ticks:{font:{size:10}} } } }
+  });
+}
+
+// ══ GRÁFICAS BIENESTAR ══
+var _chartsBien = {};
+function renderGraficasBien() {
+  if (!bienestar.length) return;
+  if (typeof Chart === 'undefined') return;
+  var COLORES = ['#065f46','#059669','#16a34a','#2563b8','#ca8a04','#dc2626','#7c3aed','#ea6c00','#0891b2','#be185d','#334155','#b45309'];
+
+  // KPIs
+  var total    = bienestar.length;
+  var participo = bienestar.filter(function(b){ return b.estado==="Participó"; }).length;
+  var tasa     = total ? Math.round(participo/total*100) : 0;
+  var tipos    = new Set(bienestar.map(function(b){ return b.tipo; })).size;
+  document.getElementById("bien-kpi-total").textContent    = total;
+  document.getElementById("bien-kpi-participo").textContent = participo;
+  document.getElementById("bien-kpi-tasa").textContent     = tasa + "%";
+  document.getElementById("bien-kpi-tipos").textContent    = tipos;
+
+  // Gráfica 1 — Por tipo
+  var porTipo = {};
+  bienestar.forEach(function(b){ var t = b.tipo||"Sin tipo"; porTipo[t] = (porTipo[t]||0)+1; });
+  var tipoLabels = Object.keys(porTipo), tipoData = Object.values(porTipo);
+  if (_chartsBien.tipo) _chartsBien.tipo.destroy();
+  _chartsBien.tipo = new Chart(document.getElementById("chart-bien-tipo"), {
+    type:"doughnut",
+    data:{ labels:tipoLabels, datasets:[{ data:tipoData, backgroundColor:COLORES.slice(0,tipoLabels.length), borderWidth:2, borderColor:"#fff" }] },
+    options:{ responsive:true, plugins:{ legend:{ position:"bottom", labels:{ font:{size:10}, boxWidth:12 } } } }
+  });
+
+  // Gráfica 2 — Estado participación
+  var porEst = {};
+  bienestar.forEach(function(b){ var e = b.estado||"Sin estado"; porEst[e] = (porEst[e]||0)+1; });
+  var estLabels = Object.keys(porEst), estData = Object.values(porEst);
+  var estColores = estLabels.map(function(e){
+    if(e==="Participó") return "#16a34a";
+    if(e==="No Participó") return "#dc2626";
+    if(e==="Programada"||e==="Pendiente") return "#ca8a04";
+    if(e==="Confirmada") return "#2563b8";
+    return "#94a3b8";
+  });
+  if (_chartsBien.estado) _chartsBien.estado.destroy();
+  _chartsBien.estado = new Chart(document.getElementById("chart-bien-estado"), {
+    type:"doughnut",
+    data:{ labels:estLabels, datasets:[{ data:estData, backgroundColor:estColores, borderWidth:2, borderColor:"#fff" }] },
+    options:{ responsive:true, plugins:{ legend:{ position:"bottom", labels:{ font:{size:10}, boxWidth:12 } } } }
+  });
+
+  // Gráfica 3 — Por empleado
+  var porEmp = {};
+  bienestar.forEach(function(b){ var n = b.nombre||"Sin nombre"; porEmp[n] = (porEmp[n]||0)+1; });
+  var empEntries = Object.entries(porEmp).sort(function(a,b){ return b[1]-a[1]; }).slice(0,10);
+  var empLabels  = empEntries.map(function(e){ return e[0].split(" ").slice(0,2).join(" "); });
+  var empData    = empEntries.map(function(e){ return e[1]; });
+  if (_chartsBien.empleado) _chartsBien.empleado.destroy();
+  _chartsBien.empleado = new Chart(document.getElementById("chart-bien-empleado"), {
+    type:"bar",
+    data:{ labels:empLabels, datasets:[{ label:"Actividades", data:empData, backgroundColor:"#059669", borderRadius:6 }] },
+    options:{ responsive:true, indexAxis:"y", plugins:{ legend:{display:false} }, scales:{ x:{ beginAtZero:true, ticks:{font:{size:10}} }, y:{ ticks:{font:{size:10}} } } }
+  });
+
+  // Gráfica 4 — Por mes
+  var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+  var porMes = {};
+  bienestar.forEach(function(b){
+    if (b.fecha && b.fecha.length >= 7) {
+      var m = parseInt(b.fecha.split("-")[1])-1;
+      var lbl = meses[m] + " " + b.fecha.split("-")[0];
+      porMes[lbl] = (porMes[lbl]||0)+1;
+    }
+  });
+  var mesKeys = Object.keys(porMes).sort();
+  if (_chartsBien.mes) _chartsBien.mes.destroy();
+  _chartsBien.mes = new Chart(document.getElementById("chart-bien-mes"), {
+    type:"line",
+    data:{ labels:mesKeys, datasets:[{ label:"Actividades", data:mesKeys.map(function(k){ return porMes[k]; }), borderColor:"#065f46", backgroundColor:"rgba(6,95,70,.15)", fill:true, tension:.4, pointBackgroundColor:"#065f46", pointRadius:5 }] },
+    options:{ responsive:true, plugins:{ legend:{display:false} }, scales:{ y:{ beginAtZero:true, ticks:{font:{size:10}} }, x:{ ticks:{font:{size:10}} } } }
+  });
+}
+
+
 
 <!-- ══════════════════════════════════════════════════════
   GUÍA DE CONFIGURACIÓN — EmailJS (envío real de correos)
