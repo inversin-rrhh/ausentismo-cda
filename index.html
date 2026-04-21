@@ -2904,8 +2904,28 @@ function setRemunerada(id, val) {
 }
 
 function aprobar(id) {
-  var r = registros.find(x => x.id===id);
-  if (!r) return;
+  var r = registros.find(x => x.id===id || x.id===String(id) || String(x.id)===String(id));
+  if (!r) {
+    // Registro no está en memoria local — recargar desde la nube y reintentar
+    toast("⏳ Cargando registro desde la nube, intente de nuevo en un momento...", true);
+    cargarDesdeSheets(function(regsNube) {
+      registros = [];
+      ctr = 0;
+      regsNube.forEach(function(rn) {
+        registros.push(rn);
+        if (parseInt(rn.id) > ctr) ctr = parseInt(rn.id);
+      });
+      renderPanel(); updateStats();
+      // Reintentar aprobación automáticamente
+      var r2 = registros.find(x => String(x.id)===String(id));
+      if (r2) {
+        setTimeout(function(){ aprobar(id); }, 300);
+      } else {
+        toast("⚠ No se encontró el registro. Recarga la página e intenta de nuevo.", true);
+      }
+    });
+    return;
+  }
   r.aprobado = "Aprobado"; r.aprPor = "Lida Juana Aida Lith Rueda Súspez"; r.motivoNegacion = "";
   r.fechaAprobacion = (function(){ var h=new Date(); return h.getFullYear()+"-"+String(h.getMonth()+1).padStart(2,"0")+"-"+String(h.getDate()).padStart(2,"0"); })();
   // Limpiar fechas antes de usar
@@ -2923,8 +2943,21 @@ function aprobar(id) {
 }
 
 function negar(id) {
-  var r = registros.find(x => x.id===id);
-  if (!r) return;
+  var r = registros.find(x => String(x.id)===String(id));
+  if (!r) {
+    toast("⏳ Cargando registro desde la nube, intente de nuevo en un momento...", true);
+    cargarDesdeSheets(function(regsNube) {
+      registros = [];
+      ctr = 0;
+      regsNube.forEach(function(rn) {
+        registros.push(rn);
+        if (parseInt(rn.id) > ctr) ctr = parseInt(rn.id);
+      });
+      renderPanel(); updateStats();
+      setTimeout(function(){ negar(id); }, 300);
+    });
+    return;
+  }
   var motivoBase = r.fueraTiempo
     ? "Solicitud presentada fuera del tiempo mínimo establecido en el Reglamento Interno de Trabajo."
     : (r.motivoNegacion || "Indique el motivo de negación de la solicitud.");
