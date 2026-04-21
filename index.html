@@ -546,6 +546,56 @@ display:block !important;
           <tbody id="tbody-vac-tabla"><tr><td colspan="10" style="text-align:center;color:#aaa;padding:24px;font-style:italic">No hay registros de vacaciones</td></tr></tbody>
         </table>
       </div>
+
+      <!-- ══ GRÁFICAS VACACIONES ══ -->
+      <div id="vac-graficas-wrap" style="margin-top:22px;display:none">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:#1a3a6b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #dbeafe">📈 Análisis Estadístico de Vacaciones</div>
+
+        <!-- KPIs -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px">
+          <div style="background:#eff6ff;border:1.5px solid #93c5fd;border-radius:10px;padding:12px;text-align:center;border-top:3px solid #1a3a6b">
+            <div id="vac-kpi-total" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#1a3a6b;line-height:1">0</div>
+            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:3px">Total Registros</div>
+          </div>
+          <div style="background:#dcfce7;border:1.5px solid #86efac;border-radius:10px;padding:12px;text-align:center;border-top:3px solid #16a34a">
+            <div id="vac-kpi-dias" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#16a34a;line-height:1">0</div>
+            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:3px">Días Hábiles</div>
+          </div>
+          <div style="background:#fef9c3;border:1.5px solid #fde68a;border-radius:10px;padding:12px;text-align:center;border-top:3px solid #ca8a04">
+            <div id="vac-kpi-emp" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#ca8a04;line-height:1">0</div>
+            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:3px">Empleados</div>
+          </div>
+          <div style="background:#ede9fe;border:1.5px solid #c4b5fd;border-radius:10px;padding:12px;text-align:center;border-top:3px solid #7c3aed">
+            <div id="vac-kpi-prom" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#7c3aed;line-height:1">0</div>
+            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:3px">Promedio Días</div>
+          </div>
+        </div>
+
+        <!-- Gráficas fila 1 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+          <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #e2e8f0;box-shadow:0 2px 10px rgba(26,58,107,.07)">
+            <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;color:#1a3a6b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">🌴 Días por Empleado</div>
+            <canvas id="vac-chart-emp" height="200"></canvas>
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #e2e8f0;box-shadow:0 2px 10px rgba(26,58,107,.07)">
+            <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;color:#1a3a6b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">📊 Estado de Vacaciones</div>
+            <canvas id="vac-chart-estado" height="200"></canvas>
+          </div>
+        </div>
+
+        <!-- Gráficas fila 2 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #e2e8f0;box-shadow:0 2px 10px rgba(26,58,107,.07)">
+            <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;color:#1a3a6b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">📅 Vacaciones por Período / Año</div>
+            <canvas id="vac-chart-anio" height="200"></canvas>
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #e2e8f0;box-shadow:0 2px 10px rgba(26,58,107,.07)">
+            <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;color:#1a3a6b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">⚖️ Días Hábiles vs Calendario</div>
+            <canvas id="vac-chart-hab-cal" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -760,6 +810,56 @@ display:block !important;
           </tbody>
         </table>
       </div>
+
+      <!-- ══ GRÁFICAS BIENESTAR ══ -->
+      <div id="bien-graficas-wrap" style="margin-top:22px;display:none">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:#065f46;text-transform:uppercase;letter-spacing:.4px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #a7f3d0">📈 Análisis Estadístico de Bienestar Laboral</div>
+
+        <!-- KPIs -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px">
+          <div style="background:#f0fdf4;border:1.5px solid #6ee7b7;border-radius:10px;padding:12px;text-align:center;border-top:3px solid #065f46">
+            <div id="bien-kpi-total" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#065f46;line-height:1">0</div>
+            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:3px">Total Actividades</div>
+          </div>
+          <div style="background:#dcfce7;border:1.5px solid #86efac;border-radius:10px;padding:12px;text-align:center;border-top:3px solid #16a34a">
+            <div id="bien-kpi-part" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#16a34a;line-height:1">0</div>
+            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:3px">Participaciones</div>
+          </div>
+          <div style="background:#fef9c3;border:1.5px solid #fde68a;border-radius:10px;padding:12px;text-align:center;border-top:3px solid #ca8a04">
+            <div id="bien-kpi-tasa" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#ca8a04;line-height:1">0%</div>
+            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:3px">Tasa Participación</div>
+          </div>
+          <div style="background:#ede9fe;border:1.5px solid #c4b5fd;border-radius:10px;padding:12px;text-align:center;border-top:3px solid #7c3aed">
+            <div id="bien-kpi-tipos" style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#7c3aed;line-height:1">0</div>
+            <div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.3px;margin-top:3px">Tipos de Actividad</div>
+          </div>
+        </div>
+
+        <!-- Gráficas fila 1 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+          <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #d1fae5;box-shadow:0 2px 10px rgba(6,95,70,.07)">
+            <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;color:#065f46;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">🌿 Actividades por Tipo</div>
+            <canvas id="bien-chart-tipo" height="200"></canvas>
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #d1fae5;box-shadow:0 2px 10px rgba(6,95,70,.07)">
+            <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;color:#065f46;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">✅ Estado de Participación</div>
+            <canvas id="bien-chart-estado" height="200"></canvas>
+          </div>
+        </div>
+
+        <!-- Gráficas fila 2 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #d1fae5;box-shadow:0 2px 10px rgba(6,95,70,.07)">
+            <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;color:#065f46;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">👥 Participación por Empleado</div>
+            <canvas id="bien-chart-emp" height="200"></canvas>
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #d1fae5;box-shadow:0 2px 10px rgba(6,95,70,.07)">
+            <div style="font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;color:#065f46;text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px">📅 Actividades por Mes</div>
+            <canvas id="bien-chart-mes" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -3559,6 +3659,7 @@ function renderVacaciones() {
     <td style="padding:10px 8px;text-align:center">${totCal}</td>
     <td colspan="3"></td>
   </tr>`;
+  setTimeout(function(){ try { renderGraficasVac(); } catch(e){ console.warn("VacCharts error:",e); } }, 200);
 }
 
 // ══ DISCIPLINARIA (sí alimenta la matriz de ausentismo) ══
@@ -3739,6 +3840,167 @@ function eliminarBienestar(id) {
   toast("Registro eliminado.");
 }
 
+// ══ GRÁFICAS VACACIONES ══
+var _chartsVac = {};
+function renderGraficasVac() {
+  if (typeof Chart === 'undefined') return;
+  var cont = document.getElementById("rrhh-excl-contenido");
+  function getEl(id) { return cont ? cont.querySelector("#"+id) : document.getElementById(id); }
+
+  var wrap = getEl("vac-graficas-wrap");
+  if (!wrap) return;
+  if (!vacaciones.length) { wrap.style.display = "none"; return; }
+  wrap.style.display = "block";
+
+  var COLORES = ['#1a3a6b','#16a34a','#ea6c00','#dc2626','#7c3aed','#ca8a04','#0891b2','#be185d'];
+
+  // KPIs
+  var totalDias = vacaciones.reduce(function(s,v){ return s+v.hab; }, 0);
+  var empsUnicos = new Set(vacaciones.map(function(v){ return v.nombre; })).size;
+  var prom = vacaciones.length ? (totalDias / vacaciones.length).toFixed(1) : 0;
+  var kpiT = getEl("vac-kpi-total"); if(kpiT) kpiT.textContent = vacaciones.length;
+  var kpiD = getEl("vac-kpi-dias");  if(kpiD) kpiD.textContent = totalDias;
+  var kpiE = getEl("vac-kpi-emp");   if(kpiE) kpiE.textContent = empsUnicos;
+  var kpiP = getEl("vac-kpi-prom");  if(kpiP) kpiP.textContent = prom;
+
+  // Gráfica 1: Días por empleado
+  var porEmp = {};
+  vacaciones.forEach(function(v){ porEmp[v.nombre] = (porEmp[v.nombre]||0) + v.hab; });
+  var empEnt = Object.entries(porEmp).sort(function(a,b){ return b[1]-a[1]; });
+  var empLabels = empEnt.map(function(e){ return e[0].split(" ").slice(0,2).join(" "); });
+  var empData   = empEnt.map(function(e){ return e[1]; });
+  if (_chartsVac.emp) _chartsVac.emp.destroy();
+  var cvE = getEl("vac-chart-emp");
+  if (cvE) _chartsVac.emp = new Chart(cvE, {
+    type:"bar",
+    data:{ labels:empLabels, datasets:[{ label:"Días Háb.", data:empData, backgroundColor:"#2563b8", borderRadius:6 }] },
+    options:{ responsive:true, indexAxis:"y", plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,ticks:{font:{size:10}}}, y:{ticks:{font:{size:10}}} } }
+  });
+
+  // Gráfica 2: Estado (dona)
+  var estados = {};
+  vacaciones.forEach(function(v){ estados[v.estado] = (estados[v.estado]||0)+1; });
+  var estLabels = Object.keys(estados);
+  var estData   = estLabels.map(function(k){ return estados[k]; });
+  if (_chartsVac.estado) _chartsVac.estado.destroy();
+  var cvEs = getEl("vac-chart-estado");
+  if (cvEs) _chartsVac.estado = new Chart(cvEs, {
+    type:"doughnut",
+    data:{ labels:estLabels, datasets:[{ data:estData, backgroundColor:["#ca8a04","#2563b8","#16a34a","#dc2626"], borderWidth:2, borderColor:"#fff" }] },
+    options:{ responsive:true, plugins:{ legend:{ position:"bottom", labels:{font:{size:10},boxWidth:12} } } }
+  });
+
+  // Gráfica 3: Por año (barras)
+  var porAnio = {};
+  vacaciones.forEach(function(v){ porAnio[v.anio] = (porAnio[v.anio]||0)+1; });
+  var anioKeys = Object.keys(porAnio).sort();
+  if (_chartsVac.anio) _chartsVac.anio.destroy();
+  var cvA = getEl("vac-chart-anio");
+  if (cvA) _chartsVac.anio = new Chart(cvA, {
+    type:"bar",
+    data:{ labels:anioKeys, datasets:[{ label:"Registros", data:anioKeys.map(function(k){ return porAnio[k]; }), backgroundColor:"#16a34a", borderRadius:6 }] },
+    options:{ responsive:true, plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:true,ticks:{font:{size:10}}}, x:{ticks:{font:{size:10}}} } }
+  });
+
+  // Gráfica 4: Días hábiles vs calendario por empleado
+  var habPorEmp = {}, calPorEmp = {};
+  vacaciones.forEach(function(v){ habPorEmp[v.nombre] = (habPorEmp[v.nombre]||0)+v.hab; calPorEmp[v.nombre] = (calPorEmp[v.nombre]||0)+v.cal; });
+  var hcLabels = Object.keys(habPorEmp).map(function(n){ return n.split(" ").slice(0,2).join(" "); });
+  if (_chartsVac.habcal) _chartsVac.habcal.destroy();
+  var cvHC = getEl("vac-chart-hab-cal");
+  if (cvHC) _chartsVac.habcal = new Chart(cvHC, {
+    type:"bar",
+    data:{ labels:hcLabels, datasets:[
+      { label:"Días Hábiles", data:Object.values(habPorEmp), backgroundColor:"#1a3a6b", borderRadius:4 },
+      { label:"Días Calendario", data:Object.values(calPorEmp), backgroundColor:"#93c5fd", borderRadius:4 }
+    ]},
+    options:{ responsive:true, plugins:{ legend:{ position:"bottom", labels:{font:{size:10},boxWidth:12} } }, scales:{ y:{beginAtZero:true,ticks:{font:{size:10}}}, x:{ticks:{font:{size:10}}} } }
+  });
+}
+
+// ══ GRÁFICAS BIENESTAR ══
+var _chartsBien = {};
+function renderGraficasBien() {
+  if (typeof Chart === 'undefined') return;
+  var cont = document.getElementById("rrhh-excl-contenido");
+  function getEl(id) { return cont ? cont.querySelector("#"+id) : document.getElementById(id); }
+
+  var wrap = getEl("bien-graficas-wrap");
+  if (!wrap) return;
+  if (!bienestar.length) { wrap.style.display = "none"; return; }
+  wrap.style.display = "block";
+
+  var COLORES = ['#065f46','#2563b8','#ea6c00','#dc2626','#7c3aed','#ca8a04','#0891b2','#be185d'];
+
+  // KPIs
+  var participaron = bienestar.filter(function(b){ return b.estado==="Participó"; }).length;
+  var tasa = bienestar.length ? Math.round(participaron/bienestar.length*100) : 0;
+  var tiposUnicos = new Set(bienestar.map(function(b){ return b.tipo; })).size;
+  var kpiT = getEl("bien-kpi-total"); if(kpiT) kpiT.textContent = bienestar.length;
+  var kpiP = getEl("bien-kpi-part");  if(kpiP) kpiP.textContent = participaron;
+  var kpiTa = getEl("bien-kpi-tasa"); if(kpiTa) kpiTa.textContent = tasa+"%";
+  var kpiTi = getEl("bien-kpi-tipos"); if(kpiTi) kpiTi.textContent = tiposUnicos;
+
+  // Gráfica 1: Por tipo (dona)
+  var porTipo = {};
+  bienestar.forEach(function(b){ porTipo[b.tipo] = (porTipo[b.tipo]||0)+1; });
+  var tipoLabels = Object.keys(porTipo);
+  var tipoData   = tipoLabels.map(function(k){ return porTipo[k]; });
+  if (_chartsBien.tipo) _chartsBien.tipo.destroy();
+  var cbT = getEl("bien-chart-tipo");
+  if (cbT) _chartsBien.tipo = new Chart(cbT, {
+    type:"doughnut",
+    data:{ labels:tipoLabels, datasets:[{ data:tipoData, backgroundColor:COLORES, borderWidth:2, borderColor:"#fff" }] },
+    options:{ responsive:true, plugins:{ legend:{ position:"bottom", labels:{font:{size:9},boxWidth:11} } } }
+  });
+
+  // Gráfica 2: Estado participación (dona)
+  var porEstado = {};
+  bienestar.forEach(function(b){ porEstado[b.estado] = (porEstado[b.estado]||0)+1; });
+  var estLabels = Object.keys(porEstado);
+  var estData   = estLabels.map(function(k){ return porEstado[k]; });
+  if (_chartsBien.estado) _chartsBien.estado.destroy();
+  var cbEs = getEl("bien-chart-estado");
+  if (cbEs) _chartsBien.estado = new Chart(cbEs, {
+    type:"doughnut",
+    data:{ labels:estLabels, datasets:[{ data:estData, backgroundColor:["#16a34a","#2563b8","#ca8a04","#dc2626","#7c3aed","#fbbf24"], borderWidth:2, borderColor:"#fff" }] },
+    options:{ responsive:true, plugins:{ legend:{ position:"bottom", labels:{font:{size:9},boxWidth:11} } } }
+  });
+
+  // Gráfica 3: Por empleado (barras horizontales)
+  var porEmp = {};
+  bienestar.forEach(function(b){ porEmp[b.nombre] = (porEmp[b.nombre]||0)+1; });
+  var empEnt = Object.entries(porEmp).sort(function(a,b){ return b[1]-a[1]; });
+  var empLabels = empEnt.map(function(e){ return e[0].split(" ").slice(0,2).join(" "); });
+  var empData   = empEnt.map(function(e){ return e[1]; });
+  if (_chartsBien.emp) _chartsBien.emp.destroy();
+  var cbE = getEl("bien-chart-emp");
+  if (cbE) _chartsBien.emp = new Chart(cbE, {
+    type:"bar",
+    data:{ labels:empLabels, datasets:[{ label:"Actividades", data:empData, backgroundColor:"#059669", borderRadius:6 }] },
+    options:{ responsive:true, indexAxis:"y", plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,ticks:{font:{size:10}}}, y:{ticks:{font:{size:10}}} } }
+  });
+
+  // Gráfica 4: Por mes (línea)
+  var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+  var porMes = {};
+  bienestar.forEach(function(b){
+    if (b.fecha && b.fecha.length >= 7) {
+      var m = parseInt(b.fecha.split("-")[1])-1;
+      var lbl = meses[m]+" "+b.fecha.split("-")[0];
+      porMes[lbl] = (porMes[lbl]||0)+1;
+    }
+  });
+  var mesKeys = Object.keys(porMes).sort();
+  if (_chartsBien.mes) _chartsBien.mes.destroy();
+  var cbM = getEl("bien-chart-mes");
+  if (cbM) _chartsBien.mes = new Chart(cbM, {
+    type:"line",
+    data:{ labels:mesKeys, datasets:[{ label:"Actividades", data:mesKeys.map(function(k){ return porMes[k]; }), borderColor:"#065f46", backgroundColor:"rgba(6,95,70,.15)", fill:true, tension:.4, pointBackgroundColor:"#065f46", pointRadius:5 }] },
+    options:{ responsive:true, plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:true,ticks:{font:{size:10}}}, x:{ticks:{font:{size:10}}} } }
+  });
+}
+
 function renderBienestar() {
   var cont = document.getElementById("rrhh-excl-contenido");
   var tb   = cont ? cont.querySelector("#tbody-bien-tabla") : document.getElementById("tbody-bien-tabla");
@@ -3784,6 +4046,7 @@ function renderBienestar() {
       +'</tr>';
   }).join('');
   tb.innerHTML += '<tr style="background:#065f46;color:#fff;font-weight:900"><td colspan="11" style="padding:10px 8px;text-align:right">TOTAL ACTIVIDADES MOSTRADAS: '+lista.length+'</td><td></td></tr>';
+  setTimeout(function(){ try { renderGraficasBien(); } catch(e){ console.warn("BienCharts error:",e); } }, 200);
 }
 
 </script>
