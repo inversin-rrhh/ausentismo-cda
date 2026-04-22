@@ -1635,7 +1635,7 @@ var CLAVE_RRHH = "CDA2026";
 var EMPLEADOS = [
   { nombre: "Carlos Arturo Valencia",             celular: "573114624347", cedula: "71184814",   cargo: "Oficios Varios y Mensajería",         correo: "carlosarturovalencia2025@outlook.com" },
   { nombre: "Diego Fernando Alemán Arrieta",      celular: "573177179727", cedula: "1096198976", cargo: "Coordinador de Sist. Inform. y Mtto", correo: "draco.bap@gmail.com" },
-  { nombre: "Edwin Vilardy Trujillo",             celular: "573138458944", cedula: "1005187751", cargo: "Inspector de Línea",                  correo: "edwinvilardy@gmail.com" },
+  { nombre: "Edwin Vilardy Trujillo",             celular: "573138458944", cedula: "1005187751", cargo: "Inspector de Línea",                  correo: "edwinvilardytrujillo@gmail.com" },
   { nombre: "Gabriela De Jesús Sosa Chávez",      celular: "573228616363", cedula: "29114320",   cargo: "Oficios Varios y Cafetería",          correo: "gabrielasosachavez@gmail.com" },
   { nombre: "Heriberto León Ayala",               celular: "573187072030", cedula: "13845382",   cargo: "Jefe de Atención al Cliente",         correo: "hleonayalac@yahoo.es" },
   { nombre: "Janer Montesino Rangel",             celular: "573144017620", cedula: "13541705",   cargo: "DT Suplente e Inspector de Línea",    correo: "janer_montesino@hotmail.com" },
@@ -3036,25 +3036,31 @@ function notificarEmpleado(reg) {
 
 // ── JEFES INMEDIATOS ──
 var JEFES_INMEDIATOS = {
-  "Janer Montesino Rangel":        { nombre: "Marlon José Quintero García",        correo: "marlonquintero22@gmail.com" },
-  "Jorge Alexander Rueda Bravo":   { nombre: "Marlon José Quintero García",        correo: "marlonquintero22@gmail.com" },
-  "Edwin Vilardy Trujillo":        { nombre: "Marlon José Quintero García",        correo: "marlonquintero22@gmail.com" },
-  "Julian David Pulido Mora":      { nombre: "Marlon José Quintero García",        correo: "marlonquintero22@gmail.com" },
-  "Kelly Johana Uribe Téllez":     { nombre: "Marlon José Quintero García",        correo: "marlonquintero22@gmail.com" },
+  // Área Operativa — notifican a Dirección Técnica (correo compartido Marlon + Luis)
+  "Janer Montesino Rangel":        { nombre: "Dirección Técnica",                 correo: "inversin.ltda.dt@gmail.com" },
+  "Jorge Alexander Rueda Bravo":   { nombre: "Dirección Técnica",                 correo: "inversin.ltda.dt@gmail.com" },
+  "Edwin Vilardy Trujillo":        { nombre: "Dirección Técnica",                 correo: "inversin.ltda.dt@gmail.com" },
+  "Julian David Pulido Mora":      { nombre: "Dirección Técnica",                 correo: "inversin.ltda.dt@gmail.com" },
+  "Kelly Johana Uribe Téllez":     { nombre: "Dirección Técnica",                 correo: "inversin.ltda.dt@gmail.com" },
+  // Diego — jefe directo Salomon
   "Diego Fernando Alemán Arrieta": { nombre: "Salomon Rueda Rueda",               correo: "salomonrueda@hotmail.com" },
+  // Área Administrativa — notifican a RRHH
   "Carlos Arturo Valencia":        { nombre: "Lida Juana Aida Lith Rueda Súspez", correo: "inversin.rrhh@gmail.com" },
   "Gabriela De Jesús Sosa Chávez": { nombre: "Lida Juana Aida Lith Rueda Súspez", correo: "inversin.rrhh@gmail.com" },
+  // Jefes y directivos — notifican a Gerencia
   "Lida Juana Aida Lith Rueda Súspez": { nombre: "Mariam Andrea Rueda Súspez",   correo: "inversin.ltda@hotmail.com" },
   "Salomon Rueda Rueda":           { nombre: "Mariam Andrea Rueda Súspez",        correo: "inversin.ltda@hotmail.com" },
   "Marlon José Quintero García":   { nombre: "Mariam Andrea Rueda Súspez",        correo: "inversin.ltda@hotmail.com" },
   "Luis Alexander López Aldana":   { nombre: "Mariam Andrea Rueda Súspez",        correo: "inversin.ltda@hotmail.com" },
-  "Heriberto León Ayala":          { nombre: "Mariam Andrea Rueda Súspez",        correo: "inversin.ltda@hotmail.com" }
+  "Heriberto León Ayala":          { nombre: "Mariam Andrea Rueda Súspez",        correo: "inversin.ltda@hotmail.com" },
+  // Gerente — sin jefe inmediato (no se envía notificación)
+  "Mariam Andrea Rueda Súspez":    { nombre: "",                                   correo: "" }
 };
 
 function notificarJefeInmediato(reg) {
   if (!EMAILJS_SERVICE_ID || !EMAILJS_PUBLIC_KEY) return;
   var jefe = JEFES_INMEDIATOS[reg.nombre];
-  if (!jefe) { console.warn("Jefe inmediato no encontrado para:", reg.nombre); return; }
+  if (!jefe || !jefe.correo) { console.warn("Sin jefe inmediato configurado para:", reg.nombre); return; }
   var fi = limpiarFecha(reg.fi);
   var ff = limpiarFecha(reg.ff);
   var esIncapacidad = reg.tipo && reg.tipo.includes("Incapacidad");
@@ -3477,23 +3483,31 @@ function abrirRRHH() {
 
 function _abrirRRHHExcl() {
   sesionActiva = true;
-  // Ocultar portada de bienvenida
   var pant = document.getElementById("pantalla-bienvenida");
   if (pant) { pant.style.opacity="0"; setTimeout(function(){ pant.style.display="none"; }, 300); }
-  // Cargar datos desde la nube automáticamente al abrir el panel
-  if (SHEETS_SCRIPT_URL) {
-    cargarPanelDesdeNube(true);
-  }
-  // Mostrar pantalla exclusiva fullscreen
   var excl = document.getElementById("pantalla-rrhh-excl");
   if (excl) { excl.style.display="flex"; }
-  // Cargar panel por defecto
-  mostrarExcl('panel');
-  // Desbloquear íconos en bloque-rrhh
   var ip = document.getElementById("ico-panel");
   var im = document.getElementById("ico-matriz");
   if (ip) ip.textContent = "🔓";
   if (im) im.textContent = "🔓";
+  // Mostrar panel con mensaje de espera
+  mostrarExcl('panel');
+  // Cargar datos desde la nube y LUEGO renderizar — evita race condition
+  if (SHEETS_SCRIPT_URL) {
+    cargarDesdeSheets(function(regsNube) {
+      if (regsNube.length) {
+        registros = [];
+        ctr = 0;
+        regsNube.forEach(function(rn) {
+          registros.push(rn);
+          if (parseInt(rn.id) > ctr) ctr = parseInt(rn.id);
+        });
+      }
+      renderPanel();
+      updateStats();
+    });
+  }
 }
 
 function mostrarExcl(sec) {
