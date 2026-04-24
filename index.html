@@ -2761,6 +2761,7 @@ function registrar(omitirValidacion) {
     motivoNegacion: ""
   };
   registros.push(reg);
+  // Guardar en Sheets usando sendBeacon (funciona en celular) + fetch como respaldo
   try {
     var params2 = new URLSearchParams({
       accion: "registrar", id: reg.id, radicado: reg.radicado||"", nombre: reg.nombre||"",
@@ -2772,12 +2773,22 @@ function registrar(omitirValidacion) {
       motivoNegacion: "", aprPor: "", horasAusentes: reg.horasAusentes||0,
       diasAnticip: reg.diasAnticip||0, fueraTiempo: (reg.fueraTiempo?"Si":"No")
     });
-    fetch(SHEETS_SCRIPT_URL + "?" + params2.toString())
-      .then(function(r){ return r.json(); })
-      .then(function(data){ if(data.ok) toast("📊 Solicitud guardada en la nube ✅"); else console.warn("Sheets error:", data); })
-      .catch(function(e){ console.warn("Sheets error:", e); });
+    var urlCompleta = SHEETS_SCRIPT_URL + "?" + params2.toString();
+    // sendBeacon garantiza envío aunque el navegador cambie de página o abra WhatsApp
+    var beaconOk = false;
+    if (navigator.sendBeacon) {
+      beaconOk = navigator.sendBeacon(urlCompleta);
+    }
+    // fetch como respaldo si sendBeacon no está disponible
+    if (!beaconOk) {
+      fetch(urlCompleta)
+        .then(function(r){ return r.json(); })
+        .then(function(data){ if(data.ok) toast("📊 Solicitud guardada en la nube ✅"); })
+        .catch(function(e){ console.warn("Sheets error:", e); });
+    }
   } catch(e) { console.error("enviarASheets error:", e); }
-  setTimeout(function(){ try { notificarRRHH(reg); } catch(e) { console.error("notificarRRHH error:", e); } }, 1500);
+  // WhatsApp después de 2s para dar tiempo al guardado
+  setTimeout(function(){ try { notificarRRHH(reg); } catch(e) { console.error("notificarRRHH error:", e); } }, 2000);
   // PDF se genera solo cuando RRHH aprueba — no al momento del registro
   try { mostrarConfirmacionEnvio(reg.radicado, reg.nombre, reg.tipo, reg.fi, reg.ff); } catch(e) { console.error("confirmacion error:", e); toast("✅ Solicitud " + reg.radicado + " registrada correctamente."); }
   try { updateStats(); } catch(e) { console.error("updateStats error:", e); }
