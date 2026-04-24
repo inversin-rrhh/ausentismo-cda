@@ -2761,28 +2761,22 @@ function registrar(omitirValidacion) {
     motivoNegacion: ""
   };
   registros.push(reg);
-  // Guardar en la nube con confirmación antes de abrir WhatsApp
-  var sheetsOk = false;
   try {
     var params2 = new URLSearchParams({
-      accion: "registrar", id: reg.id, radicado: reg.radicado||"" , nombre: reg.nombre||"" ,
-      cedula: reg.cedula||"" , cargo: reg.cargo||"" , area: reg.area||"" , tipo: reg.tipo||"" ,
-      fi: reg.fi||"" , ff: reg.ff||"" , hab: reg.hab||0, cal: reg.cal||0,
+      accion: "registrar", id: reg.id, radicado: reg.radicado||"", nombre: reg.nombre||"",
+      cedula: reg.cedula||"", cargo: reg.cargo||"", area: reg.area||"", tipo: reg.tipo||"",
+      fi: reg.fi||"", ff: reg.ff||"", hab: reg.hab||0, cal: reg.cal||0,
       horasDisplay: reg.horasDisplay||"", aprobado: "Pendiente", remunerada: "Pendiente RRHH",
-      soporte: reg.soporte||"" , diag: reg.diag||"" , medico: reg.medico||"" , obs: reg.obs||"" ,
-      fecha: reg.fecha||"", celularEmp: reg.celularEmp||"" , correoEmp: reg.correoEmp||"" ,
+      soporte: reg.soporte||"", diag: reg.diag||"", medico: reg.medico||"", obs: reg.obs||"",
+      fecha: reg.fecha||"", celularEmp: reg.celularEmp||"", correoEmp: reg.correoEmp||"",
       motivoNegacion: "", aprPor: "", horasAusentes: reg.horasAusentes||0,
       diasAnticip: reg.diasAnticip||0, fueraTiempo: (reg.fueraTiempo?"Si":"No")
     });
     fetch(SHEETS_SCRIPT_URL + "?" + params2.toString())
       .then(function(r){ return r.json(); })
-      .then(function(data){
-        if(data.ok) toast("📊 Solicitud guardada en la nube ✅");
-        else console.warn("Sheets respondio error:", data);
-      })
+      .then(function(data){ if(data.ok) toast("📊 Solicitud guardada en la nube ✅"); else console.warn("Sheets error:", data); })
       .catch(function(e){ console.warn("Sheets error:", e); });
   } catch(e) { console.error("enviarASheets error:", e); }
-  // Notificar por WhatsApp después de 1.5s para dar tiempo al fetch
   setTimeout(function(){ try { notificarRRHH(reg); } catch(e) { console.error("notificarRRHH error:", e); } }, 1500);
   // PDF se genera solo cuando RRHH aprueba — no al momento del registro
   try { mostrarConfirmacionEnvio(reg.radicado, reg.nombre, reg.tipo, reg.fi, reg.ff); } catch(e) { console.error("confirmacion error:", e); toast("✅ Solicitud " + reg.radicado + " registrada correctamente."); }
