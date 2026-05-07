@@ -2761,9 +2761,9 @@ function registrar(omitirValidacion) {
     motivoNegacion: ""
   };
   registros.push(reg);
-  // Guardar en Sheets usando sendBeacon (funciona en celular) + fetch como respaldo
+  // Guardar en Sheets via POST — funciona en todos los navegadores incluyendo Safari
   try {
-    var params2 = new URLSearchParams({
+    var postData = {
       accion: "registrar", id: reg.id, radicado: reg.radicado||"", nombre: reg.nombre||"",
       cedula: reg.cedula||"", cargo: reg.cargo||"", area: reg.area||"", tipo: reg.tipo||"",
       fi: reg.fi||"", ff: reg.ff||"", hab: reg.hab||0, cal: reg.cal||0,
@@ -2772,20 +2772,15 @@ function registrar(omitirValidacion) {
       fecha: reg.fecha||"", celularEmp: reg.celularEmp||"", correoEmp: reg.correoEmp||"",
       motivoNegacion: "", aprPor: "", horasAusentes: reg.horasAusentes||0,
       diasAnticip: reg.diasAnticip||0, fueraTiempo: (reg.fueraTiempo?"Si":"No")
-    });
-    var urlCompleta = SHEETS_SCRIPT_URL + "?" + params2.toString();
-    // sendBeacon garantiza envío aunque el navegador cambie de página o abra WhatsApp
-    var beaconOk = false;
-    if (navigator.sendBeacon) {
-      beaconOk = navigator.sendBeacon(urlCompleta);
-    }
-    // fetch como respaldo si sendBeacon no está disponible
-    if (!beaconOk) {
-      fetch(urlCompleta)
-        .then(function(r){ return r.json(); })
-        .then(function(data){ if(data.ok) toast("📊 Solicitud guardada en la nube ✅"); })
-        .catch(function(e){ console.warn("Sheets error:", e); });
-    }
+    };
+    fetch(SHEETS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(postData)
+    })
+    .then(function(){ toast("📊 Solicitud guardada en la nube ✅"); })
+    .catch(function(e){ console.warn("Sheets POST error:", e); });
   } catch(e) { console.error("enviarASheets error:", e); }
   // WhatsApp después de 2s para dar tiempo al guardado
   setTimeout(function(){ try { notificarRRHH(reg); } catch(e) { console.error("notificarRRHH error:", e); } }, 2000);
